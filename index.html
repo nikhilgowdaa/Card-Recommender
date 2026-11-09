@@ -266,7 +266,7 @@
   <main class="relative z-10 w-full max-w-4xl mx-auto flex-1 flex flex-col gap-4">
 
     <!-- Add to iPhone Home Screen Notice Banner (Dismissible) -->
-    <div id="pwaBanner" class="relative overflow-hidden rounded-[22px] liquid-glass p-3.5 flex items-center justify-between gap-3 border-rose-400/25">
+    <div id="pwaBanner" class="hidden relative overflow-hidden rounded-[22px] liquid-glass p-3 flex items-center justify-between gap-3 border-rose-400/25">
       <div class="flex items-center gap-3">
         <div class="w-8 h-8 rounded-xl bg-rose-500/20 border border-rose-400/35 text-rose-300 flex items-center justify-center shrink-0">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -289,21 +289,24 @@
     </div>
 
     <!-- ================= DASHBOARD 1: RECOMMENDER VIEW ================= -->
-    <div id="viewRecommender" class="flex flex-col gap-4">
+    <div id="viewRecommender" class="flex flex-col gap-3">
 
-      <!-- Search & Autocomplete Section -->
-      <div class="rounded-[26px] liquid-glass p-4 sm:p-5 relative z-30">
-        <label for="spendSearchInput" class="block text-[11px] font-bold uppercase tracking-widest text-rose-300/80 mb-2.5 flex items-center justify-between">
+      <!-- Search & Amount Section (Compact for iPhone 13) -->
+      <div class="rounded-[24px] liquid-glass p-3.5 sm:p-5 relative z-30">
+        <label for="spendSearchInput" class="block text-[11px] font-bold uppercase tracking-widest text-rose-300/85 mb-2 flex items-center justify-between">
           <span class="flex items-center gap-1.5">
             <span class="w-2 h-2 rounded-full bg-[#E23744] inline-block animate-pulse"></span>
             <span>Spend or Merchant</span>
           </span>
-          <span class="text-[11px] text-amber-300/80 font-medium normal-case tracking-normal">230+ Tracked Spends</span>
+          <button type="button" id="btnJumpToDirectory" class="text-rose-300 hover:text-rose-200 font-semibold text-[11px] normal-case tracking-normal flex items-center gap-1">
+            <span>Browse All 230+ in Directory</span>
+            <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
+          </button>
         </label>
         
         <!-- Input Wrapper -->
         <div class="relative">
-          <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-rose-400">
+          <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-rose-400">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
@@ -315,8 +318,8 @@
             autocomplete="off" 
             autocorrect="off" 
             spellcheck="false"
-            placeholder="Search spend (Zepto, Zomato, Decathlon, Jio prepaid...)" 
-            class="w-full pl-11 pr-10 py-3.5 liquid-input rounded-2xl text-white placeholder-white/40 text-sm sm:text-base focus:outline-none transition"
+            placeholder="Search spend, statement name, or MCC..." 
+            class="w-full pl-10 pr-10 py-3 liquid-input rounded-2xl text-white placeholder-white/40 text-sm sm:text-base focus:outline-none transition"
           >
 
           <!-- Clear Button -->
@@ -332,16 +335,52 @@
           </div>
         </div>
 
-        <!-- Quick Spend Recommendation Chips -->
-        <div class="mt-3.5">
-          <div class="text-[11px] font-medium text-white/55 mb-2 flex items-center justify-between">
-            <span>Popular Spends:</span>
-            <button type="button" id="btnJumpToDirectory" class="text-rose-300 hover:text-rose-200 font-semibold text-[11px] flex items-center gap-1">
-              <span>Browse All 230+ in Directory</span>
-              <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
-            </button>
+        <!-- Spend Amount Calculator Input (Compact Single Strip on Mobile) -->
+        <div class="mt-3 pt-3 border-t border-white/[0.10] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div class="flex items-center justify-between sm:block">
+            <label for="spendAmountInput" class="text-[11px] font-bold uppercase tracking-widest text-amber-300/90">
+              Transaction Amount
+            </label>
+            <span class="text-[10px] text-white/45 sm:block">Auto-computes Cashback &amp; Net Amount</span>
           </div>
-          <div class="flex flex-wrap gap-1.5">
+          
+          <div class="flex items-center gap-1.5 w-full sm:w-auto">
+            <div class="relative flex-1 sm:w-32">
+              <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-emerald-400 font-bold text-sm">₹</span>
+              <input 
+                id="spendAmountInput" 
+                type="number" 
+                min="1" 
+                max="1000000" 
+                value="1000" 
+                class="w-full pl-6 pr-2.5 py-1.5 liquid-input rounded-full text-white font-semibold text-sm focus:outline-none"
+              >
+            </div>
+            
+            <!-- Preset Amount Chips -->
+            <div class="flex items-center gap-1 shrink-0">
+              <button type="button" class="amount-preset px-2.5 py-1 rounded-full liquid-pill text-[11px]" data-amt="500">₹500</button>
+              <button type="button" class="amount-preset px-2.5 py-1 rounded-full liquid-pill liquid-pill-active text-[11px]" data-amt="1000">₹1k</button>
+              <button type="button" class="amount-preset px-2.5 py-1 rounded-full liquid-pill text-[11px]" data-amt="2000">₹2k</button>
+              <button type="button" class="amount-preset px-2.5 py-1 rounded-full liquid-pill text-[11px]" data-amt="5000">₹5k</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collapsible Popular Spends Dropdown (Saves vertical space on iPhone 13) -->
+        <details class="mt-2.5 pt-2 border-t border-white/[0.08] group">
+          <summary class="list-none cursor-pointer flex items-center justify-between text-xs font-medium text-white/65 hover:text-white py-1 select-none">
+            <span class="flex items-center gap-1.5">
+              <span class="text-rose-400">⚡</span>
+              <span>Quick Pick Popular Spends (14)</span>
+            </span>
+            <span class="text-[11px] text-rose-300/80 flex items-center gap-1">
+              <span class="group-open:hidden">Show</span>
+              <span class="hidden group-open:inline">Hide</span>
+              <svg class="w-3.5 h-3.5 transition-transform duration-200 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M19 9l-7 7-7-7"/></svg>
+            </span>
+          </summary>
+          <div class="flex flex-wrap gap-1.5 pt-2.5 pb-0.5">
             <button type="button" class="quick-chip px-3 py-1 rounded-full text-xs liquid-pill active:scale-95" data-spend="zepto">Zepto</button>
             <button type="button" class="quick-chip px-3 py-1 rounded-full text-xs liquid-pill active:scale-95" data-spend="zomato">Zomato</button>
             <button type="button" class="quick-chip px-3 py-1 rounded-full text-xs liquid-pill active:scale-95" data-spend="decathlon">Decathlon</button>
@@ -357,132 +396,122 @@
             <button type="button" class="quick-chip px-3 py-1 rounded-full text-xs liquid-pill active:scale-95" data-spend="amazon pay gift card">Amazon Pay GC</button>
             <button type="button" class="quick-chip px-3 py-1 rounded-full text-xs liquid-pill active:scale-95" data-spend="fuel">Fuel / Petrol</button>
           </div>
-        </div>
-
-        <!-- Spend Amount Calculator Input -->
-        <div class="mt-4 pt-3.5 border-t border-white/[0.10] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <div>
-            <label for="spendAmountInput" class="text-[11px] font-bold uppercase tracking-widest text-amber-300/85 block mb-0.5">
-              Transaction Amount
-            </label>
-            <p class="text-[11px] text-white/45">Calculates net ₹ cashback after per-txn caps</p>
-          </div>
-          
-          <div class="flex items-center gap-2 w-full sm:w-auto">
-            <div class="relative w-full sm:w-36">
-              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-emerald-400 font-bold text-sm">₹</span>
-              <input 
-                id="spendAmountInput" 
-                type="number" 
-                min="1" 
-                max="1000000" 
-                value="1000" 
-                class="w-full pl-7 pr-3 py-1.5 liquid-input rounded-full text-white font-semibold text-sm focus:outline-none"
-              >
-            </div>
-            
-            <!-- Preset Amount Chips -->
-            <div class="flex items-center gap-1.5 shrink-0">
-              <button type="button" class="amount-preset px-2.5 py-1 rounded-full liquid-pill text-[11px]" data-amt="500">₹500</button>
-              <button type="button" class="amount-preset px-2.5 py-1 rounded-full liquid-pill liquid-pill-active text-[11px]" data-amt="1000">₹1k</button>
-              <button type="button" class="amount-preset px-2.5 py-1 rounded-full liquid-pill text-[11px]" data-amt="2000">₹2k</button>
-              <button type="button" class="amount-preset px-2.5 py-1 rounded-full liquid-pill text-[11px]" data-amt="5000">₹5k</button>
-            </div>
-          </div>
-        </div>
+        </details>
       </div>
 
-      <!-- Active Spend Header & Best Card Spotlight Card -->
-      <div id="winnerSpotlightCard" class="hidden rounded-[26px] liquid-glass-elevated p-4 sm:p-5 relative z-10">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5">
-          <div>
-            <div class="flex items-center gap-2 mb-1.5">
-              <span class="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-md shadow-amber-500/25">
-                ★ Top Recommendation
+      <!-- Active Spend Header & Best Card Spotlight Card (Clean & Compact with Dropdown Details) -->
+      <div id="winnerSpotlightCard" class="hidden rounded-[24px] liquid-glass-elevated p-3.5 sm:p-5 relative z-10">
+        <div class="flex items-start justify-between gap-2 mb-2.5">
+          <div class="min-w-0">
+            <div class="flex flex-wrap items-center gap-1.5 mb-1">
+              <span class="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950">
+                ★ Best Card
               </span>
-              <span id="spotlightCategoryBadge" class="text-[11px] font-medium text-rose-200 bg-rose-500/20 px-2.5 py-0.5 rounded-full border border-rose-400/35">Category</span>
+              <span id="spotlightCategoryBadge" class="text-[10px] font-medium text-rose-200 bg-rose-500/20 px-2 py-0.5 rounded-full border border-rose-400/35 truncate">Category</span>
             </div>
-            <h2 id="spotlightSpendTitle" class="text-xl sm:text-2xl font-bold text-white tracking-tight">Spend Name</h2>
-            <div id="spotlightVerifiedBadge" class="hidden mt-1.5"></div>
-            <p id="spotlightPayMethodNote" class="text-xs text-amber-100/85 mt-1.5 font-medium flex items-center gap-1.5">
-              <svg class="w-3.5 h-3.5 text-amber-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <h2 id="spotlightSpendTitle" class="text-lg sm:text-xl font-bold text-white tracking-tight truncate">Spend Name</h2>
+          </div>
+          <div class="text-right shrink-0">
+            <div id="spotlightCardName" class="text-xs sm:text-sm font-bold text-emerald-300 bg-emerald-500/15 border border-emerald-400/35 px-2.5 py-1 rounded-xl">HSBC Live+</div>
+            <div class="text-[10px] text-white/55 mt-0.5">Spend: <span id="spotlightSpendAmtLabel" class="text-white/85 font-mono font-semibold">₹1,000</span></div>
+          </div>
+        </div>
+
+        <!-- 3-Metric Strip: Rate | Cashback | Net Amount -->
+        <div class="grid grid-cols-3 gap-2 bg-black/35 border border-white/10 rounded-2xl p-2.5 text-center">
+          <div class="flex flex-col justify-center">
+            <span class="text-[10px] uppercase tracking-wider text-white/50 font-semibold">Rate</span>
+            <span id="spotlightCashbackRate" class="text-sm sm:text-base font-extrabold text-emerald-300 font-mono mt-0.5">10.0%</span>
+          </div>
+          <div class="border-x border-white/10 px-1 flex flex-col justify-center">
+            <span class="text-[10px] uppercase tracking-wider text-white/50 font-semibold">Cashback</span>
+            <span id="spotlightCashbackAmt" class="text-sm sm:text-base font-extrabold text-emerald-400 font-mono mt-0.5">₹100.00</span>
+          </div>
+          <div class="flex flex-col justify-center">
+            <span class="text-[10px] uppercase tracking-wider text-amber-300/80 font-semibold">Net Amount</span>
+            <span id="spotlightNetAmt" class="text-sm sm:text-base font-extrabold text-amber-300 font-mono mt-0.5">₹900.00</span>
+          </div>
+        </div>
+
+        <!-- Collapsible Dropdown for Verified Merchant/MCC & Payment Write-up -->
+        <details class="mt-2.5 group">
+          <summary class="list-none cursor-pointer flex items-center justify-between text-xs font-medium text-white/75 hover:text-white bg-white/[0.04] border border-white/10 rounded-xl px-3 py-2 select-none transition">
+            <span class="flex items-center gap-1.5 truncate">
+              <span class="text-emerald-400">✓</span>
+              <span class="truncate">Verified Statement Name, MCC &amp; Conditions</span>
+            </span>
+            <svg class="w-4 h-4 text-white/55 shrink-0 transition-transform duration-200 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="mt-2 p-3 rounded-xl bg-black/30 border border-white/10 space-y-2 text-xs">
+            <div id="spotlightVerifiedBadge" class="hidden"></div>
+            <p id="spotlightPayMethodNote" class="text-xs text-amber-100/90 font-medium flex items-start gap-1.5 leading-relaxed">
+              <svg class="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
               <span id="spotlightPayMethodText">How to pay &amp; qualify</span>
             </p>
           </div>
-          
-          <div class="flex items-center gap-3.5 bg-black/35 border border-emerald-400/35 rounded-2xl px-4 py-3 shrink-0 backdrop-blur-xl shadow-lg shadow-emerald-950/40">
-            <div class="text-right">
-              <div id="spotlightCardName" class="text-sm font-bold text-white">HSBC Live+</div>
-              <div class="text-[11px] text-white/60">On <span id="spotlightSpendAmtLabel" class="text-amber-300 font-semibold">₹1,000</span>:</div>
-            </div>
-            <div class="border-l border-white/15 pl-3.5 text-right">
-              <div id="spotlightCashbackAmt" class="text-2xl font-extrabold text-emerald-400 tracking-tight font-mono">₹100</div>
-              <div id="spotlightCashbackRate" class="text-[11px] font-bold text-emerald-300">10.0% Rate</div>
-            </div>
-          </div>
-        </div>
+        </details>
       </div>
 
-      <!-- Smart Gift Card & Wallet Routes (GyFTR by Kotak + Amazon Pay GC) -->
-      <div id="smartRoutesCard" class="hidden rounded-[26px] liquid-glass p-4 sm:p-5 relative z-10 border-blue-400/30">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-          <div class="flex items-center gap-2">
-            <span class="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-blue-500/25 text-blue-200 border border-blue-400/40">
-              ⚡ 5% Smart Voucher &amp; Wallet Routes
-            </span>
-            <span class="text-[11px] text-amber-300 font-semibold">Kotak 811 Super • Max ₹100/txn</span>
-          </div>
-          <div id="smartRouteCashbackBadge" class="text-xs font-mono font-bold text-emerald-300 bg-emerald-500/15 border border-emerald-400/35 px-2.5 py-0.5 rounded-full self-start sm:self-auto">
-            5.0% • ₹50.00 Cashback
-          </div>
-        </div>
-        <div id="smartRoutesContent" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
-          <!-- Populated dynamically via JS -->
-        </div>
-      </div>
-
-      <!-- Tabular View Section (Core Deliverable) -->
-      <div class="rounded-[26px] liquid-glass p-4 sm:p-5 relative z-10">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3.5">
-          <div>
-            <h3 class="text-base font-bold text-white flex items-center gap-2">
+      <!-- Tabular View Section (Core Deliverable — iPhone 13 Friendly with Net Amount & Row Dropdowns) -->
+      <div class="rounded-[24px] liquid-glass p-3.5 sm:p-5 relative z-10">
+        <div class="flex items-center justify-between gap-2 mb-2.5">
+          <div class="min-w-0">
+            <h3 class="text-sm sm:text-base font-bold text-white flex items-center gap-2">
               <span>Card Rankings</span>
-              <span id="tableSpendNameBadge" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-400/35">Select a Spend</span>
+              <span id="tableSpendNameBadge" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-400/35 truncate">Select a Spend</span>
             </h3>
-            <p class="text-xs text-white/55">Sorted in descending order of cashback earned</p>
+            <p class="text-[11px] text-white/50 mt-0.5">Tap any card row to view verified MCC &amp; conditions</p>
           </div>
-          <div class="text-xs text-white/55 flex items-center gap-2">
-            <span>Order: <strong class="text-emerald-400 font-semibold">Descending ↓</strong></span>
-          </div>
+          <button id="btnToggleAllDetails" type="button" class="text-[11px] font-semibold text-rose-300 hover:text-rose-200 px-2.5 py-1 rounded-full liquid-pill shrink-0">
+            Expand All ▾
+          </button>
         </div>
 
-        <!-- Table Container -->
+        <!-- Table Container (Fits iPhone 13 390px cleanly) -->
         <div class="overflow-x-auto rounded-2xl border border-white/[0.14] bg-black/25">
           <table class="w-full text-left border-collapse" id="cardsTable">
             <thead>
-              <tr class="border-b border-white/[0.12] text-[10px] font-bold text-rose-200/65 uppercase tracking-widest bg-white/[0.04]">
-                <th scope="col" class="py-3 px-3.5 w-16 text-center">Rank</th>
-                <th scope="col" class="py-3 px-3.5 min-w-[170px]">Card &amp; Issuer</th>
-                <th scope="col" class="py-3 px-3.5 text-right w-24">Rate</th>
-                <th scope="col" class="py-3 px-3.5 text-right w-28">Cashback</th>
-                <th scope="col" class="py-3 px-3.5 min-w-[200px]">Channel &amp; Conditions</th>
+              <tr class="border-b border-white/[0.12] text-[10px] font-bold text-rose-200/70 uppercase tracking-wider bg-white/[0.04]">
+                <th scope="col" class="py-2.5 pl-3 pr-1.5">Card</th>
+                <th scope="col" class="py-2.5 px-1.5 text-right">Rate</th>
+                <th scope="col" class="py-2.5 px-1.5 text-right">Cashback</th>
+                <th scope="col" class="py-2.5 px-1.5 text-right text-amber-300/90">Net Amt</th>
+                <th scope="col" class="py-2.5 pl-1 pr-2.5 text-center w-8">Info</th>
               </tr>
             </thead>
-            <tbody id="cardsTableBody" class="divide-y divide-white/[0.08] text-sm">
+            <tbody id="cardsTableBody" class="divide-y divide-white/[0.08] text-xs sm:text-sm">
               <!-- Dynamically populated via JS -->
             </tbody>
           </table>
         </div>
 
+        <!-- Collapsible Smart Gift Card & Wallet Routes Dropdown (Inside Rankings Card) -->
+        <div id="smartRoutesCard" class="hidden mt-3">
+          <details class="group rounded-2xl bg-blue-500/[0.08] border border-blue-400/30 overflow-hidden">
+            <summary class="list-none cursor-pointer px-3.5 py-2.5 flex items-center justify-between gap-2 select-none">
+              <div class="flex items-center gap-2 min-w-0">
+                <span class="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-500/25 text-blue-200 border border-blue-400/40 shrink-0">
+                  ⚡ 5% Route
+                </span>
+                <span class="text-xs text-white/85 font-semibold truncate">Kotak GyFTR &amp; Wallet Steps</span>
+              </div>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <span id="smartRouteCashbackBadge" class="text-[11px] font-mono font-bold text-emerald-300 bg-emerald-500/15 border border-emerald-400/35 px-2 py-0.5 rounded-full">
+                  5.0% • ₹50.00
+                </span>
+                <svg class="w-4 h-4 text-blue-300 transition-transform duration-200 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </summary>
+            <div id="smartRoutesContent" class="p-3 pt-1 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs border-t border-blue-400/15">
+              <!-- Populated dynamically via JS -->
+            </div>
+          </details>
+        </div>
+
         <!-- Table Footnote & Tips -->
-        <div class="mt-3.5 text-[11px] text-white/55 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-          <div class="flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5 text-amber-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>Kotak 811 Super Debit is capped at ₹100 max per transaction (5% on ₹2,000+ = ₹100).</span>
-          </div>
-          <button id="btnFooterRules" type="button" class="text-rose-300 hover:text-rose-200 underline font-semibold">View All Monthly Caps &amp; Exclusions</button>
+        <div class="mt-3 text-[11px] text-white/50 flex items-center justify-between gap-2">
+          <span class="truncate">Net Amt = Spend − Cashback (Kotak max ₹100/txn)</span>
+          <button id="btnFooterRules" type="button" class="text-rose-300 hover:text-rose-200 underline font-semibold shrink-0">View All Monthly Caps &amp; Exclusions</button>
         </div>
       </div>
 
@@ -1017,14 +1046,13 @@
     }
 
     // 5. Render Recommendations Table
+    let allDetailsExpanded = false;
+
     function renderRecommendations(spendObj) {
       if (!spendObj) {
         cardsTableBody.innerHTML = `
           <tr>
             <td colspan="5" class="py-8 text-center text-white/50">
-              <svg class="w-8 h-8 text-rose-400/50 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-              </svg>
               Select a spend above (e.g., <strong>Zepto, Zomato, Decathlon, Jio prepaid</strong>) to view card rankings.
             </td>
           </tr>
@@ -1035,6 +1063,10 @@
       }
 
       currentSpend = spendObj;
+      allDetailsExpanded = false;
+      const toggleAllBtn = document.getElementById('btnToggleAllDetails');
+      if (toggleAllBtn) toggleAllBtn.textContent = 'Expand All ▾';
+
       tableSpendNameBadge.textContent = spendObj.name;
       searchInput.value = spendObj.name;
       clearBtn.classList.remove('hidden');
@@ -1054,6 +1086,7 @@
       if (ranked.length > 0) {
         const winner = ranked[0];
         const winnerCardMeta = ALL_CARDS[winner.cardId];
+        const winnerNet = Math.max(0, spendAmount - winner.effectiveCashback);
 
         spotlightCard.classList.remove('hidden');
         spotlightCategoryBadge.textContent = spendObj.cat || 'General Spend';
@@ -1062,17 +1095,21 @@
         if (spotlightVerifiedEl) {
           if (spendObj.verified_braces) {
             spotlightVerifiedEl.classList.remove('hidden');
-            spotlightVerifiedEl.innerHTML = `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 shadow-sm"><span>✓ Verified:</span><span class="text-white/95">${escapeHtml(spendObj.verified_braces)}</span></span>`;
+            spotlightVerifiedEl.innerHTML = `<span class="inline-flex flex-wrap items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-mono font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-400/35"><span class="font-sans font-bold">✓ Verified:</span> <span class="text-white/95">${escapeHtml(spendObj.verified_braces)}</span></span>`;
           } else {
             spotlightVerifiedEl.classList.add('hidden');
             spotlightVerifiedEl.innerHTML = '';
           }
         }
         spotlightPayMethodText.textContent = winner.note || (winnerCardMeta.fullName + ': ' + (winner.rate * 100).toFixed(1) + '% Cashback');
-        spotlightCardName.textContent = winnerCardMeta.fullName;
+        spotlightCardName.textContent = winnerCardMeta.name;
         spotlightSpendAmtLabel.textContent = '₹' + spendAmount.toLocaleString('en-IN');
         spotlightCashbackAmt.textContent = '₹' + winner.effectiveCashback.toFixed(2);
-        spotlightCashbackRate.textContent = (winner.rate * 100).toFixed(1) + '% Cashback';
+        spotlightCashbackRate.textContent = (winner.rate * 100).toFixed(1) + '%';
+        const spotlightNetEl = document.getElementById('spotlightNetAmt');
+        if (spotlightNetEl) {
+          spotlightNetEl.textContent = '₹' + winnerNet.toFixed(2);
+        }
       }
 
       // Render Smart Gift Card & Wallet Routes Card (#smartRoutesCard)
@@ -1083,54 +1120,50 @@
       if (smartRoutesCard && kotakRate >= 0.05 && activeCardIds.has('kotak')) {
         const kotakCalc = calculateCardCashback('kotak', spendObj, spendAmount);
         smartRoutesCard.classList.remove('hidden');
-        smartRouteCashbackBadge.textContent = `5.0% • ₹${kotakCalc.effectiveCashback.toFixed(2)} Cashback${kotakCalc.capAlert ? ' (Capped at ₹100/txn)' : ''}`;
+        smartRouteCashbackBadge.textContent = `5.0% • ₹${kotakCalc.effectiveCashback.toFixed(2)} CB`;
         const rType = spendObj.route_type || 'direct_or_gyftr';
         if (rType === 'gyftr_apay_bill') {
           smartRoutesContent.innerHTML = `
-            <div class="p-3 rounded-2xl liquid-card-subtle border-l-2 border-l-amber-400">
-              <div class="font-bold text-amber-300 mb-1 flex items-center gap-1.5">
-                <span>⚡ Route 1: GyFTR → Amazon Pay Bill Pay (5% CB)</span>
-              </div>
-              <p class="text-white/75 leading-relaxed">1. Buy <strong>Amazon Pay Gift Card</strong> on <strong>GyFTR by Kotak</strong> using <strong>Kotak 811 Super Debit Card</strong> (earns 5% CB, max ₹100/txn).<br>2. Add voucher to <strong>Amazon Pay Wallet</strong> &amp; pay <strong>${escapeHtml(spendObj.name)}</strong> on Amazon.</p>
+            <div class="p-2.5 rounded-xl liquid-card-subtle border-l-2 border-l-amber-400">
+              <div class="font-bold text-amber-300 mb-0.5">⚡ GyFTR → Amazon Pay Bill Pay (5% CB)</div>
+              <p class="text-white/75 leading-relaxed">Buy <strong>Amazon Pay GC</strong> on <strong>GyFTR by Kotak</strong> using Kotak 811 DC (5% CB, max ₹100/txn) → Add to Amazon Pay → Pay bill on Amazon.</p>
             </div>
-            <div class="p-3 rounded-2xl liquid-card-subtle border-l-2 border-l-rose-400">
-              <div class="font-bold text-rose-300 mb-1 flex items-center gap-1.5">
-                <span>💡 Pro Tip: Split Transactions &gt; ₹2,000</span>
-              </div>
-              <p class="text-white/75 leading-relaxed">Since Kotak 811 caps cashback at <strong>₹100 per transaction</strong> (5% of ₹2,000), buy Amazon Pay Gift Cards in chunks of ≤ ₹2,000 on GyFTR by Kotak to maximize your ₹500 monthly cap.</p>
+            <div class="p-2.5 rounded-xl liquid-card-subtle border-l-2 border-l-rose-400">
+              <div class="font-bold text-rose-300 mb-0.5">💡 Split Transactions &gt; ₹2,000</div>
+              <p class="text-white/75 leading-relaxed">Kotak 811 caps cashback at <strong>₹100/txn</strong> (5% of ₹2,000). Buy multiple ₹2,000 gift cards for larger bills (up to ₹500/mo).</p>
             </div>
           `;
         } else if (rType === 'gyftr_voucher') {
           smartRoutesContent.innerHTML = `
-            <div class="p-3 rounded-2xl liquid-card-subtle border-l-2 border-l-blue-400">
-              <div class="font-bold text-blue-300 mb-1">🎁 Kotak 811: 5% ONLY via GyFTR by Kotak Route</div>
-              <p class="text-white/75 leading-relaxed">Buy a <strong>${escapeHtml(spendObj.name)} Gift Voucher</strong> (or Amazon Pay GC for Amazon) on <strong>GyFTR by Kotak</strong> using your <strong>Kotak 811 Super Debit Card</strong> to earn <strong>5% cashback</strong> (max ₹100/txn, ₹500/mo; claim in 811 app).</p>
+            <div class="p-2.5 rounded-xl liquid-card-subtle border-l-2 border-l-blue-400">
+              <div class="font-bold text-blue-300 mb-0.5">🎁 5% ONLY via GyFTR by Kotak</div>
+              <p class="text-white/75 leading-relaxed">Buy a <strong>${escapeHtml(spendObj.name)} Voucher</strong> on <strong>GyFTR by Kotak</strong> with Kotak 811 DC (5% CB, max ₹100/txn; claim in 811 app).</p>
             </div>
-            <div class="p-3 rounded-2xl liquid-card-subtle border-l-2 border-l-rose-400">
-              <div class="font-bold text-rose-300 mb-1">⚠️ HSBC, Swiggy HDFC &amp; Direct Kotak DC = Base Rate</div>
-              <p class="text-white/75 leading-relaxed">On <strong>${escapeHtml(spendObj.name)}</strong>, direct <strong>Kotak 811 DC</strong> checkout does <strong>not</strong> give 5%, <strong>Swiggy HDFC</strong> gives <strong>1% base</strong> (MCC issues), and <strong>HSBC Live+</strong> gives <strong>1.5% base</strong>. ${spendObj.id.startsWith('amazon') ? `<strong>Amazon Pay ICICI</strong> earns <strong>${isPrimeMember ? '5% (Prime)' : '3% (Non-Prime)'}</strong> directly, and <strong>super.money pro</strong> earns <strong>3%</strong> via super.money UPI.` : `<strong>super.money pro</strong> earns <strong>3%</strong> via super.money UPI.`}</p>
+            <div class="p-2.5 rounded-xl liquid-card-subtle border-l-2 border-l-rose-400">
+              <div class="font-bold text-rose-300 mb-0.5">⚠️ Direct Checkout = Base Rate</div>
+              <p class="text-white/75 leading-relaxed">Direct <strong>HSBC Live+</strong> (1.5%), <strong>Swiggy HDFC</strong> (1%), and direct <strong>Kotak 811 DC</strong> (0%) only earn base rates here.</p>
             </div>
           `;
         } else if (rType === 'gyftr_apay_wallet') {
           smartRoutesContent.innerHTML = `
-            <div class="p-3 rounded-2xl liquid-card-subtle border-l-2 border-l-amber-400">
-              <div class="font-bold text-amber-300 mb-1">⚡ Step 1: Buy Amazon Pay GC on GyFTR by Kotak (5% CB)</div>
-              <p class="text-white/75 leading-relaxed">Use <strong>Kotak 811 Super Debit Card</strong> on <strong>GyFTR by Kotak</strong> to buy Amazon Pay Gift Cards and earn <strong>5% cashback</strong> (up to ₹100/txn, ₹500/mo).</p>
+            <div class="p-2.5 rounded-xl liquid-card-subtle border-l-2 border-l-amber-400">
+              <div class="font-bold text-amber-300 mb-0.5">⚡ Step 1: Buy Amazon Pay GC on GyFTR (5%)</div>
+              <p class="text-white/75 leading-relaxed">Use <strong>Kotak 811 Super DC</strong> on <strong>GyFTR by Kotak</strong> to buy an Amazon Pay Gift Card (5% CB up to ₹100/txn).</p>
             </div>
-            <div class="p-3 rounded-2xl liquid-card-subtle border-l-2 border-l-emerald-400">
-              <div class="font-bold text-emerald-300 mb-1">🌐 Step 2: Load Wallet → Pay Online Apps &amp; Utility Bills</div>
-              <p class="text-white/75 leading-relaxed">Load the gift card into your <strong>Amazon Pay Balance</strong> and use it to pay across <strong>online apps</strong> (Zepto, Zomato, Swiggy, Uber, Blinkit) or <strong>utility bills &amp; recharges</strong> on Amazon.</p>
+            <div class="p-2.5 rounded-xl liquid-card-subtle border-l-2 border-l-emerald-400">
+              <div class="font-bold text-emerald-300 mb-0.5">🌐 Step 2: Pay via Amazon Pay Wallet</div>
+              <p class="text-white/75 leading-relaxed">Load into <strong>Amazon Pay Balance</strong> and pay on partner apps (Zomato, Swiggy, Zepto, Blinkit, Uber) or utility bills.</p>
             </div>
           `;
         } else {
           smartRoutesContent.innerHTML = `
-            <div class="p-3 rounded-2xl liquid-card-subtle border-l-2 border-l-blue-400">
-              <div class="font-bold text-blue-300 mb-1">🎁 Route 1: GyFTR by Kotak Brand Gift Card (5% CB)</div>
-              <p class="text-white/75 leading-relaxed">Buy a <strong>${escapeHtml(spendObj.name)}</strong> (or partner) voucher on <strong>GyFTR by Kotak</strong> with <strong>Kotak 811 Super Debit Card</strong> to earn <strong>5% cashback</strong> (max ₹100/txn) + any portal discount.</p>
+            <div class="p-2.5 rounded-xl liquid-card-subtle border-l-2 border-l-blue-400">
+              <div class="font-bold text-blue-300 mb-0.5">🎁 Route 1: GyFTR Brand Voucher (5% CB)</div>
+              <p class="text-white/75 leading-relaxed">Buy a <strong>${escapeHtml(spendObj.name)}</strong> voucher on <strong>GyFTR by Kotak</strong> using Kotak 811 DC (5% CB, max ₹100/txn).</p>
             </div>
-            <div class="p-3 rounded-2xl liquid-card-subtle border-l-2 border-l-amber-400">
-              <div class="font-bold text-amber-300 mb-1">⚡ Route 2: GyFTR → Amazon Pay GC → Wallet (5% CB)</div>
-              <p class="text-white/75 leading-relaxed">Buy an <strong>Amazon Pay Gift Card</strong> on <strong>GyFTR by Kotak</strong> (5% CB) → Load <strong>Amazon Pay Wallet</strong> → Select <strong>Amazon Pay</strong> at checkout on <strong>${escapeHtml(spendObj.name)}</strong>.</p>
+            <div class="p-2.5 rounded-xl liquid-card-subtle border-l-2 border-l-amber-400">
+              <div class="font-bold text-amber-300 mb-0.5">⚡ Route 2: GyFTR → Amazon Pay Wallet</div>
+              <p class="text-white/75 leading-relaxed">Buy an <strong>Amazon Pay GC</strong> on <strong>GyFTR by Kotak</strong> (5% CB) → Load Amazon Pay Balance → Pay at checkout.</p>
             </div>
           `;
         }
@@ -1138,28 +1171,18 @@
         smartRoutesCard.classList.add('hidden');
       }
 
-      // Render Table Rows (With Rich Zomato Dark Mode Color Hierarchy)
+      // Render Table Rows (Compact 5-column layout for iPhone 13 + Expandable Details Dropdown Row)
       let html = '';
       ranked.forEach((item, index) => {
         const cardMeta = ALL_CARDS[item.cardId];
         const rank = index + 1;
         const isBest = rank === 1;
-
-        let rankBadge = '';
-        if (isBest) {
-          rankBadge = `
-            <span class="inline-flex items-center justify-center w-full px-2 py-1 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-extrabold text-xs shadow-sm shadow-amber-500/30">
-              #1
-            </span>
-          `;
-        } else {
-          rankBadge = `<span class="inline-block px-2 py-0.5 rounded-full bg-white/[0.06] text-white/65 border border-white/15 font-semibold text-xs text-center w-full">#${rank}</span>`;
-        }
+        const netAmt = Math.max(0, spendAmount - item.effectiveCashback);
 
         // Semantic Color Glass Rate Pills
         let rateStyle = 'text-white/50 bg-white/[0.05] border-white/10';
         if (item.rate >= 0.10) {
-          rateStyle = 'text-emerald-300 bg-emerald-500/20 border-emerald-400/45 font-bold shadow-sm shadow-emerald-500/15';
+          rateStyle = 'text-emerald-300 bg-emerald-500/20 border-emerald-400/45 font-bold';
         } else if (item.rate >= 0.05) {
           rateStyle = 'text-amber-300 bg-amber-500/20 border-amber-400/45 font-semibold';
         } else if (item.rate > 0) {
@@ -1169,57 +1192,74 @@
         }
 
         const rowBg = isBest 
-          ? 'bg-gradient-to-r from-emerald-500/[0.12] via-amber-500/[0.06] to-transparent hover:from-emerald-500/[0.18] border-l-2 border-l-emerald-400' 
+          ? 'bg-gradient-to-r from-emerald-500/[0.14] via-amber-500/[0.06] to-transparent border-l-2 border-l-emerald-400' 
           : 'hover:bg-white/[0.04]';
 
+        const rankPill = isBest
+          ? `<span class="inline-flex items-center justify-center px-1.5 py-0.5 rounded-md bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-extrabold text-[10px] shrink-0">#1</span>`
+          : `<span class="inline-flex items-center justify-center px-1.5 py-0.5 rounded-md bg-white/[0.07] text-white/60 font-mono font-semibold text-[10px] shrink-0">#${rank}</span>`;
+
         html += `
-          <tr class="${rowBg} transition">
-            <td class="py-3.5 px-3.5 text-center">
-              ${rankBadge}
-            </td>
-            <td class="py-3.5 px-3.5">
-              <div class="flex items-center gap-2.5">
-                <div class="w-7 h-5 rounded-md ${cardMeta.chipBg} border flex items-center justify-center shrink-0">
-                  <div class="w-1.5 h-1.5 rounded-full ${cardMeta.dotColor}"></div>
-                </div>
-                <div>
-                  <div class="font-semibold text-white text-sm flex items-center gap-1.5">
-                    <span>${cardMeta.fullName}</span>
-                    ${isBest ? '<span class="text-[9px] uppercase font-extrabold tracking-wider px-1.5 py-0.2 rounded-full bg-emerald-500/25 text-emerald-300 border border-emerald-400/40">Best</span>' : ''}
+          <tr class="card-main-row ${rowBg} cursor-pointer transition select-none" data-card-id="${item.cardId}">
+            <td class="py-3 pl-2.5 pr-1.5">
+              <div class="flex items-center gap-1.5">
+                ${rankPill}
+                <div class="min-w-0">
+                  <div class="font-semibold text-white text-xs sm:text-sm leading-tight flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full ${cardMeta.dotColor} shrink-0"></span>
+                    <span class="truncate">${cardMeta.name}</span>
                   </div>
-                  <div class="text-[11px] text-white/50">${cardMeta.bank}</div>
+                  <div class="text-[10px] text-white/45 truncate">${cardMeta.bank}</div>
                 </div>
               </div>
             </td>
-            <td class="py-3.5 px-3.5 text-right">
-              <span class="inline-block px-2.5 py-0.5 rounded-full border text-xs font-mono ${rateStyle}">
+            <td class="py-3 px-1.5 text-right whitespace-nowrap">
+              <span class="inline-block px-2 py-0.5 rounded-full border text-[11px] font-mono ${rateStyle}">
                 ${(item.rate * 100).toFixed(1)}%
               </span>
             </td>
-            <td class="py-3.5 px-3.5 text-right font-mono font-semibold text-sm">
-              <div class="${item.effectiveCashback > 0 ? (isBest ? 'text-emerald-400 font-extrabold text-base' : 'text-white/90') : 'text-white/30'}">
+            <td class="py-3 px-1.5 text-right font-mono whitespace-nowrap">
+              <div class="${item.effectiveCashback > 0 ? (isBest ? 'text-emerald-400 font-extrabold text-xs sm:text-sm' : 'text-white/90 font-semibold text-xs sm:text-sm') : 'text-white/35 text-xs'}">
                 ₹${item.effectiveCashback.toFixed(2)}
               </div>
-              ${item.capAlert ? `<span class="text-[10px] text-amber-300 font-sans block">${item.capAlert}</span>` : ''}
+              ${item.capAlert ? `<span class="text-[9px] text-amber-300 font-sans block leading-tight">Cap ₹100</span>` : ''}
             </td>
-            <td class="py-3.5 px-3.5 text-xs">
+            <td class="py-3 px-1.5 text-right font-mono whitespace-nowrap">
+              <div class="${isBest ? 'text-amber-300 font-extrabold text-xs sm:text-sm' : 'text-white/85 font-semibold text-xs sm:text-sm'}">
+                ₹${netAmt.toFixed(2)}
+              </div>
+            </td>
+            <td class="py-3 pl-1 pr-2.5 text-center">
+              <button type="button" class="toggle-row-details inline-flex items-center justify-center w-6 h-6 rounded-full bg-white/[0.07] hover:bg-white/[0.15] text-white/70 transition" data-card-id="${item.cardId}" aria-label="Toggle card details">
+                <svg id="chevron_${item.cardId}" class="w-3.5 h-3.5 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            </td>
+          </tr>
+          <tr id="detailsRow_${item.cardId}" class="card-details-row hidden bg-black/40 border-b border-white/[0.06]">
+            <td colspan="5" class="px-3.5 py-3 text-xs space-y-1.5">
+              <div class="flex flex-wrap items-center justify-between gap-1 text-[11px] text-white/60 pb-1 border-b border-white/[0.07]">
+                <span class="font-semibold text-white/90">${cardMeta.fullName} (${cardMeta.bank})</span>
+                <span class="font-mono text-amber-300">Spend ₹${spendAmount.toFixed(0)} − CB ₹${item.effectiveCashback.toFixed(2)} = Net ₹${netAmt.toFixed(2)}</span>
+              </div>
               ${spendObj.verified_braces && (item.cardId === 'hsbc' || isBest) ? `
-                <div class="mb-1.5">
-                  <span class="inline-flex flex-wrap items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold ${item.rate >= 0.05 ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-400/35' : (item.rate > 0 ? 'bg-sky-500/15 text-sky-300 border border-sky-400/35' : 'bg-rose-500/15 text-rose-300 border border-rose-400/30')}">
+                <div>
+                  <span class="inline-flex flex-wrap items-center gap-1 px-2.5 py-0.5 rounded-lg text-[10px] font-mono font-semibold ${item.rate >= 0.05 ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-400/35' : (item.rate > 0 ? 'bg-sky-500/15 text-sky-300 border border-sky-400/35' : 'bg-rose-500/15 text-rose-300 border border-rose-400/30')}">
                     <span class="font-sans font-bold">${item.rate > 0 ? '✓ Verified:' : '⚠️ Verified:'}</span>
-                    <span class="text-white/90">${escapeHtml(spendObj.verified_braces)}</span>
+                    <span class="text-white/95">${escapeHtml(spendObj.verified_braces)}</span>
                   </span>
                 </div>
               ` : ''}
               ${item.cardId === 'kotak' && item.rate >= 0.05 ? (
                 spendObj.route_type === 'gyftr_apay_bill' || spendObj.route_type === 'gyftr_apay_wallet'
-                  ? '<div class="mb-1"><span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-400/40">⚡ Route: GyFTR by Kotak → Amazon Pay GC → Wallet</span></div>'
+                  ? '<div><span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-400/40">⚡ Route: GyFTR by Kotak → Amazon Pay GC → Wallet</span></div>'
                   : (spendObj.route_type === 'gyftr_voucher'
-                      ? '<div class="mb-1"><span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/20 text-blue-300 border border-blue-400/40">🎁 ONLY via GyFTR by Kotak Voucher Route (No 5% on Direct DC)</span></div>'
-                      : '<div class="mb-1"><span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/20 text-blue-300 border border-blue-400/40">🎁 Direct / GyFTR Voucher / Apay Wallet Route</span></div>')
+                      ? '<div><span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/20 text-blue-300 border border-blue-400/40">🎁 ONLY via GyFTR by Kotak Voucher Route (No 5% on Direct DC)</span></div>'
+                      : '<div><span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/20 text-blue-300 border border-blue-400/40">🎁 Direct / GyFTR Voucher / Apay Wallet Route</span></div>')
               ) : ''}
-              <div class="font-medium text-white/90">${item.note || 'Standard card cashback terms apply.'}</div>
-              <div class="text-[11px] text-white/45 mt-0.5">${cardMeta.capInfo}</div>
+              <div class="font-medium text-white/90 leading-relaxed">${item.note || 'Standard card cashback terms apply.'}</div>
+              <div class="text-[11px] text-white/50"><strong>Cap &amp; Terms:</strong> ${cardMeta.capInfo}</div>
             </td>
           </tr>
         `;
@@ -1227,7 +1267,6 @@
 
       cardsTableBody.innerHTML = html;
     }
-
     // 6. Autocomplete Dropdown Logic
     function searchSpends(query) {
       const q = query.trim().toLowerCase();
@@ -1530,6 +1569,47 @@
     }
 
     // ================= EVENT LISTENERS =================
+
+    // Card Row Details Dropdown Toggle & Expand All Button
+    cardsTableBody.addEventListener('click', (e) => {
+      const row = e.target.closest('.card-main-row');
+      if (!row) return;
+      const cardId = row.getAttribute('data-card-id');
+      const detailsRow = document.getElementById('detailsRow_' + cardId);
+      const chevron = document.getElementById('chevron_' + cardId);
+      if (detailsRow) {
+        const isHidden = detailsRow.classList.contains('hidden');
+        if (isHidden) {
+          detailsRow.classList.remove('hidden');
+          if (chevron) chevron.classList.add('rotate-180');
+        } else {
+          detailsRow.classList.add('hidden');
+          if (chevron) chevron.classList.remove('rotate-180');
+        }
+      }
+    });
+
+    const btnToggleAllDetails = document.getElementById('btnToggleAllDetails');
+    if (btnToggleAllDetails) {
+      btnToggleAllDetails.addEventListener('click', () => {
+        allDetailsExpanded = !allDetailsExpanded;
+        btnToggleAllDetails.textContent = allDetailsExpanded ? 'Collapse All ▴' : 'Expand All ▾';
+        document.querySelectorAll('.card-details-row').forEach(r => {
+          if (allDetailsExpanded) {
+            r.classList.remove('hidden');
+          } else {
+            r.classList.add('hidden');
+          }
+        });
+        document.querySelectorAll('[id^="chevron_"]').forEach(c => {
+          if (allDetailsExpanded) {
+            c.classList.add('rotate-180');
+          } else {
+            c.classList.remove('rotate-180');
+          }
+        });
+      });
+    }
 
     // Bottom Tab Bar Switching
     tabBtnRecommender.addEventListener('click', () => switchTab('recommender'));
