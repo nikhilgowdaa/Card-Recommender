@@ -4,15 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Card Recommender — Maximize Your Cashback</title>
-  
-  <!-- Apple iPhone Home Screen / PWA Meta Tags -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Card Recommender">
   <meta name="theme-color" content="#08090F">
   <meta name="format-detection" content="telephone=no">
-  
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script>
     tailwind.config = {
@@ -32,220 +28,106 @@
           }
         }
       }
-    }
+    };
   </script>
-  
   <style>
-    /* iOS App Viewport & Safe Area Styling */
     :root {
-      --sat: env(safe-area-inset-top, 0px);
-      --sab: env(safe-area-inset-bottom, 0px);
-      --sal: env(safe-area-inset-left, 0px);
-      --sar: env(safe-area-inset-right, 0px);
+      color-scheme: dark;
     }
-    
     body {
-      background-color: #08090E;
-      color: rgba(255, 255, 255, 0.96);
-      padding-top: max(var(--sat), 14px);
-      padding-bottom: calc(max(var(--sab), 20px) + 92px);
-      padding-left: max(var(--sal), 16px);
-      padding-right: max(var(--sar), 16px);
+      background: radial-gradient(circle at 15% 10%, rgba(226, 55, 68, 0.16), transparent 42%),
+                  radial-gradient(circle at 85% 20%, rgba(16, 185, 129, 0.12), transparent 40%),
+                  radial-gradient(circle at 50% 90%, rgba(245, 158, 11, 0.10), transparent 45%),
+                  #08090F;
+      color: #F8FAFC;
+      min-height: 100vh;
       -webkit-tap-highlight-color: transparent;
-      user-select: none;
-      -webkit-user-select: none;
-      touch-action: manipulation;
-      overflow-x: hidden;
     }
-    
-    input, textarea {
-      user-select: text;
-      -webkit-user-select: text;
-    }
-
-    /* Zomato Dark Mode + iOS Liquid Glass Material System */
-    .liquid-bg {
-      background: 
-        radial-gradient(circle at 12% 8%, rgba(226, 55, 68, 0.22) 0%, transparent 45%),
-        radial-gradient(circle at 88% 18%, rgba(245, 158, 11, 0.15) 0%, transparent 46%),
-        radial-gradient(circle at 75% 62%, rgba(16, 185, 129, 0.14) 0%, transparent 50%),
-        radial-gradient(circle at 20% 82%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-        linear-gradient(180deg, #0B0C14 0%, #07080D 100%);
-      background-attachment: fixed;
-    }
-
-    /* Ultra-translucent glass panels so background color & content shine through */
     .liquid-glass {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.065) 0%, rgba(255, 255, 255, 0.018) 100%);
-      backdrop-filter: blur(28px) saturate(190%);
-      -webkit-backdrop-filter: blur(28px) saturate(190%);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      box-shadow: 
-        inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.32),
-        inset 0 -1px 1px 0 rgba(255, 255, 255, 0.05),
-        0 18px 38px -12px rgba(0, 0, 0, 0.55);
-    }
-
-    /* Spotlight Card with Zomato Gold + Emerald Glass Tint */
-    .liquid-glass-elevated {
-      background: linear-gradient(135deg, rgba(226, 55, 68, 0.14) 0%, rgba(245, 158, 11, 0.08) 50%, rgba(16, 185, 129, 0.12) 100%);
-      backdrop-filter: blur(32px) saturate(200%);
-      -webkit-backdrop-filter: blur(32px) saturate(200%);
-      border: 1px solid rgba(255, 255, 255, 0.26);
-      box-shadow: 
-        inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.45),
-        inset 0 -1px 1px 0 rgba(255, 255, 255, 0.08),
-        0 22px 48px -12px rgba(226, 55, 68, 0.22);
-    }
-
-    /* Zomato New App Style Ultra-Transparent Floating Crystal Glass Bottom Tab Bar */
-    .liquid-tabbar {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.015) 100%);
-      backdrop-filter: blur(20px) saturate(210%);
-      -webkit-backdrop-filter: blur(20px) saturate(210%);
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      box-shadow: 
-        inset 0 1.5px 2.5px 0 rgba(255, 255, 255, 0.55),
-        inset 0 -1.5px 2px 0 rgba(255, 255, 255, 0.16),
-        0 12px 34px rgba(0, 0, 0, 0.48),
-        0 0 24px rgba(226, 55, 68, 0.12);
-    }
-
-    /* Zomato Coral-Red Translucent Glass Active Tab Pill */
-    .zomato-tab-active {
-      background: linear-gradient(135deg, rgba(226, 55, 68, 0.82) 0%, rgba(255, 88, 100, 0.68) 100%);
-      backdrop-filter: blur(16px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px) saturate(180%);
-      color: #FFFFFF !important;
-      border: 1px solid rgba(255, 175, 182, 0.55);
-      box-shadow: 
-        inset 0 1.5px 1.5px rgba(255, 255, 255, 0.55),
-        0 6px 20px rgba(226, 55, 68, 0.45);
-      font-weight: 600;
-    }
-
-    .liquid-modal {
-      background: linear-gradient(145deg, rgba(22, 24, 36, 0.76) 0%, rgba(12, 14, 22, 0.86) 100%);
-      backdrop-filter: blur(45px) saturate(200%);
-      -webkit-backdrop-filter: blur(45px) saturate(200%);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      box-shadow: 
-        inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.38),
-        0 30px 60px -12px rgba(0, 0, 0, 0.85);
-    }
-
-    .liquid-pill {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.025) 100%);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 
-        inset 0 1px 0.5px 0 rgba(255, 255, 255, 0.25),
-        0 4px 12px rgba(0, 0, 0, 0.22);
-      color: rgba(255, 255, 255, 0.85);
-      transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
-    }
-
-    .liquid-pill:hover {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.05) 100%);
-      border-color: rgba(255, 255, 255, 0.28);
-      color: #FFFFFF;
-    }
-
-    /* Active Chip/Pill in Zomato Coral-Red Glass */
-    .liquid-pill-active {
-      background: linear-gradient(135deg, rgba(226, 55, 68, 0.88) 0%, rgba(255, 88, 100, 0.78) 100%);
-      color: #FFFFFF !important;
-      border: 1px solid rgba(255, 165, 175, 0.65);
-      box-shadow: 
-        0 6px 18px rgba(226, 55, 68, 0.38),
-        inset 0 1px 1px rgba(255, 255, 255, 0.55);
-      font-weight: 600;
-    }
-
-    .liquid-input {
-      background: rgba(10, 12, 20, 0.38);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      box-shadow: 
-        inset 0 2px 5px rgba(0, 0, 0, 0.45),
-        0 1px 0 rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.55);
     }
-
-    .liquid-input:focus {
-      background: rgba(226, 55, 68, 0.06);
-      border-color: rgba(226, 55, 68, 0.65);
-      box-shadow: 
-        inset 0 1px 2px rgba(255, 255, 255, 0.2),
-        0 0 0 3px rgba(226, 55, 68, 0.18);
+    .liquid-glass-elevated {
+      background: linear-gradient(145deg, rgba(16, 185, 129, 0.14) 0%, rgba(15, 23, 42, 0.78) 60%, rgba(245, 158, 11, 0.10) 100%);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+      box-shadow: 0 14px 36px -8px rgba(6, 78, 59, 0.45);
     }
-
     .liquid-card-subtle {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.015) 100%);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.11);
-      box-shadow: inset 0 1px 0.5px 0 rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(255, 255, 255, 0.10);
     }
-
     .liquid-card-subtle:hover {
-      background: linear-gradient(135deg, rgba(226, 55, 68, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%);
-      border-color: rgba(226, 55, 68, 0.38);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.18);
     }
-    
-    /* Scrollbars */
-    ::-webkit-scrollbar {
-      width: 5px;
-      height: 5px;
+    .liquid-input {
+      background: rgba(0, 0, 0, 0.42);
+      border: 1px solid rgba(255, 255, 255, 0.16);
     }
-    ::-webkit-scrollbar-track {
-      background: transparent;
+    .liquid-input:focus {
+      border-color: rgba(226, 55, 68, 0.75);
+      box-shadow: 0 0 0 3px rgba(226, 55, 68, 0.18);
     }
-    ::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 9999px;
+    .liquid-pill {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      color: rgba(255, 255, 255, 0.80);
+      transition: all 0.18s ease;
     }
-    ::-webkit-scrollbar-thumb:hover {
-      background: rgba(226, 55, 68, 0.6);
+    .liquid-pill:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #FFFFFF;
+    }
+    .liquid-pill-active {
+      background: linear-gradient(135deg, #E23744 0%, #B82532 100%);
+      border-color: rgba(255, 130, 140, 0.55);
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(226, 55, 68, 0.38);
+    }
+    .liquid-modal {
+      background: rgba(13, 16, 26, 0.95);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75);
+    }
+    .liquid-tabbar {
+      background: rgba(14, 17, 28, 0.86);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65);
+    }
+    details > summary::-webkit-details-marker {
+      display: none;
     }
   </style>
 </head>
-<body class="liquid-bg min-h-screen antialiased flex flex-col font-sans selection:bg-rose-500/35 selection:text-white">
+<body class="px-3 sm:px-5 pt-3 pb-24 flex flex-col font-sans antialiased selection:bg-rose-500 selection:text-white">
 
-  <!-- Vibrant Ambient Color Orbs Behind the Glass (Creates Real Glass Refraction When Scrolling) -->
-  <div class="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-    <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-[#E23744]/[0.18] blur-[100px]"></div>
-    <div class="absolute top-1/4 -right-24 w-96 h-96 rounded-full bg-amber-500/[0.14] blur-[110px]"></div>
-    <div class="absolute bottom-24 left-1/4 w-96 h-96 rounded-full bg-emerald-500/[0.13] blur-[110px]"></div>
-    <div class="absolute -bottom-12 right-10 w-80 h-80 rounded-full bg-rose-500/[0.16] blur-[95px]"></div>
-  </div>
-
-  <!-- Top App Navigation / Header Bar -->
-  <header class="relative z-10 w-full max-w-4xl mx-auto flex items-center justify-between py-2.5 mb-3">
-    <div class="flex items-center gap-3">
-      <div class="w-10 h-10 rounded-2xl flex items-center justify-center border border-rose-400/40 shadow-lg shadow-rose-500/20" style="background: linear-gradient(135deg, rgba(226, 55, 68, 0.85) 0%, rgba(245, 158, 11, 0.75) 100%); box-shadow: inset 0 1.5px 1.5px rgba(255,255,255,0.5), 0 8px 20px rgba(226,55,68,0.3);">
-        <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect width="20" height="14" x="2" y="5" rx="3"/>
-          <line x1="2" x2="22" y1="10" y2="10"/>
-          <circle cx="7" cy="15" r="1"/>
-          <circle cx="11" cy="15" r="1"/>
+  <!-- Top Navigation Header -->
+  <header class="relative z-20 w-full max-w-4xl mx-auto mb-3 flex items-center justify-between gap-2">
+    <div class="flex items-center gap-2.5 min-w-0">
+      <div class="w-9 h-9 rounded-2xl bg-gradient-to-br from-[#E23744] to-amber-500 flex items-center justify-center shadow-lg shadow-rose-500/25 shrink-0 border border-white/25">
+        <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+          <rect width="20" height="14" x="2" y="5" rx="2.5" />
+          <line x1="2" x2="22" y1="10" y2="10" />
         </svg>
       </div>
-      <div>
-        <div class="flex items-center gap-2">
-          <h1 class="text-lg font-bold tracking-tight text-white">
-            Card Recommender
-          </h1>
-          <span class="text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-400/35">MAX</span>
-        </div>
-        <p id="headerSubtitle" class="text-xs text-rose-200/65 font-medium">Cashback Intelligence</p>
+      <div class="min-w-0">
+        <h1 class="text-base sm:text-lg font-extrabold tracking-tight text-white truncate">Card Recommender</h1>
+        <p id="headerSubtitle" class="text-[11px] text-white/55 truncate">Smart Cashback &amp; Net Pay Calculator</p>
       </div>
     </div>
-    
-    <div class="flex items-center gap-2">
+
+    <div class="flex items-center gap-1.5 shrink-0">
       <!-- Rules & Caps Button -->
-      <button id="btnRulesModal" type="button" class="px-3 py-1.5 rounded-full liquid-pill text-xs font-medium flex items-center gap-1.5 active:scale-95">
+      <button id="btnRulesModal" type="button" class="px-2.5 py-1.5 rounded-full liquid-pill text-xs font-medium flex items-center gap-1.5">
         <svg class="w-3.5 h-3.5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
@@ -253,38 +135,28 @@
       </button>
 
       <!-- Manage Cards Button -->
-      <button id="btnManageCards" type="button" class="px-3 py-1.5 rounded-full liquid-pill text-xs font-medium flex items-center gap-1.5 active:scale-95">
+      <button id="btnManageCards" type="button" class="px-3 py-1.5 rounded-full liquid-pill text-xs font-medium flex items-center gap-1.5">
         <svg class="w-3.5 h-3.5 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
         </svg>
-        <span>Cards (<span id="activeCardsCount" class="text-rose-300 font-bold">5</span>)</span>
+        <span>Cards (<span id="activeCardsCount" class="text-rose-300 font-bold">7</span>)</span>
       </button>
     </div>
   </header>
 
   <!-- Main Container -->
-  <main class="relative z-10 w-full max-w-4xl mx-auto flex-1 flex flex-col gap-4">
+  <main class="relative z-10 w-full max-w-4xl mx-auto flex-1 flex flex-col gap-3">
 
-    <!-- Add to iPhone Home Screen Notice Banner (Dismissible) -->
+    <!-- Add to iPhone Home Screen Notice Banner (Hidden by default to keep iPhone 13 view clean) -->
     <div id="pwaBanner" class="hidden relative overflow-hidden rounded-[22px] liquid-glass p-3 flex items-center justify-between gap-3 border-rose-400/25">
       <div class="flex items-center gap-3">
-        <div class="w-8 h-8 rounded-xl bg-rose-500/20 border border-rose-400/35 text-rose-300 flex items-center justify-center shrink-0">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-          </svg>
-        </div>
         <div class="text-xs">
           <p class="font-semibold text-white">Pin as iPhone App</p>
-          <p class="text-white/65">Tap <span class="inline-flex items-center text-rose-300 font-semibold mx-0.5">Share <svg class="w-3 h-3 inline ml-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg></span> in Safari, then select <span class="text-amber-300 font-semibold">"Add to Home Screen"</span></p>
         </div>
       </div>
       <div class="flex items-center gap-1.5 shrink-0">
-        <button id="btnShowInstallGuide" type="button" class="text-xs liquid-pill px-2.5 py-1 rounded-full font-medium text-rose-200 border-rose-400/30">Guide</button>
-        <button id="btnDismissPwa" type="button" class="text-white/45 hover:text-white p-1 rounded-full transition" aria-label="Dismiss banner">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
+        <button id="btnShowInstallGuide" type="button" class="text-xs liquid-pill px-2.5 py-1 rounded-full font-medium text-rose-200">Guide</button>
+        <button id="btnDismissPwa" type="button" class="text-white/45 hover:text-white p-1 rounded-full transition" aria-label="Dismiss banner">✕</button>
       </div>
     </div>
 
@@ -299,7 +171,7 @@
             <span>Spend or Merchant</span>
           </span>
           <button type="button" id="btnJumpToDirectory" class="text-rose-300 hover:text-rose-200 font-semibold text-[11px] normal-case tracking-normal flex items-center gap-1">
-            <span>Browse All 230+ in Directory</span>
+            <span>Browse All 240+ in Directory</span>
             <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
           </button>
         </label>
@@ -382,19 +254,19 @@
           </summary>
           <div class="flex flex-wrap gap-1.5 pt-2.5 pb-0.5">
             <button type="button" class="quick-chip px-3 py-1 rounded-full text-xs liquid-pill active:scale-95" data-spend="zepto">Zepto</button>
+            <button type="button" class="quick-chip px-3 py-1 rounded-full text-xs liquid-pill active:scale-95" data-spend="swiggy">Swiggy</button>
             <button type="button" class="quick-chip px-3 py-1 rounded-full text-xs liquid-pill active:scale-95" data-spend="zomato">Zomato</button>
             <button type="button" class="quick-chip px-3 py-1 rounded-full text-xs liquid-pill active:scale-95" data-spend="decathlon">Decathlon</button>
+            <button type="button" class="quick-chip px-3 py-1 rounded-full text-xs liquid-pill active:scale-95" data-spend="star bazaar">Star Bazaar</button>
             <button type="button" class="quick-chip px-3 py-1 rounded-full text-xs liquid-pill active:scale-95" data-spend="jio prepaid">Jio Prepaid</button>
-            <button type="button" class="quick-chip px-3 py-1 rounded-full text-xs liquid-pill active:scale-95" data-spend="jio postpaid">Jio Postpaid</button>
+            <button type="button" class="quick-chip px-3 py-1 rounded-full text-xs liquid-pill active:scale-95" data-spend="jio fiber">Jio Broadband</button>
             <button type="button" class="quick-chip px-3 py-1 rounded-full text-xs liquid-pill active:scale-95" data-spend="airtel prepaid">Airtel Prepaid</button>
-            <button type="button" class="quick-chip px-3 py-1 rounded-full text-xs liquid-pill active:scale-95" data-spend="swiggy">Swiggy</button>
             <button type="button" class="quick-chip px-3 py-1 rounded-full text-xs liquid-pill active:scale-95" data-spend="blinkit">Blinkit</button>
             <button type="button" class="quick-chip px-3 py-1 rounded-full text-xs liquid-pill active:scale-95" data-spend="amazon">Amazon</button>
             <button type="button" class="quick-chip px-3 py-1 rounded-full text-xs liquid-pill active:scale-95" data-spend="flipkart">Flipkart</button>
             <button type="button" class="quick-chip px-3 py-1 rounded-full text-xs liquid-pill active:scale-95" data-spend="electricity bill">Electricity Bill</button>
             <button type="button" class="quick-chip px-3 py-1 rounded-full text-xs liquid-pill active:scale-95" data-spend="gyftr by kotak">GyFTR by Kotak</button>
             <button type="button" class="quick-chip px-3 py-1 rounded-full text-xs liquid-pill active:scale-95" data-spend="amazon pay gift card">Amazon Pay GC</button>
-            <button type="button" class="quick-chip px-3 py-1 rounded-full text-xs liquid-pill active:scale-95" data-spend="fuel">Fuel / Petrol</button>
           </div>
         </details>
       </div>
@@ -518,44 +390,42 @@
     </div>
 
     <!-- ================= DASHBOARD 2: MERCHANT & SPEND DIRECTORY VIEW ================= -->
-    <div id="viewDirectory" class="hidden flex flex-col gap-4">
+    <div id="viewDirectory" class="hidden flex flex-col gap-3.5">
 
       <!-- Directory KPI Summary Strip -->
-      <div class="grid grid-cols-3 gap-2.5 sm:gap-3.5">
-        <div class="rounded-[22px] liquid-glass p-3.5 flex flex-col justify-between border-rose-400/25">
-          <span class="text-[10px] font-bold uppercase tracking-widest text-rose-300/80">Total Spends</span>
-          <div class="mt-1 flex items-baseline gap-1.5">
-            <span id="dirTotalCount" class="text-xl sm:text-2xl font-extrabold text-white font-mono">231</span>
-            <span class="text-[11px] text-white/50">merchants</span>
+      <div class="grid grid-cols-3 gap-2 sm:gap-3.5">
+        <div class="rounded-[20px] liquid-glass p-3 flex flex-col justify-between border-rose-400/25">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-rose-300/80">Total Spends</span>
+          <div class="mt-1 flex items-baseline gap-1">
+            <span id="dirTotalCount" class="text-lg sm:text-2xl font-extrabold text-white font-mono">244</span>
+            <span class="text-[10px] text-white/50">items</span>
           </div>
         </div>
-        <div class="rounded-[22px] liquid-glass p-3.5 flex flex-col justify-between border-emerald-400/25">
-          <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-300/85">10% Cashback</span>
-          <div class="mt-1 flex items-baseline gap-1.5">
-            <span id="dirTenPctCount" class="text-xl sm:text-2xl font-extrabold text-emerald-400 font-mono">68</span>
-            <span class="text-[11px] text-emerald-200/55">top tier</span>
+        <div class="rounded-[20px] liquid-glass p-3 flex flex-col justify-between border-emerald-400/25">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-300/85">10% Cashback</span>
+          <div class="mt-1 flex items-baseline gap-1">
+            <span id="dirTenPctCount" class="text-lg sm:text-2xl font-extrabold text-emerald-400 font-mono">140</span>
+            <span class="text-[10px] text-emerald-200/55">merchants</span>
           </div>
         </div>
-        <div class="rounded-[22px] liquid-glass p-3.5 flex flex-col justify-between border-amber-400/25">
-          <span class="text-[10px] font-bold uppercase tracking-widest text-amber-300/85">Showing</span>
-          <div class="mt-1 flex items-baseline gap-1.5">
-            <span id="dirFilteredCount" class="text-xl sm:text-2xl font-extrabold text-amber-300 font-mono">231</span>
-            <span class="text-[11px] text-amber-200/55">matched</span>
+        <div class="rounded-[20px] liquid-glass p-3 flex flex-col justify-between border-amber-400/25">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-amber-300/85">Showing</span>
+          <div class="mt-1 flex items-baseline gap-1">
+            <span id="dirFilteredCount" class="text-lg sm:text-2xl font-extrabold text-amber-300 font-mono">244</span>
+            <span class="text-[10px] text-amber-200/55">matched</span>
           </div>
         </div>
       </div>
 
       <!-- Category Spends Directory / Explorer -->
-      <div class="rounded-[26px] liquid-glass p-4 sm:p-5 relative z-10">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3.5">
+      <div class="rounded-[24px] liquid-glass p-3.5 sm:p-5 relative z-10">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-3">
           <div>
-            <h3 class="text-base font-bold text-white">
-              Merchant &amp; Spend Directory
-            </h3>
-            <p class="text-xs text-white/55">Tap any merchant to load its cashback breakdown in Recommender</p>
+            <h3 class="text-sm sm:text-base font-bold text-white">Merchant &amp; Spend Directory</h3>
+            <p class="text-[11px] text-white/55">Tap any merchant to load its cashback &amp; net amount in Recommender</p>
           </div>
 
-          <!-- Instant Directory Filter Input (Merchant, Statement Name, or MCC) -->
+          <!-- Instant Directory Filter Input -->
           <div class="relative w-full sm:w-80">
             <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-rose-400">
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -581,15 +451,15 @@
 
         <!-- Category Filter Pills -->
         <div class="flex items-center gap-1.5 overflow-x-auto pb-2.5 mb-3 text-xs" id="categoryFilterContainer">
-          <button type="button" class="cat-pill active px-3.5 py-1.5 rounded-full liquid-pill liquid-pill-active shrink-0" data-cat="all">All (230+)</button>
-          <button type="button" class="cat-pill px-3.5 py-1.5 rounded-full liquid-pill shrink-0" data-cat="gyftr-routes">⚡ GyFTR &amp; Apay Routes (5%)</button>
-          <button type="button" class="cat-pill px-3.5 py-1.5 rounded-full liquid-pill shrink-0" data-cat="quick-commerce">Quick Commerce</button>
+          <button type="button" class="cat-pill active px-3.5 py-1.5 rounded-full liquid-pill liquid-pill-active shrink-0" data-cat="all">All Spends</button>
+          <button type="button" class="cat-pill px-3.5 py-1.5 rounded-full liquid-pill shrink-0" data-cat="gyftr-routes">⚡ GyFTR &amp; Apay Routes</button>
+          <button type="button" class="cat-pill px-3.5 py-1.5 rounded-full liquid-pill shrink-0" data-cat="quick-commerce">Quick Commerce &amp; Grocery</button>
           <button type="button" class="cat-pill px-3.5 py-1.5 rounded-full liquid-pill shrink-0" data-cat="food">Food Delivery &amp; Dining</button>
-          <button type="button" class="cat-pill px-3.5 py-1.5 rounded-full liquid-pill shrink-0" data-cat="telecom">Telecom &amp; Recharges</button>
+          <button type="button" class="cat-pill px-3.5 py-1.5 rounded-full liquid-pill shrink-0" data-cat="telecom">Telecom &amp; Broadband</button>
           <button type="button" class="cat-pill px-3.5 py-1.5 rounded-full liquid-pill shrink-0" data-cat="utilities">Utilities &amp; Bills</button>
-          <button type="button" class="cat-pill px-3.5 py-1.5 rounded-full liquid-pill shrink-0" data-cat="shopping">Online Shopping</button>
-          <button type="button" class="cat-pill px-3.5 py-1.5 rounded-full liquid-pill shrink-0" data-cat="travel">Travel &amp; Cabs</button>
-          <button type="button" class="cat-pill px-3.5 py-1.5 rounded-full liquid-pill shrink-0" data-cat="excluded">Exclusions / 0%</button>
+          <button type="button" class="cat-pill px-3.5 py-1.5 rounded-full liquid-pill shrink-0" data-cat="shopping">Online &amp; Retail Shopping</button>
+          <button type="button" class="cat-pill px-3.5 py-1.5 rounded-full liquid-pill shrink-0" data-cat="travel">Travel &amp; Entertainment</button>
+          <button type="button" class="cat-pill px-3.5 py-1.5 rounded-full liquid-pill shrink-0" data-cat="excluded">Excluded (0%)</button>
         </div>
 
         <!-- Spends Grid -->
@@ -603,15 +473,14 @@
   </main>
 
   <!-- Footer -->
-  <footer class="relative z-10 w-full max-w-4xl mx-auto text-center py-4 text-xs text-white/40 border-t border-white/[0.08] mt-6">
+  <footer class="relative z-10 w-full max-w-4xl mx-auto text-center py-4 text-xs text-white/40 border-t border-white/[0.08] mt-4">
     <p>Card Recommender</p>
   </footer>
 
-  <!-- ================= ZOMATO + iOS ULTRA-TRANSPARENT LIQUID GLASS BOTTOM TAB BAR ================= -->
-  <nav id="iosBottomTabBar" aria-label="Primary Bottom Navigation" class="fixed bottom-0 left-0 right-0 z-40 pointer-events-none flex justify-center px-4 pt-2" style="padding-bottom: max(var(--sab), 16px);">
-    <div class="pointer-events-auto liquid-tabbar rounded-full p-1.5 flex items-center gap-1.5 w-full max-w-[310px] sm:max-w-[350px]">
-      <!-- Tab 1: Recommender -->
-      <button id="tabBtnRecommender" type="button" class="flex-1 py-2.5 px-4 rounded-full text-xs font-semibold flex items-center justify-center gap-2 transition-all duration-200 zomato-tab-active active:scale-95" data-tab="recommender">
+  <!-- Bottom Tab Bar -->
+  <nav id="iosBottomTabBar" aria-label="Primary Bottom Navigation" class="fixed bottom-0 left-0 right-0 z-40 pointer-events-none flex justify-center pb-3 px-4">
+    <div class="pointer-events-auto liquid-tabbar rounded-full p-1.5 flex items-center gap-1.5 w-full max-w-[310px] sm:max-w-xs">
+      <button id="tabBtnRecommender" type="button" class="flex-1 py-2.5 px-4 rounded-full text-xs font-semibold flex items-center justify-center gap-2 liquid-pill-active transition">
         <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
           <rect width="20" height="14" x="2" y="5" rx="3"/>
           <line x1="2" x2="22" y1="10" y2="10"/>
@@ -619,8 +488,7 @@
         <span>Recommender</span>
       </button>
 
-      <!-- Tab 2: Directory -->
-      <button id="tabBtnDirectory" type="button" class="flex-1 py-2.5 px-4 rounded-full text-xs font-medium flex items-center justify-center gap-2 text-white/80 hover:text-white transition-all duration-200 active:scale-95" data-tab="directory">
+      <button id="tabBtnDirectory" type="button" class="flex-1 py-2.5 px-4 rounded-full text-xs font-medium flex items-center justify-center gap-2 text-white/70 hover:text-white transition">
         <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
           <rect width="7" height="7" x="3" y="3" rx="1.5"/>
           <rect width="7" height="7" x="14" y="3" rx="1.5"/>
@@ -632,166 +500,111 @@
     </div>
   </nav>
 
-  <!-- ================= MODALS & DRAWERS ================= -->
-
-  <!-- 1. Manage My Cards Modal -->
-  <div id="manageCardsModal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4 transition-opacity">
-    <div class="w-full max-w-md liquid-modal rounded-t-[28px] sm:rounded-[28px] p-5 overflow-hidden flex flex-col max-h-[90vh]">
-      <div class="flex items-center justify-between pb-3.5 border-b border-white/10">
+  <!-- ================= MODAL 1: MANAGE CARDS ================= -->
+  <div id="manageCardsModal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="w-full max-w-md rounded-[26px] liquid-modal p-5 max-h-[88vh] flex flex-col">
+      <div class="flex items-center justify-between pb-3 border-b border-white/10">
         <div>
           <h3 class="text-base font-bold text-white">Manage My Cards</h3>
-          <p class="text-xs text-white/55">Toggle cards active in your wallet</p>
+          <p class="text-xs text-white/55">Toggle active cards &amp; Amazon Prime status</p>
         </div>
-        <button id="btnCloseManageCards" type="button" class="text-white/50 hover:text-white p-1 rounded-full">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
-      </div>
-      
-      <div class="py-3 overflow-y-auto flex-1 space-y-2 divide-y divide-white/[0.08]" id="cardTogglesContainer">
-        <!-- Populated via JS -->
+        <button id="btnCloseManageCards" type="button" class="text-white/50 hover:text-white p-1.5 rounded-full bg-white/5">✕</button>
       </div>
 
-      <div class="pt-3.5 border-t border-white/10 flex items-center justify-between">
-        <button id="btnResetCards" type="button" class="text-xs text-white/55 hover:text-white underline">Reset to Default</button>
-        <button id="btnSaveCards" type="button" class="px-5 py-2 rounded-full liquid-pill liquid-pill-active text-xs transition">Done</button>
+      <div id="cardTogglesContainer" class="py-3 divide-y divide-white/[0.08] overflow-y-auto flex-1">
+        <!-- Populated dynamically via JS -->
+      </div>
+
+      <div class="pt-3 border-t border-white/10 flex items-center justify-between gap-2.5">
+        <button id="btnResetCards" type="button" class="px-4 py-2 rounded-full liquid-pill text-xs font-semibold">Reset Default</button>
+        <button id="btnSaveCards" type="button" class="flex-1 py-2.5 rounded-full liquid-pill-active text-xs font-bold">Save Changes</button>
       </div>
     </div>
   </div>
 
-  <!-- 2. Rules & Monthly Caps Reference Modal -->
-  <div id="rulesModal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4 transition-opacity">
-    <div class="w-full max-w-xl liquid-modal rounded-t-[28px] sm:rounded-[28px] p-5 overflow-hidden flex flex-col max-h-[88vh]">
-      <div class="flex items-center justify-between pb-3.5 border-b border-white/10">
+  <!-- ================= MODAL 2: RULES & MONTHLY CAPS ================= -->
+  <div id="rulesModal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="w-full max-w-lg rounded-[26px] liquid-modal p-5 max-h-[88vh] flex flex-col">
+      <div class="flex items-center justify-between pb-3 border-b border-white/10">
         <div>
-          <h3 class="text-base font-bold text-white">
-            Portfolio Rules &amp; Monthly Caps
-          </h3>
-          <p class="text-xs text-white/55">Key terms, caps, and claim conditions</p>
+          <h3 class="text-base font-bold text-white">Card Rules, Caps &amp; Exclusions</h3>
+          <p class="text-xs text-white/55">Updated with Swiggy Ornge HDFC Credit Card</p>
         </div>
-        <button id="btnCloseRulesModal" type="button" class="text-white/50 hover:text-white p-1 rounded-full">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
+        <button id="btnCloseRulesModal" type="button" class="text-white/50 hover:text-white p-1.5 rounded-full bg-white/5">✕</button>
       </div>
-      
-      <div class="py-3.5 overflow-y-auto flex-1 space-y-2.5 text-xs text-white/80">
+
+      <div class="py-3.5 space-y-3 overflow-y-auto text-xs flex-1 pr-1">
         <!-- HSBC Live+ -->
         <div class="p-3.5 rounded-2xl liquid-card-subtle border-l-2 border-l-rose-500">
           <div class="flex items-center justify-between font-bold text-white mb-1">
             <span>HSBC Live+ Credit Card</span>
             <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/35 font-mono text-[11px]">10% / 1.5%</span>
           </div>
-          <p class="text-white/65"><strong>10% Accelerated Cashback (5 Categories):</strong> Dining, Food Delivery, Grocery &amp; Quick-Commerce (MCC 5411/5812/5814), <strong>Shopping</strong> (Apparel, Sports/Decathlon MCC 5941, Electronics MCC 5732, Cosmetics MCC 5977, Dept Stores MCC 5311), and <strong>Utilities/Telecom</strong> (MCC 4814/4900 e.g. Jio, Airtel, Electricity, Gas, Water).</p>
-          <p class="text-white/65 mt-1"><strong>Cap:</strong> ₹1,200 per statement cycle on 10% categories. <strong>Explicit Exclusions from 10% Shopping:</strong> Direct Amazon, Flipkart, and Myntra spends earn 1.5% base cashback.</p>
+          <p class="text-white/70"><strong>10% Accelerated Cashback:</strong> Dining, Food Delivery, Grocery &amp; Quick-Commerce (MCC 5411/5812/5814), Retail Shopping (Decathlon MCC 5941, Shoppers Stop 5311, Croma 5732), and Utilities/Telecom via Paytm/Cred/Portals (MCC 4814/4900).</p>
+          <p class="text-white/70 mt-1"><strong>Cap:</strong> ₹1,200 per statement cycle on 10% categories. Direct Amazon &amp; Flipkart earn 1.5% base cashback.</p>
         </div>
 
-        <!-- Swiggy HDFC -->
+        <!-- Swiggy Ornge HDFC -->
         <div class="p-3.5 rounded-2xl liquid-card-subtle border-l-2 border-l-orange-500">
           <div class="flex items-center justify-between font-bold text-white mb-1">
-            <span>Swiggy HDFC Credit Card</span>
-            <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/35 font-mono text-[11px]">10% / 5% / 1%</span>
+            <span>Swiggy Ornge HDFC Credit Card (Upgraded)</span>
+            <span class="px-2 py-0.5 rounded-full bg-orange-500/20 text-orange-300 border border-orange-400/35 font-mono text-[11px]">5% / 1%</span>
           </div>
-          <p class="text-white/65"><strong>10% on Swiggy:</strong> Food orders, Instamart, Dineout, Genie (Max ₹1,500/mo cap).</p>
-          <p class="text-white/65 mt-1"><strong>5% on Select Online Partners:</strong> Decathlon, Nykaa, Ola, Uber, Pharmeasy, 1mg, Ajio, BookMyShow (Max ₹1,500/mo cap). <em>Note: Amazon &amp; Flipkart purchases usually earn only 1% base cashback due to MCC variations.</em></p>
+          <p class="text-white/70"><strong>5% on Swiggy App &amp; Online Partners (Min ₹249/txn):</strong> Earns 5% on Swiggy Food Delivery, Instamart &amp; Dineout (down from 10% on phased-out Swiggy HDFC card) + 5% on select online partners (Decathlon, Myntra, Nykaa, BookMyShow, Uber, Ola, PharmEasy, 1mg, Croma, Cleartrip). <strong>Shared Cap:</strong> ₹1,500 per billing cycle across both 5% categories.</p>
+          <p class="text-white/70 mt-1"><strong>1% on Other Eligible Spends (Min ₹100/txn):</strong> Capped at ₹1,000 per billing cycle (up from ₹500 on old card; total monthly cap ₹2,500/cycle). <strong>Perks:</strong> 12-month Swiggy One welcome/migration membership + extra 10% off up to ₹500 on Swiggy Dineout (min ₹3,000) during Birthday Week.</p>
         </div>
 
-        <!-- Kotak 811 -->
+        <!-- Kotak 811 Super Debit Card -->
         <div class="p-3.5 rounded-2xl liquid-card-subtle border-l-2 border-l-blue-500">
           <div class="flex items-center justify-between font-bold text-white mb-1">
             <span>Kotak 811 Super Debit Card (+ GyFTR &amp; Apay Routes)</span>
             <span class="px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/35 font-mono text-[11px]">5%</span>
           </div>
-          <p class="text-white/65"><strong>1. Direct Online &amp; POS (5%):</strong> Valid on eligible retail POS swipes and select online checkouts (<em>Direct Kotak 811 DC checkout on Amazon &amp; Flipkart does NOT give 5% — use GyFTR by Kotak route instead</em>).</p>
-          <p class="text-white/65 mt-1"><strong>2. GyFTR by Kotak Brand Vouchers (5% — Required for Amazon &amp; Flipkart):</strong> Buy Amazon &amp; Flipkart vouchers (plus Zepto, Zomato, Swiggy, Blinkit, Myntra, Nykaa, Uber, etc.) on GyFTR by Kotak to earn 5% cashback.</p>
-          <p class="text-white/65 mt-1"><strong>3. Amazon Pay Gift Card → Wallet Route (5%):</strong> Buy Amazon Pay Gift Cards on GyFTR by Kotak (5% CB) → Load into Amazon Pay Balance → Pay in any online app accepting Amazon Pay Wallet OR pay Utility Bills &amp; Recharges (Electricity, Water, Gas, Broadband, Jio/Airtel) on Amazon.</p>
-          <p class="text-amber-300 font-medium mt-1"><strong>Strict Cap:</strong> Max ₹100 per transaction (₹2,000 spend = ₹100 CB), ₹500 per month. Must be manually claimed in the Kotak 811 app before month-end.</p>
+          <p class="text-white/70"><strong>5% Cashback (Max ₹100/txn, ₹500/mo):</strong> Valid on retail POS/online spends, GyFTR brand vouchers, and Amazon Pay Gift Cards for wallet/utility bill payments. Must be claimed in the Kotak 811 app.</p>
         </div>
 
         <!-- Amazon Pay ICICI -->
-        <div class="p-3.5 rounded-2xl liquid-card-subtle border-l-2 border-l-amber-400">
+        <div class="p-3.5 rounded-2xl liquid-card-subtle border-l-2 border-l-amber-500">
           <div class="flex items-center justify-between font-bold text-white mb-1">
             <span>Amazon Pay ICICI Credit Card</span>
             <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/35 font-mono text-[11px]">5% / 3% / 2% / 1%</span>
           </div>
-          <p class="text-white/65"><strong>5% Unlimited (Prime) / 3% Unlimited (Non-Prime):</strong> Amazon spends (toggle Prime membership in <em>Manage My Cards</em>). <strong>2%:</strong> Bill payments &amp; 100+ Amazon Pay partner checkouts. <strong>1%:</strong> All other retail spends (including Flipkart). No monthly caps.</p>
-        </div>
-
-        <!-- Supermoney pro Axis -->
-        <div class="p-3.5 rounded-2xl liquid-card-subtle border-l-2 border-l-purple-500">
-          <div class="flex items-center justify-between font-bold text-white mb-1">
-            <span>Supermoney pro Axis Credit Card</span>
-            <span class="px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-400/35 font-mono text-[11px]">3%</span>
-          </div>
-          <p class="text-white/65"><strong>3% Cashback:</strong> On UPI checkouts and top partner categories.</p>
+          <p class="text-white/70"><strong>5% Unlimited (Prime) / 3% Unlimited (Non-Prime):</strong> Amazon spends (toggle Prime in Manage Cards). <strong>2%:</strong> Amazon Pay bill pay. <strong>1%:</strong> Other eligible spends.</p>
         </div>
       </div>
 
-      <div class="pt-3.5 border-t border-white/10 text-right">
-        <button id="btnCloseRulesModalBottom" type="button" class="px-5 py-2 rounded-full liquid-pill liquid-pill-active text-xs transition">Close</button>
+      <div class="pt-3 border-t border-white/10 text-center">
+        <button id="btnCloseRulesModalBottom" type="button" class="w-full py-2.5 rounded-full liquid-pill-active text-xs font-bold">Got It</button>
       </div>
     </div>
   </div>
 
-  <!-- 3. iOS Add to Home Screen Instructions Modal -->
-  <div id="installGuideModal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4 transition-opacity">
-    <div class="w-full max-w-sm liquid-modal rounded-t-[28px] sm:rounded-[28px] p-5 flex flex-col">
-      <div class="flex items-center justify-between pb-3.5 border-b border-white/10">
-        <h3 class="text-base font-bold text-white">
-          Install on iPhone
-        </h3>
-        <button id="btnCloseInstallGuide" type="button" class="text-white/50 hover:text-white p-1 rounded-full">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
+  <!-- ================= MODAL 3: INSTALL GUIDE ================= -->
+  <div id="installGuideModal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="w-full max-w-sm rounded-[26px] liquid-modal p-5">
+      <div class="flex items-center justify-between pb-3 border-b border-white/10">
+        <h3 class="text-base font-bold text-white">Add to iPhone Home Screen</h3>
+        <button id="btnCloseInstallGuide" type="button" class="text-white/50 hover:text-white p-1.5 rounded-full bg-white/5">✕</button>
       </div>
-
-      <div class="py-4 space-y-3.5 text-xs text-white/80">
-        <div class="flex items-start gap-3">
-          <span class="w-6 h-6 rounded-full bg-rose-500/25 border border-rose-400/40 text-rose-300 font-bold flex items-center justify-center shrink-0 text-xs">1</span>
-          <div>
-            <p class="font-semibold text-white">Open in Safari</p>
-            <p class="text-white/55">Make sure this file is opened in iOS Safari on your iPhone.</p>
-          </div>
-        </div>
-
-        <div class="flex items-start gap-3">
-          <span class="w-6 h-6 rounded-full bg-rose-500/25 border border-rose-400/40 text-rose-300 font-bold flex items-center justify-center shrink-0 text-xs">2</span>
-          <div>
-            <p class="font-semibold text-white">Tap the Share Icon</p>
-            <p class="text-white/55">Tap the Share button <span class="inline-block px-1.5 py-0.5 bg-white/10 rounded text-white">⎋ / [↑]</span> in Safari's bottom bar.</p>
-          </div>
-        </div>
-
-        <div class="flex items-start gap-3">
-          <span class="w-6 h-6 rounded-full bg-rose-500/25 border border-rose-400/40 text-rose-300 font-bold flex items-center justify-center shrink-0 text-xs">3</span>
-          <div>
-            <p class="font-semibold text-white">Select "Add to Home Screen"</p>
-            <p class="text-white/55">Scroll down the share sheet and tap <strong>"Add to Home Screen"</strong>.</p>
-          </div>
-        </div>
-
-        <div class="flex items-start gap-3">
-          <span class="w-6 h-6 rounded-full bg-rose-500/25 border border-rose-400/40 text-rose-300 font-bold flex items-center justify-center shrink-0 text-xs">4</span>
-          <div>
-            <p class="font-semibold text-white">Tap "Add" (Top-Right)</p>
-            <p class="text-white/55">The <strong>Card Recommender</strong> app icon will appear on your iPhone home screen.</p>
-          </div>
-        </div>
+      <div class="py-3 text-xs text-white/75 space-y-2">
+        <p>1. Open in Safari on your iPhone 13.</p>
+        <p>2. Tap <strong>Share</strong> at the bottom and choose <strong>Add to Home Screen</strong>.</p>
       </div>
-
       <div class="pt-2 text-center">
-        <button id="btnDismissInstallGuide" type="button" class="w-full py-2.5 rounded-full liquid-pill liquid-pill-active text-xs transition">Got it!</button>
+        <button id="btnDismissInstallGuide" type="button" class="w-full py-2.5 rounded-full liquid-pill liquid-pill-active text-xs font-bold">Close</button>
       </div>
     </div>
   </div>
 
   <!-- Embed Spends Data & Application Logic -->
   <script>
-    // 1. Spends Database (230+ items)
-    const _C=["Pharmacies","Gift card and voucher purchases","Travel","Excluded MCCs","Hotel (Non-dining)","Entertainment","Telecom Services","Utilities","Telecom & Recharges","Grocery","Shopping (Non-grocery)","Food Delivery","Dining","Online Shopping & Retail","Gift Cards & Smart Routes","Groceries","Online Grocery / Quick Commerce","Yet To Know","General","Taxation Services","Apparels","Bakery","Payment App","Utilities & Bill Payments","Apparel & Sporting Goods","Restaurant","Healthcare & Diagnostics","Food Delivery App","Restaurant Booking Platform","Department Store","Variety Stores","Electronics","Vehicle & Fuel","Hosting Services","Gifting site","Airlines","Eyewear","Online Meat Store","Liquor","Discount Stores","Personal Care","Luggage & Bags","Local Cabs","Delivery Services","Rental Services","Food Delivery & Dining","Coaching!???","Home Services"];
-    const _RT=["gyftr_both","direct_or_gyftr","gyftr_apay_bill","gyftr_voucher","gyftr_apay_wallet","direct"];
-    const _N=["Base 1.5% cashback","1% base rate","10% on Swiggy / 5% on top partner apps","5% via Direct Card OR GyFTR by Kotak (Buy Brand Gift Card / Amazon Pay GC → pay via Amazon Pay Wallet; max ₹100/txn, claim in 811 app)","3% on UPI/card","1% cashback","1% Scapia coins","~0.7% ICICI reward points","POS Machine (MCC 5814)","1% base","5% via Direct Card / POS OR GyFTR by Kotak → Amazon Pay GC → Wallet checkout (max ₹100/txn; claim in 811 app)","3% on UPI","2% travel / 1% other","App (MCC 4186 (ISP))","5% via GyFTR → Amazon Pay Route: Buy Amazon Pay GC on GyFTR by Kotak (5% CB, max ₹100/txn) → Load Wallet → Pay bill/recharge on Amazon","0% on UPI","0% cashback","App","MCC 4814 Telecom Recharges","25% on Airtel Thanks / 10% on Bills & BB/Swiggy/Zomato","App (Prepaid mobile recharge - MCC - 4814)","10% on utilities/food partners","2% cashback","10% Cashback via Airtel Thanks/App (MCC 4814)","25% Cashback via Airtel Thanks App (Max ₹250/mo cap)","2% cashback via Amazon Pay bill pay","0% (Excluded)","0%","~0.7% reward points","2% cashback via Amazon Pay recharge","0% (Excluded telecom recharge)","POS Machine (MCC 5462 - Ajfan nuts store Jubilee Hills Hyd)","1.5% base cashback when OTP merchant is AJIO (Verified MCC 4626)","10% Cashback on Website when OTP merchant is RELIANCE RETAIL (MCC 5691; Note: AJIO OTP MCC 4626 earns 1.5%)","POS Machine (MCC-5812)","1.5% base cashback (User Confirmed: AMAZON PAY INDIA PRIVATET — Direct Amazon shopping earns 1.5% base rate)","5% unlimited cashback on Amazon for Prime members (3% for Non-Prime — toggle in Manage Cards)","5% ONLY via GyFTR by Kotak route: Buy Amazon Pay GC / Amazon Shopping Voucher on GyFTR by Kotak (max ₹100/txn, ₹500/mo; claim in 811 app — direct Kotak 811 DC checkout gets base/0%)","3% cashback on UPI via super.money app (1% on direct card/other UPI)","1% base cashback (Swiggy HDFC 5% usually does not trigger on Amazon due to MCC variations)","1% base cashback","10% Cashback on App when billed as AMAZONIN / OTP AMAZON PAY INDI (Verified MCC 5411; Note: MCC 5699 earns 1.5%)","5% unlimited cashback on Amazon Fresh for Prime members (3% for Non-Prime — toggle in Manage Cards)","5% ONLY via GyFTR by Kotak voucher route (max ₹100/txn, claim in 811 app — direct Kotak 811 DC checkout does NOT give 5%)","3% cashback on UPI via super.money app (1% on direct card)","1% base cashback (5% rarely triggers due to MCC variations)","1.5% base cashback when billed as $S (MCC 5699)","10% Cashback when billed as AMAZONIN Grocery (Verified MCC 5411 in Sheet1 Rows 18–19 & Poster #32; 1.5% if billed as IAP AMAZON PAY INDIA MCC 5262)","3% cashback on UPI via super.money app","5% cashback on Amazon Now for Prime members (3% for Non-Prime — toggle in Manage Cards)","1.5% base cashback","5% Cashback via GyFTR by Kotak → Load Amazon Pay Balance → Pay Utility Bills, Recharges & Online Apps (max ₹100/txn, ₹500/mo)","2% cashback on Amazon Pay Gift Cards bought directly on Amazon (Prime)","0% on gift cards","Website","Website (MCC - 5411)","1.5% base cashback on Website (Sheet1 Row 22 verified 1.5%)","10% Cashback on POS Machine (Verified MCC 5812)","No cashback on direct POS/offline spend","POS Machine","POS Machine (MCC-5651, checked with CC, Merchant Name in SMS - BAAZAR RETAIL PVT LTD)","POS Machine (Belgian Waffle Store)","10% Cashback on Grocery (User Confirmed: INNOVATIVE RETAIL CO / BigBasket • MCC 5411)","10% Cashback on BigBasket (Max ₹500/mo cap)","3% cashback on UPI/card","1% flat cashback","App (Tata Neu - Big Basket Mini App)","App (MCC 4900)","Website (MCC 5499)","App (MCC 5814)","10% Cashback on Grocery orders (Verified MCC 5411; Note: Non-grocery BLINKIT ECOM MCC 5262/5732 earns 1.5%)","1.5% base cashback when billed under BLINKIT ECOM (Sheet1 Rows 34–35 verified 1.5% on MCC 5262 & MCC 5732)","App (MCC 5411)","Payment Link (dotPe etc.) (Bluedart link pay - MCC 4215)","Website (MCC 5533)","1.5% base cashback on App (Verified Sheet1 Rows 44–45 & Poster #39: IAP BOOKMYSHOW COM GURGAON • MCC 7832)","POS Machine $B","0% in Sheet1 Row 47 (MCC 9399 Govt Services — requires calling CC), though Poster #36 reported 10% on $S","10% Cashback via Paytm ($S) or Telecom Portal (MCC 4814 — User Confirmed)","10% Cashback via Airtel Thanks App","2% cashback via Amazon Pay","App (Burger Farm App)","10% Cashback at POS & App (Verified Sheet1 Rows 49–51: MCC 5812)","POS Machine (MCC 5813)","Excluded MCC / Category","Excluded","0% (Excluded MCC / Category)","1.5% base cashback on App (Sheet1 Row 56 verified 1.5%)","0% Cashback — POS Machine (Excluded MCC 8062)","Base 1.5% cashback on HSBC Live+ (5% on Swiggy HDFC & Kotak 811)","POS Machine (MCC - 5699)","1.5% base cashback at POS Machine (Sheet1 Row 59 verified 1.5% on MCC 5462)","MCC 5411 Grocery (10% CB)","1.5% on CRED ECOM / Gift Cards (MCC 5399/5947) & 0% on RAZ*DREAMPLUG PAYTECH SOL (MCC 7311 B2B) per Sheet1 Rows 61–63","10% Cashback on Mobile Recharge & Utility Bills via CRED (Sheet1 Rows 64–66 verified 10% on MCC 4814 & MCC 4900)","1.5% base cashback at POS Machine (Sheet1 Row 67 verified 1.5% at $S)","POS Machine (Dealshare Mart POS)","10% Cashback on HSBC Live+ (User Confirmed: DECATHLON SPORTS INDIA PV & DSI PONDY BAZAAR CHENNAI • MCC 5941; Note: DAHISAR 1423 POS got 1.5%)","5% Cashback on Decathlon (Top partner brand)","1.5% base cashback on Movie Tickets & Events (User Confirmed: DISTRICT MOVIE TICKET • MCC 5947/7832 gives 1.5%, not 10%)","10% Cashback on Dining & Table Pre-Booking (Sheet1 Row 72 & 73: MCC 5812; Movie tickets earn 1.5%)","App (DMart App)","App (dominos app, delivery. MCC - 5814)","MCC 5812/5814 Dining & Food Delivery","1.5% base cashback on App/Online Lab Payment (Verified Sheet1 Row 100 & Poster #38: MCC 8071)","10% Cashback on App (Verified MCC 5814)","10% Cashback via Paytm (PAYTM / PAYTM UTILITY), Amazon, Cred or BBPS Portal (MCC 4900 — User Confirmed)","10% Cashback via Airtel Thanks App (Max ₹250/mo)","2% cashback via Amazon Pay Electricity","0% (Excluded utility bill)","0% on utility bills","0% on direct FASTag reload (use Kotak GyFTR → Apay Wallet for 5%)","5% Route: Buy Amazon Pay GC on GyFTR by Kotak (5% CB, max ₹100/txn) → Load Amazon Pay Balance → Recharge FASTag on Amazon","2% cashback on FASTag recharge via Amazon Pay","App (MCC 5641)","1.5% base cashback (Direct Flipkart purchases are excluded from 10% shopping)","5% ONLY via GyFTR by Kotak route: Buy Flipkart Gift Card on GyFTR by Kotak (max ₹100/txn, ₹500/mo; claim in 811 app — direct Kotak 811 DC checkout gets base/0%)","1% base cashback (Swiggy HDFC 5% usually does not trigger on Flipkart due to MCC variations)","1% flat cashback on non-Amazon retail spends","10% Cashback when billed under Grocery/Promo (Sheet1 Row 88 & Poster #40: MCC 5411/5699; Note: Rows 85–87 got 1.5% when billed as Variety Store MCC 5331)","App (MCC 4131)","10% Cashback on FreshToHome App (Sheet1 Row 90 verified 10%)","0% (Fuel excluded from cashback; surcharge waiver applies)","0% (Fuel excluded)","0% (Fuel surcharge waiver only)","10% Cashback via Paytm (PAYTM UTILITY) or Gas Utility Portal (MCC 4900 — User Confirmed)","POS Machine (MCC 5812)","1.5% base cashback on gift card portals","5% Cashback on all Brand Gift Cards & Amazon Pay Gift Cards on GyFTR by Kotak (max ₹100/txn, ₹500/mo; claim in 811 app)","1.5% base cashback when paid directly on Hathway website (Verified Poster #43: $S • MCC 4816 earns 1.5%, not 10%)","10% via Airtel Thanks App","5% via GyFTR → Amazon Pay Route: Buy Amazon Pay GC on GyFTR by Kotak (5% CB, max ₹100/txn) → Load Wallet → Pay bill on Amazon","2% via Amazon Pay bill pay","Website (To get first month cashback :))","POS Machine (Paytm POS Machine at Hibacci Hyderabad Banjara Hills)","1.5% base cashback (Myntra is excluded from regular 10% shopping; got 10% only during HSBC Oct Promo on MCC 5699)","0% Cashback (Insurance MCC 6300 is excluded on HSBC Live+)","Website (MCC 5193)","0% Cashback when billed under MCC 5193 Florist (Sheet1 Row 103 verified 0% on IGP)","Website (MCC-5977)","10% Cashback via Paytm (ONE97 COMMUNICATIONS L) or Jio App (MCC 4814/4900 — User Confirmed)","10% Cashback via Paytm (PAYTM) or MyJio App (MCC 4814 — User Confirmed)","2% cashback via Amazon Pay bill payment","0% (Excluded telecom)","0% on telecom bills","0% on telecom bill payments","Base 1.5% cashback on OTT subscription","10% Cashback on App & POS Machine (Verified MCC 5814)","10% Cashback on HSBC Live+ (Verified offline POS: $S • MCC 5699)","10% Cashback on Utility MCC 4900 (up to ₹1,200/mo)","5% Route: Buy Amazon Pay GC on GyFTR by Kotak (5% CB, max ₹100/txn) → Load Amazon Pay Wallet → Book LPG Cylinder on Amazon","2% cashback on LPG booking via Amazon Pay","10% Cashback on Magicpin Food Delivery (Verified Poster #35 & Backup 2 Row 5: MAGICPIN • MCC 5499; Vouchers via IAP SAMAST get 0%)","0% Cashback on Magicpin Vouchers (Sheet1 Rows 122–123 verified 0% on IAP SAMAST)","10% Cashback on HSBC Live+ (Verified Online max.com MCC 4814 & Offline POS MCC 5699)","1.5% base cashback on App (Sheet1 Row 126 verified 1.5% on MCC 5262)","POS Machine (5411)","App (MCC 5411 wallet loading)","10% Cashback on Website (Verified MCC 5499)","5% on online spend","POS Machine (MCC 5699, confirmed with CC)","1.5% base cashback at POS Machine (Verified Sheet1 Row 133 & Poster #17: $S • MCC 5722)","10% Cashback on App (Verified MCC 4814)","10% on Airtel Axis if utility/telecom eligible","1.5% base cashback (Myntra is excluded from regular 10% shopping, except 10% welcome promo until 31 Oct 2026)","10% Cashback at POS Machine (Sheet1 Row 135 verified 10%)","1.5% base cashback on Online Pharmacy (Verified Poster #42: $S • MCC 5912)","10% Cashback on HSBC Live+ (Verified Sheet1 Row 139 & Poster #37: $S • MCC 4814)","1.5% base cashback at POS Machine (Nutsby Supplement Store Madhapur Hyd • MCC 7941)","App (Ordered Lipstick, MCC - 5977)","1.5% base cashback at POS Machine","10% Cashback on POS Machine (Verified MCC 5691)","POS Machine (MCC-7011)","10% Cashback on Electricity, Gas, Water & Mobile/Broadband Recharges via Paytm (User Confirmed: PAYTM, PAYTM UTILITY & ONE97 COMMUNICATIONS L • MCC 4900/4814)","App (( 5% off on HSBC Card applied ))","App (pizza hut app)","10% Cashback at POS Machine (Supermarket / Grocery)","Website $B","POS Machine (MCC 7832)","1.5% base cashback on POS Machine (Verified MCC 5942)","App (RD Click Mobile App)","POS Machine (reliance fresh store)","POS Machine (Reliance Signature, MCC 5411)","POS Machine (RELIANCE SMART STORE MCC 5411)","POS Machine (MCC 5411)","POS Machine (MCC 5137, Clothes bought.. strange no 10%)","1.5% base cashback (Verified Poster #26: $S • MCC 7394)","POS Machine (MCC 7999 - RECREATIONAL ACTIVITIES)","1.5% base cashback on Samsung Website (Sheet1 Row 167 verified 1.5%)","App (Clothes Shopping - mcc - 5691)","10% Cashback at Offline POS (Verified Poster #22: $S • MCC 5311)","Base 1.5% cashback on HSBC Live+ (5% on Kotak 811)","1.5% base cashback on App (Verified MCC 7372)","1.5% base cashback on Website/App (Sheet1 Row 170 verified 1.5% on MCC 5977)","POS Machine (Liquor from spencers MCC 5411)","0% Cashback (Excluded MCC 7372)","10% Cashback on POS Machine (Verified MCC 5661)","10% Cashback at Star Bazaar Grocery (User Confirmed: STAR BAZAAR • MCC 5411)","Website (MCC 5732)","10% Cashback (MCC 5411/5814 Food Delivery)","10% Cashback on Swiggy (Max ₹1,500/mo cap)","10% Cashback on Swiggy (Max ₹500/mo cap)","App (MCC 5499)","10% Cashback on App (Verified MCC 5411 / 5399; Note: Some non-grocery/milk orders under Swiggy Limited Banglore IN reported 1.5%)","10% cashback on Swiggy Instamart","5% via Direct Card OR GyFTR","App (Swish App)","Website (tata nutrikorner site)","0% Cashback on App/Website (MCC-9399, Tata Power Odisha)","Website (TIMES PRIME SUBSCRIPTION MCC 5968)","App (MCC-7392 WRONG AS PER ORDER (on UPI mcc was 5799, ripped on card payment))","Payment Link (dotPe etc.) (I didn't get any cashback, it was a new electricity connection payment for UPCL)","10% Cashback directly on Utility/Telecom portals (MCC 4814/4900, max ₹1,200/mo)","5% Route: Buy Amazon Pay GC on GyFTR by Kotak (5% CB, max ₹100/txn) → Load Amazon Pay Wallet → Pay Electricity, Water, Gas, Broadband & Recharges","2% cashback directly via Amazon Pay ICICI on Amazon bill payments","0% (Excluded utility category)","0% on utilities","10% Cashback $B","10% Cashback on HSBC Live+ (Utilities/Telecom MCC 4814)","POS Machine (Waffle Bite Store)","0% Cashback (Verified Poster #8, #23, #24: IAP Amazon Seller Services Bangalore & SWIGGY ADD MONEY BENGALURU IN • MCC 6540 give 0%)","5% via GyFTR by Kotak: Buy Amazon Pay Gift Card (5% CB, max ₹100/txn) → Load Amazon Pay Wallet","5% cashback","10% Cashback via Paytm (ONE97 COMMUNICATIONS L) or Utility Portal (MCC 4900 — User Confirmed)","10% Cashback on Grocery / Quick-Commerce (User Confirmed: ZEPTO MARKETPLACE PRIVATE & ZEPTO • MCC 5411)","5% via GyFTR by Kotak (Buy Zepto Gift Card OR buy Amazon Pay GC → Load Wallet & pay on Zepto; max ₹100/txn, claim in 811 app)","10% Cashback on Food Delivery & Dining (User Confirmed: ZOMATO LIMITED & ZOMATO • MCC 5812/5814)","10% Cashback on Zomato (Max ₹500/mo cap)"];
-    const _RD=[{"airtel":0.01,"amazon_pay":0.01,"hsbc":0.015,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.05},{"airtel":0.01,"amazon_pay":0.01,"hsbc":0.1,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.01},{"airtel":0.01,"amazon_pay":0.01,"hsbc":0.015,"kotak":0.05,"rubyx":0.007,"scapia":0.02,"supermoney":0.03,"swiggy":0.01},{"airtel":0.0,"amazon_pay":0.0,"hsbc":0.0,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.0,"swiggy":0.0},{"airtel":0.01,"amazon_pay":0.01,"hsbc":0.015,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.01},{"airtel":0.25,"amazon_pay":0.01,"hsbc":0.1,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.01},{"airtel":0.1,"amazon_pay":0.02,"hsbc":0.1,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.0,"swiggy":0.0},{"airtel":0.25,"amazon_pay":0.02,"hsbc":0.1,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.0,"swiggy":0.0},{"airtel":0.01,"amazon_pay":0.01,"hsbc":0.1,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.05},{"airtel":0.01,"amazon_pay":0.05,"hsbc":0.015,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.01},{"airtel":0.01,"amazon_pay":0.05,"hsbc":0.1,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.01},{"amazon_pay":0.02,"hsbc":0.015,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.0,"swiggy":0.01},{"airtel":0.01,"amazon_pay":0.01,"hsbc":0.1,"kotak":0.0,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.01},{"airtel":0.1,"amazon_pay":0.01,"hsbc":0.1,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.01},{"airtel":0.01,"amazon_pay":0.01,"hsbc":0.1,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.015},{"airtel":0.01,"amazon_pay":0.01,"hsbc":0.015,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.015},{"airtel":0.0,"amazon_pay":0.0,"hsbc":0.0,"kotak":0.0,"rubyx":0.007,"scapia":0.01,"supermoney":0.0,"swiggy":0.0},{"airtel":0.0,"amazon_pay":0.0,"hsbc":0.0,"kotak":0.01,"rubyx":0.007,"scapia":0.01,"supermoney":0.0,"swiggy":0.0},{"airtel":0.0,"amazon_pay":0.0,"hsbc":0.015,"kotak":0.0,"rubyx":0.007,"scapia":0.01,"supermoney":0.0,"swiggy":0.0},{"amazon_pay":0.02,"hsbc":0.0,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.0,"swiggy":0.0},{"airtel":0.0,"amazon_pay":0.0,"hsbc":0.0,"kotak":0.05,"rubyx":0.0,"scapia":0.0,"supermoney":0.0,"swiggy":0.0},{"amazon_pay":0.01,"hsbc":0.015,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.01},{"airtel":0.1,"amazon_pay":0.02,"hsbc":0.015,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.0,"swiggy":0.0},{"airtel":0.0,"amazon_pay":0.0,"hsbc":0.015,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.0,"swiggy":0.0},{"airtel":0.01,"amazon_pay":0.01,"hsbc":0.0,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.01},{"amazon_pay":0.02,"hsbc":0.1,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.0,"swiggy":0.0},{"airtel":0.1,"amazon_pay":0.01,"hsbc":0.1,"kotak":0.0,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.01},{"airtel":0.01,"amazon_pay":0.01,"hsbc":0.015,"kotak":0.0,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.01},{"airtel":0.1,"amazon_pay":0.01,"hsbc":0.1,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.1},{"airtel":0.01,"amazon_pay":0.01,"hsbc":0.1,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.1},{"airtel":0.1,"amazon_pay":0.02,"hsbc":0.0,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.0,"swiggy":0.0},{"airtel":0.25,"amazon_pay":0.0,"hsbc":0.1,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.0,"swiggy":0.0},{"airtel":0.01,"amazon_pay":0.0,"hsbc":0.015,"kotak":0.0,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.0},{"airtel":0.0,"amazon_pay":0.01,"hsbc":0.0,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.0,"swiggy":0.0},{"airtel":0.0,"amazon_pay":0.05,"hsbc":0.0,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.0,"swiggy":0.0}];
-    const _ON=[{"airtel":1,"amazon_pay":5,"kotak":3,"rubyx":7,"scapia":6,"supermoney":4,"swiggy":2},{"airtel":9,"amazon_pay":5,"kotak":10,"rubyx":7,"scapia":6,"supermoney":11,"swiggy":1},{"airtel":1,"amazon_pay":5,"kotak":3,"rubyx":7,"scapia":12,"supermoney":4,"swiggy":1},{"airtel":9,"amazon_pay":16,"kotak":14,"rubyx":7,"scapia":6,"supermoney":15,"swiggy":1},{"airtel":9,"amazon_pay":5,"kotak":3,"rubyx":7,"scapia":6,"supermoney":11,"swiggy":1},{"airtel":1,"amazon_pay":5,"kotak":10,"rubyx":7,"scapia":6,"supermoney":4,"swiggy":2},{"airtel":19,"amazon_pay":5,"kotak":14,"rubyx":7,"scapia":6,"supermoney":4,"swiggy":1},{"airtel":21,"amazon_pay":22,"kotak":14,"rubyx":7,"scapia":6,"supermoney":15,"swiggy":1},{"airtel":24,"amazon_pay":25,"kotak":14,"rubyx":28,"scapia":6,"supermoney":27,"swiggy":26},{"airtel":24,"amazon_pay":29,"kotak":14,"rubyx":28,"scapia":6,"supermoney":27,"swiggy":30},{"airtel":40,"amazon_pay":36,"kotak":37,"rubyx":7,"scapia":6,"supermoney":38,"swiggy":39},{"airtel":40,"amazon_pay":42,"kotak":43,"rubyx":7,"scapia":6,"supermoney":44,"swiggy":45},{"airtel":9,"amazon_pay":49,"kotak":43,"rubyx":7,"scapia":6,"supermoney":48,"swiggy":40},{"amazon_pay":52,"kotak":51,"rubyx":28,"scapia":6,"supermoney":53,"swiggy":40},{"airtel":1,"amazon_pay":5,"kotak":10,"rubyx":7,"scapia":6,"supermoney":4,"swiggy":1},{"airtel":1,"amazon_pay":40,"kotak":58,"rubyx":7,"scapia":6,"supermoney":4,"swiggy":40},{"airtel":19,"amazon_pay":5,"kotak":3,"rubyx":7,"scapia":6,"supermoney":4,"swiggy":1},{"airtel":63,"amazon_pay":65,"kotak":3,"rubyx":28,"scapia":6,"supermoney":64,"swiggy":40},{"airtel":40,"amazon_pay":65,"kotak":3,"rubyx":28,"scapia":6,"supermoney":64,"swiggy":50},{"airtel":79,"amazon_pay":80,"kotak":14,"rubyx":28,"scapia":6,"supermoney":27,"swiggy":26},{"airtel":85,"amazon_pay":27,"kotak":85,"rubyx":7,"scapia":6,"supermoney":27,"swiggy":85},{"airtel":85,"amazon_pay":27,"kotak":1,"rubyx":7,"scapia":6,"supermoney":27,"swiggy":85},{"airtel":9,"amazon_pay":16,"kotak":9,"rubyx":7,"scapia":6,"supermoney":15,"swiggy":1},{"airtel":1,"amazon_pay":5,"kotak":3,"rubyx":7,"scapia":6,"supermoney":4,"swiggy":1},{"airtel":40,"amazon_pay":65,"kotak":3,"rubyx":28,"scapia":6,"supermoney":64,"swiggy":98},{"airtel":107,"amazon_pay":108,"kotak":14,"rubyx":28,"scapia":6,"supermoney":110,"swiggy":109},{"airtel":19,"amazon_pay":22,"kotak":14,"rubyx":7,"scapia":6,"supermoney":27,"swiggy":85},{"amazon_pay":113,"kotak":112,"rubyx":28,"scapia":6,"supermoney":27,"swiggy":26},{"airtel":40,"amazon_pay":118,"kotak":116,"rubyx":7,"scapia":6,"supermoney":38,"swiggy":117},{"airtel":1,"amazon_pay":5,"kotak":43,"rubyx":7,"scapia":6,"supermoney":4,"swiggy":40},{"airtel":1,"amazon_pay":5,"kotak":43,"rubyx":7,"scapia":6,"supermoney":48,"swiggy":45},{"airtel":9,"amazon_pay":5,"kotak":43,"rubyx":7,"scapia":6,"supermoney":11,"swiggy":40},{"airtel":9,"amazon_pay":5,"kotak":43,"rubyx":7,"scapia":6,"supermoney":48,"swiggy":45},{"airtel":123,"amazon_pay":124,"kotak":10,"rubyx":123,"scapia":123,"supermoney":123,"swiggy":123},{"amazon_pay":65,"kotak":128,"rubyx":28,"scapia":6,"supermoney":64,"swiggy":40},{"airtel":130,"amazon_pay":132,"kotak":131,"rubyx":7,"scapia":6,"supermoney":27,"swiggy":26},{"airtel":9,"amazon_pay":16,"kotak":3,"rubyx":7,"scapia":6,"supermoney":15,"swiggy":1},{"airtel":85,"amazon_pay":27,"kotak":14,"rubyx":7,"scapia":6,"supermoney":27,"swiggy":85},{"airtel":107,"amazon_pay":142,"kotak":14,"rubyx":28,"scapia":6,"supermoney":144,"swiggy":143},{"airtel":107,"amazon_pay":29,"kotak":14,"rubyx":28,"scapia":6,"supermoney":145,"swiggy":30},{"amazon_pay":151,"kotak":150,"rubyx":28,"scapia":6,"supermoney":27,"swiggy":26},{"airtel":1,"amazon_pay":40,"kotak":159,"rubyx":7,"scapia":6,"supermoney":4,"swiggy":40},{"airtel":163,"amazon_pay":40,"kotak":58,"rubyx":7,"scapia":6,"supermoney":4,"swiggy":40},{"airtel":9,"amazon_pay":16,"kotak":10,"rubyx":7,"scapia":6,"supermoney":15,"swiggy":1},{"airtel":201,"amazon_pay":65,"kotak":3,"rubyx":28,"scapia":6,"supermoney":64,"swiggy":200},{"airtel":1,"amazon_pay":5,"kotak":205,"rubyx":7,"scapia":6,"supermoney":4,"swiggy":204},{"airtel":19,"amazon_pay":27,"kotak":14,"rubyx":7,"scapia":6,"supermoney":27,"swiggy":85},{"airtel":9,"amazon_pay":5,"kotak":14,"rubyx":7,"scapia":6,"supermoney":11,"swiggy":1},{"airtel":1,"amazon_pay":27,"kotak":85,"rubyx":7,"scapia":6,"supermoney":4,"swiggy":85},{"amazon_pay":214,"kotak":213,"rubyx":28,"scapia":6,"supermoney":216,"swiggy":215},{"airtel":85,"amazon_pay":5,"kotak":14,"rubyx":7,"scapia":6,"supermoney":27,"swiggy":85},{"airtel":85,"amazon_pay":222,"kotak":221,"rubyx":7,"scapia":6,"supermoney":27,"swiggy":85},{"airtel":40,"amazon_pay":65,"kotak":225,"rubyx":28,"scapia":6,"supermoney":64,"swiggy":40},{"airtel":227,"amazon_pay":65,"kotak":3,"rubyx":28,"scapia":6,"supermoney":64,"swiggy":40}];
-    const _RW=[["1mg","1mg",0,0,0,0,0,"","",""],["aaha andhra","Aaha Andhra",1,1,8,1,1,"RIVED FOODS PRIVATE LI BANGALORE IN","5814","="],["abhibus","AbhiBus",2,2,0,2,0,"","",""],["act fibernet","ACT Fibernet",3,3,13,3,2,"ATRIA CONVERGENCE...","4186","="],["agoda","Agoda",4,4,17,4,0,"AGODA COMPANY PTE LTD","","="],["aha telugu","AHA Telugu",5,0,0,5,1,"","",""],["airbnb","Airbnb",2,2,0,2,0,"","",""],["airtel","Airtel",6,5,18,6,2,"AIRTEL IN | BHARTI AIRTEL LIMITED | Airtel Direct Online","4814","(AIRTEL IN / BHARTI AIRTEL LIMITED • MCC 4814)"],["airtel app","Airtel App",7,6,20,7,2,"AIRTEL IN GURGAON","4814","="],["airtel postpaid","Airtel Postpaid / Broadband",8,7,23,8,2,"BHARTI AIRTEL LIMITED","4814","="],["airtel prepaid","Airtel Prepaid",8,7,23,9,2,"BHARTI AIRTEL LIMITED | Airtel Payments Bank","4814","(BHARTI AIRTEL LIMITED / Airtel Payments Bank • MCC 4814)"],["ajfan nuts and dryfruits","Ajfan Nuts and Dryfruits",9,1,31,1,1,"Ajfan International Re Hyderabad IN","5462","="],["ajio mcc 4626","Ajio (AJIO OTP / MCC 4626)",10,0,32,0,0,"AJIO","4626","="],["ajio","Ajio (Reliance Retail OTP)",10,8,33,0,0,"RELIANCE RETAIL LIMITED NAVI MUMBAI","5691","="],["akshayakalpa","Akshayakalpa",11,1,17,1,1,"Akshayakalpa | AKSHAYAKALPAFARMSAND Bangalore IN","","(Akshayakalpa / AKSHAYAKALPAFARMSAND Bangalore IN)"],["alienkind bangalore","AlienKind Bangalore",12,1,17,1,1,"CAS*Fudr","","="],["aligarh house hsr banglore","Aligarh House HSR Banglore",12,1,34,1,1,"MW ALIGARH HOUSE FOODS A BENGALURU","5812","="],["amazon","Amazon",13,9,35,10,3,"AMAZON PAY INDIA PRIVATET | Amazon india Private india ltd | AMAZON UTILITIES MUMBAI IN | AMAZON PAY INDIA PRIVATE LIMITED | AMAZON INDIA CYBS","5699, 4900, 5399, 5262","(AMAZON PAY INDIA PRIVATET / Amazon india Private india ltd • MCC 5699/5399)"],["amazon fresh","Amazon Fresh (MCC 5411 / AMAZONIN)",9,10,41,11,3,"AMAZONIN | AMAZON PAY INDI","5411","(AMAZONIN / AMAZON PAY INDI • MCC 5411)"],["amazon fresh 5699","Amazon Fresh (MCC 5699)",9,9,46,11,3,"Amazon india Private india ltd","5699","="],["amazon now","Amazon Now",9,10,47,12,3,"AMAZONIN GURGAON IN | AMAZONIN 2233554466 | IAP AMAZON PAY INDIA PRIVA Bangalore","5411, 5262","(AMAZONIN GURGAON IN / AMAZONIN 2233554466 • MCC 5411)"],["amazon pay gift card","Amazon Pay Gift Card (Wallet Load & Bill Pay Route)",14,11,50,13,4,"PINE LABS / QWIKCILVER | VOUCHERGRAM GYFT","5947","(PINE LABS / QWIKCILVER / VOUCHERGRAM GYFT • MCC 5947)"],["amul shop","Amul Shop",15,1,54,14,1,"GUJARAT CO OPERATIVE M Ahmedabad IN","","="],["amul shop shopamulcom","Amul Shop (shop.amul.com)",9,1,55,1,1,"INF*GUJARAT COOPERATIV","5411","="],["apollo 247","Apollo 247",0,0,0,0,0,"","",""],["apple india","Apple India",10,4,56,1,1,"Apple India Pvt Ltd","","="],["applecom","Apple.com",5,4,17,1,1,"Apple music subscription","","="],["aslam butter chicken","Aslam Butter Chicken",12,12,57,15,5,"MS ASLAM CHICKEN CORN DELHI","5812","="],["attide boutique hotel","Attide Boutique Hotel",12,4,59,1,1,"ATTIDE BANGALORE IN","","="],["bazaar kolkata","Bazaar Kolkata",10,1,60,1,1,"","5651","="],["belgian waffle","Belgian Waffle",12,1,61,1,1,"BLOOMBAY ENTERPRISES MUMBAI IN","","="],["big basket","Big Basket",9,13,62,16,0,"INNOVATIVE RETAIL CO | INNOVATIVE RETAIL CONCEPTS | BIGBASKET BANGALORE IN | WWWBIGBASKETCOM GURGAON IN","5411","(INNOVATIVE RETAIL CO / BIGBASKET BANGALORE IN • MCC 5411)"],["bigbasket","BigBasket",16,13,62,17,0,"INNOVATIVE RETAIL CO | IAP INNOVATIVE RETAIL CONC BENGALURU | BIGBASKET BANGALORE IN | INNOVATIVE RETAIL CONCEPTS","5411","(INNOVATIVE RETAIL CO / BIGBASKET BANGALORE IN • MCC 5411)"],["bigbasket on tata neu","BigBasket On Tata Neu",9,1,66,4,0,"WWWBIGBASKETCOM GURGAON IN","","="],["bisleri","Bisleri",7,6,67,7,2,"RAZ*BISLERI INTERNATIO MUMBAI MH IN","4900","="],["bisleri international","Bisleri International",9,1,68,1,1,"Bisleri International","5499","="],["bistro by blinkit","Bistro by Blinkit",11,1,69,1,1,"Bistro GURGAON IN | Blinkit Foods Limit GURGAON IN","5814, 5812","(Bistro GURGAON IN / Blinkit Foods Limit GURGAON IN • MCC 5814/5812)"],["blinkit","Blinkit (Grocery)",16,14,70,18,0,"Blinkit BANGALORE IN | BLINK COMMERCE PVT LTD | IAP Blinkit Limited Bengaluru | BLINKIT GURGAON IN","5411","(Blinkit BANGALORE IN / BLINK COMMERCE PVT LTD • MCC 5411)"],["blinkit ecom","Blinkit Ecom (Non-Grocery / Electronics)",10,15,71,18,0,"BLINKIT ECOM CYBS | BLINKIT ECOM","5262, 5732","(BLINKIT ECOM CYBS / BLINKIT ECOM • MCC 5262/5732)"],["blinkt","Blinkt",9,1,72,4,0,"Blinkit BANGALORE IN | Blinkit Gurugram IN","5411","(Blinkit BANGALORE IN / Blinkit Gurugram IN • MCC 5411)"],["bluedart","Bluedart",10,4,73,1,1,"","4215","="],["boodmocom","boodmo.com",10,4,74,1,1,"RAZ*Smart Parts online gurgaon","5533","="],["book my show","Book my show",17,4,75,4,0,"IAP BOOKMYSHOW COM GURGAON | IAP BookMyShow","7832","(IAP BOOKMYSHOW COM GURGAON • MCC 7832)"],["bookmyshow","BookMyShow",5,0,75,0,0,"IAP BOOKMYSHOW COM GURGAON | IAP BookMyShow","7832","(IAP BOOKMYSHOW COM GURGAON • MCC 7832)"],["bookmyshow events","Bookmyshow events",5,4,75,4,0,"IAP BOOKMYSHOW COM GURGAON | IAP BookMyShow","7832","(IAP BOOKMYSHOW COM GURGAON • MCC 7832)"],["branded clothing","Branded Clothing",10,1,76,1,1,"","5651","="],["bses yamuna","Bses yamuna",3,3,77,3,2,"BSES YAMUNA NEW DELHI","9399","="],["bsnl recharge","BSNL Mobile Recharge",8,6,78,19,2,"PAYTM","4814","="],["burger farm","Burger Farm",11,1,81,1,1,"RAZ*Burger Farm India Jaipur RJ IN","","="],["burger king","Burger King",12,1,82,4,0,"Restaurant Brands Asia | BURGER KING INDIA LIMI BANGALORE IN","5812","(Restaurant Brands Asia / BURGER KING INDIA LIMI BANGALORE IN • MCC 5812)"],["carnival company  aerohub chennai","Carnival company - aerohub chennai",12,1,83,1,1,"KALS Hospitality Chennai IN","5813","="],["cash withdrawal","Cash withdrawal",18,16,84,20,"","","",""],["cc bill payments","CC Bill Payments",18,17,86,21,"","","",""],["cesc","CESC",7,6,54,7,2,"CESC Limited Kolkata IN","","="],["clash of clans","Clash of Clans",5,4,87,1,1,"FS *SUPERCELLSTORE fsprg.nl NL","","="],["cleartax","Cleartax",19,4,0,14,1,"","",""],["clock jewelry watch and silverware stores","Clock, Jewelry, Watch and Silverware Stores",18,18,0,20,"","","",""],["clove dental","Clove Dental",3,16,88,22,"","","8062","="],["clovia","Clovia",20,0,89,5,1,"","",""],["cmr shopping mall","CMR Shopping Mall",10,1,90,1,1,"","5699","="],["cookieman","Cookieman",21,4,91,1,1,"CookieMan","5462","="],["country delight","Country Delight",9,1,92,23,0,"IAP BEEJAPURI DAIRY PVT LTD NOIDA / COUNTRYDELIGHT Gurgaon IN | PTM*Country Delight Gurgaon IN","5499, 5411","(IAP BEEJAPURI DAIRY PVT LTD NOIDA / PTM*Country Delight Gurgaon IN • MCC 5499/5411)"],["cred ecom","Cred (Gift Cards / Store / Ecom)",22,4,93,23,0,"CRED ECOM | REL*DREAMPLUG PAYTECH HTTPS://CRED. IN | RAZ*DREAMPLUG PAYTECH SOL","5399, 5947, 7311","(CRED ECOM / RAZ*DREAMPLUG PAYTECH SOL • MCC 5399/5947/7311)"],["cred","Cred (Utility & Mobile Recharge)",23,1,94,23,0,"DREAMPLUG TECHNOLOGI Bangalore IN | Dreamplug Technologies","4814, 4900","(DREAMPLUG TECHNOLOGI Bangalore IN • MCC 4814/4900)"],["crma","Crōma",10,4,95,4,0,"Infiniti Retail Ltd.","","="],["damensch","DaMENSCH",20,0,89,5,1,"","",""],["dealshare mart pos","Dealshare Mart POS",9,1,96,1,1,"BRISAM RETAIL PRIVATE JAIPUR IN","","="],["decathlon","Decathlon",24,8,97,24,0,"DECATHLON SPORTS INDIA PV | DSI PONDY BAZAAR CHENNAI | DAHISAR 1423","5941","(DECATHLON SPORTS INDIA PV / DSI PONDY BAZAAR CHENNAI • MCC 5941)"],["district","District (Movie Tickets & Events)",5,4,99,4,0,"District Movie Ticket | IAP DISTRICT MOVIES GURUGRAM","5947, 7832","(DISTRICT MOVIE TICKET / IAP DISTRICT MOVIES GURUGRAM • MCC 5947/7832)"],["district by zomato","District by Zomato (Dining)",12,1,100,4,0,"IAP DISTRICT DINING CYBS GURGAON | DISTRICT DINING RZP","5812","(IAP DISTRICT DINING CYBS GURGAON / DISTRICT DINING RZP • MCC 5812)"],["dmart","Dmart",9,1,92,14,1,"Avenue Supermarts Ltd Medak IN","5411","="],["dmart bangalore","Dmart Bangalore",9,1,59,1,1,"Avenue Supermarts Ltd bangalore IN","","="],["dmart ready","DMart Ready",9,1,101,1,1,"","",""],["dna infotel","DNA Infotel",5,0,0,5,1,"","",""],["dominos","Dominos",11,1,102,4,0,"JUBILANT FOODWORKS LIM NOIDA IN | IAP PAY*JUBILANT FOODWORKS WWW.DOMINOS.C","5814","(JUBILANT FOODWORKS LIM NOIDA IN / IAP PAY*JUBILANT FOODWORKS WWW.DOMINOS.C • MCC 5814)"],["dominos pizza","Dominos Pizza",25,1,103,23,0,"","5812, 5814","(MCC 5812/5814)"],["iap lalpathlabs gurgaon","Dr Lal PathLabs (IAP LALPATHLABS)",26,4,104,1,1,"IAP LALPATHLABS GURGAON","8071","="],["eat club","Eat Club",27,1,103,23,0,"","5812, 5814","(MCC 5812/5814)"],["eatclub","EatClub",11,1,105,4,0,"EATCLUB BRANDS PRIVATE | EatClub","5814","(EATCLUB BRANDS PRIVATE / EatClub • MCC 5814)"],["eatgood technologies","Eatgood technologies",12,4,17,1,1,"Bangalore IN","","="],["eazydiner","EazyDiner",28,1,103,23,0,"EAZYDINER GURGAON IN","5812, 5814","(EAZYDINER GURGAON IN • MCC 5812/5814)"],["education services","Education Services",18,16,84,20,"","","",""],["electricity bill","Electricity Bill",23,6,106,25,2,"PAYTM | PAYTM UTILITY | UTILITY BILL PAYMENT | BBPS Electricity Portal","4900","(PAYTM / PAYTM UTILITY / UTILITY BILL PAYMENT • MCC 4900)"],["electricity bills","Electricity Bills",18,6,106,26,2,"PAYTM | PAYTM UTILITY | UTILITY BILL PAYMENT","4900","(PAYTM / PAYTM UTILITY / UTILITY BILL PAYMENT • MCC 4900)"],["emi transactions","EMI transactions",18,16,84,20,"","","",""],["fashion city","Fashion City",10,1,60,1,1,"","5651","="],["fastag recharge","FASTag Recharge (via Amazon Pay Wallet)",23,19,111,27,2,"","",""],["financial institutions","Financial Institutions",18,16,84,20,"","","",""],["firstclub","FirstClub",9,1,72,1,1,"FirstClub Bangalore","5411","="],["firstcry","Firstcry",29,8,114,0,0,"FIRST CRY","5641","="],["flipkart","Flipkart",13,4,115,28,3,"FLIPKART INTERNET PRIVATE LIMITED | Flipkart Internet Pvt Ltd","5311, 5399","(FLIPKART INTERNET PRIVATE LIMITED / Flipkart Internet Pvt Ltd • MCC 5311/5399)"],["flipkart grocery","Flipkart Grocery",9,1,92,29,3,"FLIPKART GROCERY","5411","="],["flipkart health","Flipkart Health+",0,4,0,30,3,"","",""],["flipkart minutes","Flipkart Minutes",30,1,119,31,3,"FLIPKART INTERNET PVT BANGALORE | Flipkart Internet priv | Flipkart Internet P Bangalore","5411, 5699, 5331","(FLIPKART INTERNET PVT BANGALORE / Flipkart Internet priv • MCC 5411/5699)"],["flipkart travel hotels","Flipkart Travel (Hotels)",4,4,120,32,3,"Flipkart International Pv","4131","="],["flyrobo","Flyrobo",31,0,89,5,1,"","",""],["fth","FTH",9,1,121,4,0,"FreshtoHome india ltf","","="],["fth daily","FTH Daily",9,1,92,23,0,"","5411","="],["fuel","Fuel / Petrol / Diesel",32,20,122,33,1,"FUEL PETROL SERVICE STATION","5541, 5542","(FUEL PETROL SERVICE STATION • MCC 5541/5542)"],["gail gas","Gail Gas",18,6,125,26,2,"PAYTM UTILITY | GAIL GAS LIMITED","4900","(PAYTM UTILITY / GAIL GAS LIMITED • MCC 4900)"],["gail piped gas","Gail Gas / Piped Gas Bill",23,6,125,19,2,"PAYTM UTILITY | GAIL GAS LIMITED","4900","(PAYTM UTILITY / GAIL GAS LIMITED • MCC 4900)"],["glens bakehouse","GLENS BAKEHOUSE",12,1,59,1,1,"INPAVA HOSPITALITY","","="],["gonguraa","Gonguraa",12,1,8,1,1,"Gonguraa Kanchipuram IN","5814","="],["google play store","Google Play store",5,4,17,1,1,"GOOGLE PLAY MUMBAI IN","","="],["govt services","Govt Services",18,16,84,20,"","","",""],["gramee naturals","Gramee Naturals",9,1,59,1,1,"GRAMEE NATURALS HYDERABAD IN","","="],["gupta brothers","Gupta Brothers",12,1,126,1,1,"Gupta Brothers Abarkha","5812","="],["gyftr by kotak","GyFTR by Kotak (Gift Cards & Vouchers)",14,21,127,34,0,"VOUCHERGRAM INDIA PVT LTD | GYFTR KOTAK INSTANT VOUCHERS","5947, 5399","(VOUCHERGRAM INDIA PVT LTD / GYFTR KOTAK INSTANT VOUCHERS • MCC 5947/5399)"],["hm","H&M",20,0,89,0,0,"","",""],["hathway broadband","Hathway Broadband",7,22,129,35,2,"HATHWAY CABLE AND DATA MUMBAI","4816","="],["hdfc ergo general insurance","HDFC ERGO General Insurance",3,3,133,3,2,"HDFC ERGO General Insu Mumbai","","="],["hibacci","Hibacci",12,1,134,1,1,"HIBACCI HYDERABAD IN","","="],["hostinger","Hostinger",33,4,0,14,1,"HOSTINGER PTE LED Mumbai IN","5817","="],["hungerbox","Hungerbox",12,1,69,1,1,"Bangalore IN","5814","="],["iap myntra bangalore","IAP Myntra Bangalore",10,23,135,36,0,"IAP Myntra Bangalore","5699","="],["iap new india assurance mumbai","IAP New India Assurance Mumbai",3,24,136,1,1,"IAP New India Assurance Mumbai","6300","="],["igp","IGP",10,24,137,1,1,"IGP","5193","="],["igpcom","igp.com",34,24,138,14,1,"IGP","5193","="],["indane gas indian oil","Indane Gas (Indian Oil)",7,6,17,7,2,"GPAY UTILITIES MUMBAI IN","","="],["indigo","Indigo",35,2,0,2,0,"","",""],["innovist chemist at play","Innovist (Chemist at Play)",10,1,139,1,1,"IAP ONESTO LABS PRIVATE LI GURGAON","5977","="],["insurance services","Insurance Services",18,3,84,37,2,"","",""],["itihas restaurants","Itihas Restaurants",12,1,126,1,1,"TARA HOSPITALITIES Hyderabad IN","5812","="],["jio app","JIO APP",7,6,54,7,2,"RELIANCE RETAIL LIMITED","","="],["jio fiber","Jio Broadband / Jio Fiber",8,6,140,19,2,"ONE97 COMMUNICATIONS L | RELIANCE JIO INFOCOMM","4814, 4900","(ONE97 COMMUNICATIONS L / RELIANCE JIO INFOCOMM • MCC 4814/4900)"],["jio postpaid","Jio Postpaid",8,6,141,38,2,"PAYTM | RELIANCE JIO INFOCOMM","4814","(PAYTM / RELIANCE JIO INFOCOMM • MCC 4814)"],["jio prepaid","Jio Prepaid",8,6,141,39,2,"PAYTM | RELIANCE JIO INFOCOMM | Jio Prepaid Recharge","4814","(PAYTM / RELIANCE JIO INFOCOMM • MCC 4814)"],["jiohotstar","JioHotstar",5,4,146,23,0,"","",""],["jiomart","Jiomart",9,1,17,4,0,"RELIANCE RETAIL LIMITED NAVI MUMBAI | JIOMART CYBS MUMBAI IN | RELIANCE RETAIL LIMITE","5732","(RELIANCE RETAIL LIMITED NAVI MUMBAI / JIOMART CYBS MUMBAI IN • MCC 5732)"],["kamal imaging","Kamal Imaging",31,0,89,5,1,"","",""],["kamineni hospitas hyd","kamineni hospitas HYD",17,4,59,1,1,"Kamineni Hospitals RANGAREDDY IN","","="],["kapiva","Kapiva",11,1,54,1,1,"ADRET RETAIL PRIVATE LIMI","","="],["karachi bakery hyderabad","Karachi Bakery Hyderabad",9,1,76,1,1,"","5462","="],["kfc","KFC",11,1,147,4,0,"YUM RESTAURANT INDIA P MUMBAI IN | Y030 KFC NIT ROURKELA ROURKELA IN | kfc","5814","(YUM RESTAURANT INDIA P MUMBAI IN / Y030 KFC NIT ROURKELA ROURKELA IN • MCC 5814)"],["kpn fresh","KPN Fresh",9,1,59,1,1,"","",""],["kstdc hotel booking","KSTDC Hotel booking",17,4,54,1,1,"Karnataka state tourism deve PT | KSTDC REVENUE RECEIPTS HOTEL PG","","(Karnataka state tourism deve PT / KSTDC REVENUE RECEIPTS HOTEL PG)"],["lenskart","Lenskart",36,0,0,0,0,"","",""],["lic","LIC",3,3,54,3,2,"LIFE INSURANCE CORPORATION NOIDA LIMITED","","="],["licious","Licious",37,1,92,23,0,"","5411","="],["lifestyle","Lifestyle",20,8,148,0,0,"LIFE STYLE INTENATION GHAZIABAD IN","5699","="],["living liquidz","Living Liquidz",38,1,59,1,1,"LUCKY WINESFL II 237 C MUMBAI IN","","="],["lpg gas cylinder","LPG Gas Cylinder Booking (HP / Indane / Bharat Gas)",23,25,149,40,2,"INDANE / HP / BHARAT GAS","4900","="],["lulu hypermarket","Lulu HYpermarket",9,1,59,1,1,"Lulu HYpermarket","","="],["magicpin","Magicpin (Food Delivery)",11,1,152,23,0,"MAGICPIN | MAGICPIN GURGAON IN","5499","(MAGICPIN / MAGICPIN GURGAON IN • MCC 5499)"],["magicpin vouchers","Magicpin (Vouchers / IAP SAMAST)",3,24,153,23,0,"IAP SAMAST | MAGICPIN GURGAON IN","","(IAP SAMAST / MAGICPIN GURGAON IN)"],["magnify","Magnify",17,1,17,1,1,"RAZ*MAGNIFY CLUB,BENGALURU UKA -500","","="],["makerbazar","Makerbazar",31,0,89,5,1,"","",""],["max fashion","Max Fashion",20,8,154,0,0,"IAP ARVIND LIFESTYLE BRAND BANGALORE | LIFE STYLE INTENATION GHAZIABAD IN","4814, 5699","(IAP ARVIND LIFESTYLE BRAND BANGALORE / LIFE STYLE INTENATION • MCC 4814/5699)"],["medplus","MedPlus",0,4,0,14,1,"","5399","="],["meesho","Meesho",39,0,155,5,1,"Meesho technologies PR BNGLR","5262","="],["metro wholesale","Metro Wholesale",9,1,156,1,1,"METRO CASH AND CARRY I BANGALORE IN","5411","="],["milkbasket","Milkbasket",9,1,157,4,0,"IAP RELIANCE RETAIL LIMITE NOIDA | RELIANCE RETAIL LIMITED <Location> IN | JIOMART CYBS MUMBAI IN","5411","(IAP RELIANCE RETAIL LIMITE NOIDA / RELIANCE RETAIL LIMITED <Location> IN • MCC 5411)"],["milld","Milld",9,1,158,41,5,"IAP MILLD BANGALORE","5499","="],["minimalist","Minimalist",40,0,89,0,0,"","",""],["mokobara","Mokobara",41,0,89,0,0,"","",""],["moolchand mill pune","Moolchand Mill, Pune",10,1,160,1,1,"MOOLCHAND MILL PCMC PUNE IN","5699","="],["motherhood bengaluru in","MOTHERHOOD BENGALURU IN",10,1,54,1,1,"Mothercare","","="],["mr diy store","Mr DIY Store",10,4,161,1,1,"MR DIY NOIDA IN","5722","="],["my jio","My JIO",7,26,162,42,5,"IAP MY JIO MUMBAI","4814","="],["mygate","Mygate",3,3,76,3,2,"","8062","="],["myntra","Myntra",20,4,164,23,0,"","",""],["national mart warangal in","National Mart WARANGAL IN",9,1,165,1,1,"National Mart WARANGAL IN","","="],["natraj chhole bhature","Natraj Chhole Bhature",12,1,59,1,1,"NATRAJ FOODS","","="],["naturals bangalore in","NATURALS BANGALORE IN",9,1,76,1,1,"","5411","="],["navi general insurance","NAVI GENERAL INSURANCE",3,24,136,1,1,"NAVI GENERAL INSURANCE","6300","="],["netflix","Netflix",5,4,0,23,0,"","",""],["netmeds","Netmeds",0,4,166,1,1,"RELIANCE RETAIL LIMITI Chennai","5912","="],["nnnowcom","Nnnow.com",10,1,167,1,1,"IAP ARVIND LIFESTYLE BRAND BANGALORE","4814","="],["nnow arvind lifestyle","NNOW (Arvind Lifestyle)",20,8,167,5,1,"IAP ARVIND LIFESTYLE BRAND BANGALORE","4814","="],["nobero","Nobero",20,0,89,5,1,"","",""],["nutsby hyderabad in","Nutsby Hyderabad IN",10,4,168,1,1,"Nutsby Hyderabad IN","7941","="],["nykaa","Nykaa",40,8,169,0,0,"Nykaa","5977","="],["ola cabs","Ola Cabs",42,0,0,0,0,"","",""],["om collections bangalore in","OM COLLECTIONS BANGALORE IN",10,4,170,1,1,"OM COLLECTIONS BANGALORE IN","","="],["one 97","one 97",10,4,59,1,1,"","",""],["oswal factory outlet amritsar","Oswal Factory Outlet Amritsar",10,12,171,15,5,"GURU KRIPA OSWAL FACTO AMRITSAR IN","5691","="],["oswal factory phulkari amritsar","Oswal Factory Phulkari Amritsar",10,12,171,15,5,"KHAWAJA PHULKARI HOUSE AMRITSAR IN","5691","="],["ownly","Ownly",11,1,69,1,1,"CTRLX TECHNOLOGIES P 500081","5814","="],["panthanivas","Panthanivas",12,4,172,1,1,"OTDC ROURKELA SUNDERGARH IN","7011","="],["paytm","Paytm",7,6,173,7,2,"PAYTM | PAYTM UTILITY | Paytm Utility Noida IN | ONE97 COMMUNICATIONS L","4900, 4814","(PAYTM / PAYTM UTILITY / ONE97 COMMUNICATIONS L • MCC 4900/4814)"],["paytm  airtel broadband","PAYTM - Airtel Broadband",7,6,174,7,2,"PAYTM ( 5% off on HSBC Card applied )","","="],["pharmeasy","PharmEasy",0,0,0,0,0,"PHARMEASY MUMBAI IN","","="],["pigeon","Pigeon",17,4,59,1,1,"Stove kraft limited Bangalore in","","="],["pizza hut","Pizza Hut",11,1,175,4,0,"IAP RAZ*SAPPHIRE FOODS IND HTTPS://WWW.P","","="],["porter","Porter",43,4,0,23,0,"","",""],["prince super stores chennai in","PRINCE SUPER STORES CHENNAI IN",9,6,176,7,2,"PRINCE SUPER STORES CHENNAI IN","5411","="],["privateintenetaccess wwwprivatein de","PRIVATEINTENETACCESS WWW.PRIVATEIN DE",17,4,177,1,1,"","5734","="],["puma","Puma",20,0,89,0,0,"","",""],["purchases converted to emi post facto","Purchases converted to EMI post facto",18,16,84,20,"","","",""],["pvr","PVR",5,4,178,1,1,"PVR Limited Chennai","7832","="],["quartz components","Quartz Components",31,0,89,5,1,"","",""],["rama book depot lajpat","Rama Book Depot Lajpat",10,27,179,15,5,"RAMA BOOK DEPOT NEW DELHI IN","5942","="],["ratnadeep","Ratnadeep",9,1,180,4,0,"RAZ*RATNADEEP RETAIL P Hyderabad IN | RATNADEEP RETAIL PRIVAT BANGALORE IN","5411","(RAZ*RATNADEEP RETAIL P Hyderabad IN / RATNADEEP RETAIL PRIVAT BANGALORE IN • MCC 5411)"],["redbus","RedBus",2,2,0,2,0,"","",""],["reliance fresh","Reliance Fresh",9,1,181,4,0,"REL RETAIL LTD FRESH CHENNAI IN","","="],["reliance fresh signature","Reliance Fresh Signature",9,1,182,4,0,"FRESH SIGNATURE ROURKELA IN","5411","="],["reliance smart","Reliance Smart",9,1,183,4,0,"RELIANCE SMART ROURKELA IN","5411","="],["reliance smart bazaar","Reliance Smart Bazaar",9,1,184,4,0,"RELIANCE RETAIL LIMITED <Location> IN","5411","="],["reliance smart point","Reliance Smart Point",9,1,184,4,0,"Reliance Retail Ltd","5411","="],["reliance trends","Reliance Trends",10,4,185,4,0,"Reliance Trends","5137","="],["rental payments","Rental Payments",18,16,84,20,"","","",""],["rentmojo","Rentmojo",44,0,186,5,1,"RENTOMOJO LIMITED BENGALURU IN","7394","="],["robuin","Robu.in",31,0,89,5,1,"","",""],["rourkela club","ROURKELA CLUB",12,4,187,1,1,"ROURKELA CLUB SUNDERGARG IN","7999","="],["samsung","Samsung",31,0,188,5,1,"IAP Samsung India Electron Gurgaon","","="],["shein","Shein",10,1,189,1,1,"Nextgen Fast Fashion","5691","="],["shoppers stop","Shoppers Stop",10,1,190,4,0,"SHOPPERS STOP LTD GHAZIABAD IN","5311","="],["signify philips lighting","Signify (Philips Lighting)",31,4,191,14,1,"","",""],["skyyeub city","Skyye(UB City)",12,1,83,1,1,"SKYYE UB CITY BANGALORE","5813","="],["smartq","SmartQ",12,27,192,15,5,"SmartQ","7372","(MCC 7372)"],["smytten","Smytten",10,4,193,4,0,"RAZ*SMYTTEN HTTPS://SMYTT IN","5977","="],["snacc by swiggy","Snacc by Swiggy",27,1,103,14,1,"","5812, 5814","(MCC 5812/5814)"],["spar hyper market","Spar Hyper market",9,1,59,4,0,"MAX HYPERMARKET INDIA","","="],["spencers","Spencers",9,1,194,4,0,"SPENCERS RETAIL LIMITE","5411","="],["squarespace","Squarespace",3,3,195,43,1,"SQSP INVxx SQUARESPACE.C NY","7372","="],["sreeleathers rourkela","Sreeleathers Rourkela",10,12,196,15,5,"ROUNAKRAJ UDYOG PRIVAT ROURKELA IN","5661","="],["sri vardhini sweets blr","Sri Vardhini Sweets BLR",12,1,126,1,1,"MVBR SWEETS AND SAV BANGALORE","5812","="],["star bazaar","Star Bazaar",9,1,197,14,1,"STAR BAZAAR | STAR BAZAAR BANGALORE IN","5411","(STAR BAZAAR / STAR BAZAAR BANGALORE IN • MCC 5411)"],["star bazar","Star Bazar",9,1,197,1,1,"STAR BAZAAR | STAR BAZAAR BANGALORE IN","5411","(STAR BAZAAR / STAR BAZAAR BANGALORE IN • MCC 5411)"],["stufcool power bank","Stufcool Power Bank",10,1,198,1,1,"Raz*Nissan Enterprises","5732","="],["superyou","Superyou",9,1,158,41,5,"IAP ELITE MINDSET PRIVATE Mumbai","5499","="],["sweet karam coffee","Sweet Karam Coffee",9,1,72,1,1,"RAZ*SWEET KARAM COFFEE","5411","="],["swiggy","Swiggy",45,28,199,44,0,"Swiggy Limited Banglore IN | IAP SWIGGY FOOD BANGALORE | Swiggy Limited Bangalore IN | Swiggy IN Bangalore IN | Bundl Technologies Pvt Ltd | Swiggy Bangalore","5814, 5411","(Swiggy Limited Banglore IN / IAP SWIGGY FOOD BANGALORE • MCC 5814/5411)"],["swiggy dine out","Swiggy Dine out",11,1,202,1,1,"RRAZ*SWIGGY Bengaluru KA IN","5499","="],["swiggy instamart","Swiggy Instamart",9,29,203,45,5,"PTM*Swiggy Bangalore IN | BUNDL TECHNOLOGIES BENGALURU IN | IAP SWIGGY LIMITED Bengaluru","5411, 5399","(PTM*Swiggy Bangalore IN / BUNDL TECHNOLOGIES BENGALURU IN • MCC 5411/5399)"],["swish","Swish",11,1,206,1,1,"MUNCHMART TECHNOLOGIES BANGALORE","","="],["tata cliq","Tata Cliq",29,0,89,0,0,"","",""],["tata nutrikorner","Tata Nutrikorner",9,1,207,1,1,"IAP TATA NUTRIKORNER BANGALORE","","="],["tata power","Tata Power",7,30,208,7,2,"IAP ODISHA DISCOMS MUMBAI","9399","="],["telecom airtel","Telecom Airtel",18,31,18,46,2,"","4814","="],["telecom jiobsnl","Telecom Jio/BSNL",18,6,78,26,2,"PAYTM","4814","="],["the inkpot perfumery","The Inkpot Perfumery",10,1,139,1,1,"RAZ*Udit Kumar Shukla Xi Bn PAC SUP IN","5977","="],["times prime","Times Prime",5,4,209,4,0,"IAP TIMES PRIME MUMBAI","5968","="],["traya","Traya",46,4,210,1,1,"EBZ*TRAYA","7392, 5799","(EBZ*TRAYA • MCC 7392/5799)"],["uber","Uber",42,0,0,0,0,"","",""],["upcl dehradun","UPCL Dehradun",17,24,211,47,2,"UPCL Dehradun","","="],["upi offline stores","UPI offline stores",18,32,0,48,"","","",""],["urban company","Urban Company",47,4,0,23,0,"","",""],["utility bills via amazon pay","Utility Bills via Amazon Pay Wallet (GyFTR Route)",23,25,212,49,2,"","4814, 4900","(MCC 4814/4900)"],["vehicle insurance","Vehicle Insurance",18,33,84,50,2,"","",""],["vi prepaid","Vi Prepaid / Postpaid",8,6,217,19,2,"","4814","="],["vijaya diagnostic center","Vijaya Diagnostic center",17,4,59,1,1,"VIJAYA DIAGNOSTIC CENT HYDERABAD","","="],["vodafone","Vodafone",7,6,218,7,2,"VODAFONE IDEA L","4814","="],["waffle bite","Waffle Bite",12,1,219,1,1,"Kamala foods Jaipur IN","","="],["wallet load transactions","Wallet load transactions",18,34,220,51,4,"IAP Amazon Seller Services Bangalore | SWIGGY ADD MONEY BENGALURU IN","6540","(IAP Amazon Seller Services Bangalore / SWIGGY ADD MONEY • MCC 6540)"],["water bill","Water Bill",23,6,223,19,2,"ONE97 COMMUNICATIONS L | MUNICIPAL WATER UTILITY","4900","(ONE97 COMMUNICATIONS L / MUNICIPAL WATER UTILITY • MCC 4900)"],["wildcraft","WildCraft",20,0,89,0,0,"","",""],["yatracom","Yatra.com",2,2,0,2,0,"","",""],["zara","ZARA",10,1,54,4,0,"ZARA COM","","="],["zeno health","Zeno Health",0,0,0,5,1,"","",""],["zepto","Zepto",16,1,224,52,0,"ZEPTO MARKETPLACE PRIVATE | IAP Zepto Marketplace Priv Bangalore | Zepto 560068 | PYU*ZEPTO MARKETPLACE | php*Zepto | ZEPTO MARKETPLACE PRIVATE LIMITED | ZEPTO MARKETPLACE PRIV BANGALORE IN | PHP*Zepto Bengaluru IN | ZEPTO GURGAON IN | Zepto | php*zepto | Zepto marketplace priv bangalore IN | ZEPTONOW BANGALORE IN | Zepto Banglore IN | Zepto Marketplace Pvt Ltd | geddit convenience","5411","(ZEPTO MARKETPLACE PRIVATE / ZEPTO • MCC 5411)"],["zomato","Zomato",45,13,226,53,0,"ZOMATO | RAZ*Zomato Online Orde Gurgaon HA IN | ZOMATO CYBS NEWDELHI IN | IAP ZOMATO GURGAON | RAZ*Zomato Online Orde GURGAON HA IN | ZOMATO NEW DELHI IN | ETERNAL LIMITED IN | ZOMATO GURGAON IN | ZOMATO LTD BANGALORE IN | IAP ZOMATO NEW DELHI | ZOMATO LIMITED | Zomato Gurugram","5812, 5814","(ZOMATO LIMITED / ZOMATO / RAZ*Zomato Online Orde • MCC 5812/5814)"],["zoomcar","Zoomcar",42,0,0,0,0,"","",""],["zudio","Zudio",10,1,156,4,0,"STAR BAZAAR","5411","="]];
+    // 1. Spends Database
+    const _C=["Dining","Excluded MCCs","Hotel (Non-dining)","Utilities","Grocery","Shopping (Non-grocery)","Food Delivery","Gift card and voucher purchases","Pharmacies","Entertainment","Yet To Know","Travel","Bakery","Liquor","General","Miscellaneous Food Stores","Food Delivery & Grocery","Coaching!???","Food Delivery & Dining"];
+    const _RT=["gyftr_both","gyftr_apay_bill","gyftr_voucher","direct"];
+    const _N=["10% Cashback via POS Machine (MCC 5814)","1% base","1% base cashback on Swiggy Ornge (Min ₹100/txn; ₹1,000/cycle cap)","5% via Direct Card / POS OR GyFTR by Kotak (Buy Brand Gift Card / Amazon Pay GC → pay via Amazon Pay Wallet; max ₹100/txn, claim in 811 app)","3% cashback on eligible UPI scan & pay / merchant spends","1% flat cashback","1% Scapia coins","~0.7% ICICI reward points","0% Excluded (MCC 4186 (ISP))","0% (Excluded on Swiggy Ornge)","5% via GyFTR → Amazon Pay Route: Buy Amazon Pay GC on GyFTR by Kotak (5% CB, max ₹100/txn) → Load Wallet → Pay bill/recharge on Amazon","1.5% base cashback via App","5% Cashback on eligible online partner spends with Swiggy Ornge (Min ₹249/txn; shared ₹1,500/cycle cap with Swiggy spends)","10% Cashback via App (4814 MCC. Broadband bill payment)","10% via Airtel Thanks","0% on excluded / utility categories","2% cashback via Amazon Pay bill payment","10% Cashback via App (Prepaid mobile recharge - MCC - 4814)","10% Cashback via Airtel Thanks App / Paytm (Verified MCC 4814)","10% Cashback via Airtel Thanks App / Website / Paytm (Verified MCC 4814)","10% Cashback via POS Machine (MCC 5462 - Ajfan nuts store Jubilee Hills Hyd)","10% Cashback via Website (MCC 4626; OTP merchant name AJIO)","1.5% base cashback on HSBC Live+ when OTP is AJIO MCC 4626 (5% on Swiggy Ornge min ₹249)","10% Cashback via App","10% Cashback via POS Machine (MCC-5812)","1.5% base cashback (User Confirmed: AMAZON PAY INDIA PRIVATET — Direct Amazon shopping earns 1.5% base rate)","5% ONLY via GyFTR by Kotak Voucher Route (Direct Kotak 811 DC checkout gives 0% base; max ₹100/txn, ₹500/mo, claim in 811 app)","5% unlimited cashback (Prime) / 3% (Non-Prime — toggle in Manage Cards)","1.5% base cashback via App (MCC 5262 Amazon pay gift card MERCHANT NAME DURING OTP \"AMAZON PAY INDI\" and MERCHANT NAME ON MAIL AFTER TRANSACTION \"AMAZON PAY INDIA PRIVATET\")","1.5% base cashback when billed under MCC 5699","1% base cashback on Swiggy Ornge (Min ₹100/txn, ₹1,000/cycle cap)","10% Cashback when billed as AMAZONIN Grocery (Verified Poster #32 & Sheet1: MCC 5411; Note: MCC 5699 earns 1.5%)","10% Cashback via App (MCC 5411)","10% Cashback via App (Phone Topup)","1.5% base cashback (Use Kotak 811 Super DC on GyFTR/Zepto for 5% CB up to ₹100/txn)","10% Cashback via Website (5411)","10% Cashback via Website (Amazon now)","10% Cashback via Website (MCC - 5411)","1.5% base on HSBC Live+ (5% on Swiggy Ornge online min ₹249)","1.5% base cashback via Website (MCC?)","1.5% base cashback via POS Machine","10% Cashback on Restaurant Dining (MCC 5812)","10% Cashback via POS Machine (MCC-5651, checked with CC, Merchant Name in SMS - BAAZAR RETAIL PVT LTD)","10% Cashback via POS Machine (Belgian Waffle Store)","10% Cashback on HSBC Live+ via Paytm/Amazon/Portal (MCC 4900)","10% Cashback on Grocery (User Confirmed: INNOVATIVE RETAIL CO / BigBasket • MCC 5411)","10% Cashback via App (BigBasket Mobile App (MCC - 5411))","10% Cashback via App (Tata Neu - Big Basket Mini App)","10% Cashback via App (MCC 4900)","10% Cashback via Website (MCC 5499)","10% Cashback via App (MCC 5814)","10% Cashback on Grocery / Quick-Commerce (Verified Poster #3, #4, #9: MCC 5411/5814)","1.5% base cashback via Payment Link (dotPe etc.) (Bluedart link pay - MCC 4215)","1.5% base cashback via Website (MCC 5533)","1.5% base cashback via App $B","10% Cashback via POS Machine $B","0% Excluded (Mcc 9399)","10% Cashback via Paytm (PAYTM) or Telecom Portal (MCC 4814 — User Confirmed)","10% Cashback via App (Burger Farm App)","10% Cashback via POS Machine/App (Dining Burger - Mcc - 5812)","10% Cashback on HSBC Live+ via Paytm/Portal (MCC 4900 — User Confirmed)","10% Cashback via POS Machine (MCC 5813)","10% Cashback via Website","1.5% base cashback via App (Bluedart link pay - MCC 4215)","1.5% base on HSBC Live+ (5% Cashback + up to 19% hotel / 6% flight discount on Swiggy Ornge)","0% Excluded $B","10% Cashback via POS Machine (MCC - 5699)","1.5% base cashback via POS Machine (MCC 5462)","10% Cashback via App (MCC 5499)","10% Cashback on Mobile Recharge & Utility Bills via CRED (Verified MCC 4814 & MCC 4900)","0% (Excluded MCC / Category)","0% (Excluded category on Kotak 811 DC)","0% (Excluded)","10% Cashback on HSBC Live+ (MCC 5732 Electronics; 5% on Swiggy Ornge online min ₹249)","10% Cashback via POS Machine (Dealshare Mart POS)","10% Cashback on HSBC Live+ (User Confirmed: DECATHLON SPORTS INDIA PV & DSI PONDY BAZAAR CHENNAI • MCC 5941; Note: DAHISAR 1423 POS got 1.5%)","10% Cashback via POS Machine (5941 MCC DECATHLON)","1.5% base cashback on Movie Tickets & Events (User Confirmed: DISTRICT MOVIE TICKET • MCC 5947/7832 gives 1.5%, not 10%)","10% Cashback on Dining & Table Pre-Booking (Sheet1 Rows 72–73: MCC 5812; Movie tickets earn 1.5%)","10% Cashback via POS Machine","10% Cashback via App (DMart App)","10% Cashback via App/POS Machine (dominos app, delivery. MCC - 5814)","1.5% base on HSBC Live+ (5% on Swiggy Ornge online travel min ₹249)","10% Cashback via App (EatClub App)","10% Cashback via App (MCC 5812)","10% Cashback via Paytm (PAYTM / PAYTM UTILITY), Cred or Utility Portal (MCC 4900 — User Confirmed)","10% Cashback via Paytm or Utility Portal (MCC 4900 — User Confirmed)","0% on direct FASTag reload (use Kotak GyFTR → Apay Wallet for 5%)","10% Cashback via App (MCC 5641)","1.5% base cashback (Direct Flipkart marketplace is excluded from HSBC 10%; Note: Flipkart Minutes grocery got 10% in Poster #40)","10% Cashback verified on Flipkart Minutes order (Verified Poster #40: $S • MCC 5699)","1.5% base cashback via App (MCC 4131)","10% Cashback on Grocery & Meat (MCC 5411/5422)","10% Cashback via App (Minutes are now 5331 Variety Store unless changed)","0% Cashback (Excluded on HSBC Live+ and Swiggy Ornge)","10% Cashback via Paytm (PAYTM UTILITY) or Gas Utility Portal (MCC 4900 — User Confirmed)","0% Cashback (Excluded on HSBC Live+ & Swiggy Ornge)","10% Cashback via Payment Link (dotPe etc.) (MCC 5310)","10% Cashback via POS Machine (MCC 5812)","1.5% base cashback on HSBC Live+ (Use Kotak 811 Super Debit Card here for 5% cashback up to ₹100/txn)","10% Cashback on Apparel (MCC 5651)","10% Cashback on Dining & Sweets (MCC 5814/5812)","1.5% base cashback when paid directly on Hathway website (Verified Poster #43: $S • MCC 4816 earns 1.5%)","0% Excluded (To get first month cashback :))","10% Cashback via POS Machine (Paytm POS Machine at Hibacci Hyderabad Banjara Hills)","1.5% base cashback via Website (Hostinger Domain - MCC 5817)","0% Cashback (Excluded across all cards)","0% Excluded (Doesnt classify under Utility 4900)","1.5% base cashback via App (me)","0% Excluded (MCC 5193)","10% Cashback via App (Water bill - mcc - 4900)","10% Cashback via Website (MCC-5977)","1.5% base cashback on HSBC Live+","10% Cashback via Paytm (ONE97 COMMUNICATIONS L) or Jio App (MCC 4814/4900 — User Confirmed)","10% Cashback via Paytm or MyJio App (MCC 4814 — User Confirmed)","10% Cashback via Paytm (PAYTM) or MyJio App (MCC 4814 — User Confirmed)","1.5% base on HSBC Live+ (5% on Swiggy Ornge min ₹249)","10% Cashback via App/Website (MCC 5732)","10% Cashback via POS Machine/App (MCC-5814)","0% Excluded","10% Cashback on Fresh Meat & Seafood (MCC 5411/5422)","10% Cashback at Offline POS (Verified Poster #16: LIFE STYLE INTENATION • MCC 5699)","10% Cashback via App (Voucher from magicpin)","1.5% base cashback via App (Flight Booking availing HSBC instant discount)","10% Cashback on Apparel & Department Store (MCC 5651/5311)","1.5% base cashback via Website (MCC 5399 Gift voucher)","1.5% base cashback via App (MCC 5262)","10% Cashback via POS Machine (5411)","10% Cashback via App (MCC 5411 wallet loading)","10% Cashback via POS Machine (MCC 5699, confirmed with CC)","1.5% base cashback via POS Machine $B","10% Cashback via App (MCC-4814)","1.5% base cashback on HSBC Live+ (5% on Swiggy Ornge online min ₹249)","10% Cashback via Website (MCC 5499, 10% Miscellaneous Food Stores)","10% Cashback via App (MCC 5699, 10% cause of HSBC October Promo for Myntra)","10% Cashback via POS Machine (MCC5451)","1.5% base cashback on Online Pharmacy (Verified Poster #42: $S • MCC 5912)","10% Cashback on HSBC Live+ (MCC 5977 Cosmetics; 5% + extra 5% discount on Swiggy Ornge)","1.5% base cashback on HSBC Live+ (5% on Swiggy Ornge min ₹249)","1.5% base cashback via POS Machine (MCC 7941 - Nutsby Supplement store Madhapur Hyd)","10% Cashback via POS Machine (MCC-5691)","1.5% base cashback via POS Machine (MCC-7011)","10% Cashback on Electricity, Gas, Water & Mobile/Broadband Recharges via Paytm (User Confirmed: PAYTM, PAYTM UTILITY & ONE97 COMMUNICATIONS L • MCC 4900/4814)","10% Cashback via App (( 5% off on HSBC Card applied ))","10% Cashback via App (pizza hut app)","1.5% base cashback via Website (MCC 6300, Insurance)","1.5% base cashback via Website $B","1.5% base cashback via POS Machine (MCC 7832)","1.5% base cashback via POS Machine (MCC-5942)","10% Cashback via App/POS Machine (RD Click Mobile App)","10% Cashback via POS Machine (reliance fresh store)","10% Cashback via POS Machine (Reliance Signature, MCC 5411)","10% Cashback via POS Machine (RELIANCE SMART STORE MCC 5411)","10% Cashback via POS Machine (MCC 5411)","10% Cashback via POS Machine (MCC 5137, Clothes bought.. strange no 10%)","1.5% base cashback via POS Machine (MCC 7999 - RECREATIONAL ACTIVITIES)","1.5% base cashback via Website (samsung site)","10% Cashback via App (Clothes Shopping - mcc - 5691)","10% Cashback at Offline POS (Verified Poster #22: $S • MCC 5311)","1.5% base cashback via App (7372)","1.5% base cashback via Website (Symtten App - MCC 5977)","10% Cashback via POS Machine (Liquor from spencers MCC 5411)","0% Excluded (MCC 7372)","10% Cashback via POS Machine (MCC-5661)","10% Cashback at Star Bazaar Grocery (User Confirmed: STAR BAZAAR • MCC 5411)","10% Cashback via Website (MCC 5732)","10% Cashback on HSBC Live+ (Verified Poster #5, #10, #28, #44: BUNDL TECHNOLOGIES / IAP SWIGGY LIMITED • MCC 5814/5411; beats Swiggy Ornge 5%)","5% Cashback on Swiggy App / Instamart / Dineout with Swiggy Ornge (Min ₹249/txn; shared ₹1,500/cycle cap — down from 10% on old card)","10% Cashback on HSBC Live+ (MCC 5812/5814; Swiggy Ornge gives 5% on min ₹249 + extra 10% up to ₹500 in Birthday Week on ₹3,000+)","10% Cashback on HSBC Live+ (Verified Poster #5 & #10: MCC 5411/5399; Swiggy Ornge gives 5% on min ₹249)","10% Cashback via App (Swish App)","1.5% base cashback on HSBC Live+ (5% on Swiggy Ornge online min ₹249 & Kotak 811)","10% Cashback via Website (tata nutrikorner site)","0% Excluded (MCC-9399, Tata Power Odisha)","10% Cashback at Cafes & Dining (MCC 5814/5812)","10% Cashback via Paytm or Telecom App (MCC 4814 — User Confirmed)","1.5% base cashback via Website (TIMES PRIME SUBSCRIPTION MCC 5968)","1.5% base cashback via App (MCC-7392 WRONG AS PER ORDER (on UPI mcc was 5799, ripped on card payment))","1.5% base cashback on HSBC Live+ (5% on Swiggy Ornge min ₹249 & Kotak GyFTR)","0% Excluded (I didn't get any cashback, it was a new electricity connection payment for UPCL)","10% Cashback directly on Utility/Telecom portals (MCC 4814/4900)","10% Cashback via POS Machine (Waffle Bite Store)","0% Cashback (Verified Poster #8, #23, #24: MCC 6540 gives 0%)","10% Cashback via Paytm (ONE97 COMMUNICATIONS L) or Utility Portal (MCC 4900 — User Confirmed)","10% Cashback via Website (5651)","10% Cashback on Grocery / Quick-Commerce (User Confirmed: ZEPTO MARKETPLACE PRIVATE & ZEPTO • MCC 5411)","10% Cashback on Food Delivery & Dining (User Confirmed: ZOMATO LIMITED & ZOMATO • MCC 5812/5814)"];
+    const _RD=[{"airtel":0.01,"amazon_pay":0.01,"hsbc":0.1,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.01},{"airtel":0.01,"amazon_pay":0.01,"hsbc":0.0,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.0},{"airtel":0.01,"amazon_pay":0.01,"hsbc":0.015,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.05},{"airtel":0.1,"amazon_pay":0.02,"hsbc":0.1,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.0,"swiggy":0.0},{"airtel":0.01,"amazon_pay":0.02,"hsbc":0.1,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.05},{"airtel":0.01,"amazon_pay":0.02,"hsbc":0.015,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.05},{"airtel":0.01,"amazon_pay":0.05,"hsbc":0.015,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.0,"swiggy":0.01},{"airtel":0.01,"amazon_pay":0.01,"hsbc":0.015,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.01},{"airtel":0.01,"amazon_pay":0.05,"hsbc":0.015,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.01},{"airtel":0.01,"amazon_pay":0.05,"hsbc":0.1,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.01},{"airtel":0.01,"amazon_pay":0.02,"hsbc":0.1,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.0,"swiggy":0.0},{"airtel":0.01,"amazon_pay":0.01,"hsbc":0.015,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.0},{"airtel":0.01,"amazon_pay":0.01,"hsbc":0.1,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.05},{"airtel":0.01,"amazon_pay":0.0,"hsbc":0.0,"kotak":0.0,"rubyx":0.0,"scapia":0.0,"supermoney":0.0,"swiggy":0.0},{"airtel":0.01,"amazon_pay":0.02,"hsbc":0.0,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.0,"swiggy":0.0},{"airtel":0.01,"amazon_pay":0.01,"hsbc":0.0,"kotak":0.0,"rubyx":0.007,"scapia":0.01,"supermoney":0.0,"swiggy":0.0},{"airtel":0.01,"amazon_pay":0.02,"hsbc":0.015,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.0,"swiggy":0.0},{"airtel":0.01,"amazon_pay":0.01,"hsbc":0.0,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.05},{"airtel":0.01,"amazon_pay":0.01,"hsbc":0.1,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.0},{"airtel":0.01,"amazon_pay":0.01,"hsbc":0.0,"kotak":0.05,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.01},{"airtel":0.01,"amazon_pay":0.01,"hsbc":0.1,"kotak":0.0,"rubyx":0.007,"scapia":0.01,"supermoney":0.03,"swiggy":0.05}];
+    const _ON=[{"airtel":1,"amazon_pay":5,"kotak":3,"rubyx":7,"scapia":6,"supermoney":4,"swiggy":2},{"airtel":1,"amazon_pay":5,"kotak":10,"rubyx":7,"scapia":6,"supermoney":4,"swiggy":9},{"airtel":1,"amazon_pay":5,"kotak":3,"rubyx":7,"scapia":6,"supermoney":4,"swiggy":12},{"airtel":14,"amazon_pay":16,"kotak":10,"rubyx":7,"scapia":6,"supermoney":15,"swiggy":9},{"airtel":1,"amazon_pay":16,"kotak":10,"rubyx":7,"scapia":6,"supermoney":4,"swiggy":12},{"airtel":1,"amazon_pay":27,"kotak":26,"rubyx":7,"scapia":6,"supermoney":15,"swiggy":2},{"airtel":1,"amazon_pay":27,"kotak":26,"rubyx":7,"scapia":6,"supermoney":4,"swiggy":30},{"airtel":1,"amazon_pay":27,"kotak":26,"rubyx":7,"scapia":6,"supermoney":4,"swiggy":2},{"airtel":1,"amazon_pay":16,"kotak":3,"rubyx":7,"scapia":6,"supermoney":15,"swiggy":9},{"airtel":1,"amazon_pay":5,"kotak":3,"rubyx":7,"scapia":6,"supermoney":4,"swiggy":9},{"airtel":1,"amazon_pay":16,"kotak":10,"rubyx":7,"scapia":6,"supermoney":15,"swiggy":9},{"airtel":1,"amazon_pay":72,"kotak":71,"rubyx":72,"scapia":72,"supermoney":15,"swiggy":9},{"airtel":1,"amazon_pay":5,"kotak":26,"rubyx":7,"scapia":6,"supermoney":4,"swiggy":2},{"airtel":1,"amazon_pay":5,"kotak":71,"rubyx":7,"scapia":6,"supermoney":15,"swiggy":9},{"airtel":1,"amazon_pay":5,"kotak":3,"rubyx":7,"scapia":6,"supermoney":4,"swiggy":167},{"airtel":1,"amazon_pay":5,"kotak":71,"rubyx":7,"scapia":6,"supermoney":4,"swiggy":9}];
+    const _RW=[["aaha andhra","Aaha Andhra",0,0,0,0,0,"RIVED FOODS PRIVATE LI BANGALORE IN","5814","="],["act fibernet","ACT Fibernet",1,1,8,1,1,"ATRIA CONVERGENCE...","4186","="],["agoda","Agoda",2,2,11,2,0,"AGODA COMPANY PTE LTD","","="],["airtel","Airtel",3,3,13,3,1,"BHARTI AIRTEL LIMITED | AIRTEL IN","4814","(BHARTI AIRTEL LIMITED / AIRTEL IN • MCC 4814)"],["airtel app","Airtel App",3,3,17,3,1,"AIRTEL IN GURGAON","4814","="],["airtel postpaid","Airtel Postpaid / Broadband",3,3,18,3,1,"BHARTI AIRTEL LIMITED | AIRTEL IN","4814","(BHARTI AIRTEL LIMITED / AIRTEL IN • MCC 4814)"],["airtel prepaid","Airtel Prepaid / Recharge",3,3,19,3,1,"BHARTI AIRTEL LIMITED | AIRTEL IN GURGAON | Www.airtel.in","4814","(BHARTI AIRTEL LIMITED / AIRTEL IN GURGAON • MCC 4814)"],["ajfan nuts and dryfruits","Ajfan Nuts and Dryfruits",4,0,20,0,0,"Ajfan International Re Hyderabad IN","5462","="],["ajio","Ajio",5,4,21,4,1,"AJIO | RELIANCE RETAIL LIMITED NAVI MUMBAI","4626, 5691","(AJIO / RELIANCE RETAIL LIMITED NAVI MUMBAI • MCC 4626/5691)"],["ajio mcc 4626","Ajio (AJIO OTP / MCC 4626)",5,5,22,4,1,"AJIO","4626","="],["akshayakalpa","Akshayakalpa",6,0,23,0,0,"Akshayakalpar | AKSHAYAKALPAFARMSAND Bangalore IN | Akshayakalpa","","(Akshayakalpar / AKSHAYAKALPAFARMSAND Bangalore IN)"],["alienkind bangalore","AlienKind Bangalore",0,0,23,0,0,"CAS*Fudr","","="],["alienkind bangaloree search to","AlienKind Bangaloree search . to",0,0,23,0,0,"CAS*Fudr/me o","","="],["aligarh house hsr banglore","Aligarh House HSR Banglore",0,0,24,0,0,"MW ALIGARH HOUSE FOODS A BENGALURU","5812","="],["amazon","Amazon",5,6,25,5,2,"AMAZON PAY INDIA PRIVATET | Amazon india Private india ltd | AMAZON PAY INDIA PRIVATE LIMITED","5699, 5399, 5262","(AMAZON PAY INDIA PRIVATET / Amazon india Private india ltd • MCC 5699/5399)"],["amazon app","Amazon App",7,7,28,0,0,"AMAZON PAY INDIA PRIVA BANGALORE IN","5262","="],["amazon fresh 5699","Amazon Fresh (MCC 5699)",4,8,29,6,2,"Amazon india Private india ltd","5699","="],["amazon fresh","Amazon Fresh / Now (MCC 5411)",4,9,31,7,2,"AMAZONIN | AMAZONIN GURGAON IN | AMAZON PAY INDI","5411","(AMAZONIN / AMAZONIN GURGAON IN • MCC 5411)"],["amazon now","Amazon Now",4,9,32,6,2,"AMAZONIN GURGAON IN | AMAZONIN 2233554466o5/ | IAP AMAZON PAY INDIA PRIVA Bangalore | Amazon Pay India Private Bangalore | Bangalore IN | AMAZONIN 2233554466","5411, 5262","(AMAZONIN GURGAON IN / AMAZONIN 2233554466o5/ • MCC 5411/5262)"],["amazon pay","Amazon Pay",3,10,33,8,0,"Amazon Utilities Mumbai | Amazon Gurgaon IN","","(Amazon Utilities Mumbai / Amazon Gurgaon IN)"],["amazon pay gift card","Amazon Pay Gift Card (Wallet & Bill Route)",7,11,34,9,0,"PINE LABS / QWIKCILVER | VOUCHERGRAM GYFTR","5947","(PINE LABS / QWIKCILVER / VOUCHERGRAM GYFTR • MCC 5947)"],["amul","Amul",4,0,35,0,0,"AMUL ANAND IN","5411","="],["amul shop","Amul Shop",4,0,36,0,0,"GUJARAT CO OPERATIVE M Ahmedabad IN","","="],["amul shop shopamulcom","Amul Shop (shop.amul.com)",4,0,37,0,0,"INF*GUJARAT COOPERATIV","5411","="],["apollo pharmacy","Apollo Pharmacy",8,2,38,2,0,"APOLLO PHARMACIES LTD","5912","="],["apple india","Apple India",5,2,39,2,0,"Apple India Pvt Ltd","","="],["applecom","Apple.com",9,2,11,2,0,"Apple music subscription","","="],["aslam butter chicken","ASLAM BUTTER CHICKEN",0,0,24,0,0,"MS ASLAM CHICKEN CORN DELHI","5812","="],["attide boutique hotel","Attide Boutique Hotel",0,7,40,0,0,"ATTIDE BANGALORE IN","","="],["barbeque nation","Barbeque Nation",0,0,41,0,0,"BARBEQUE NATION HOSPITALITY","5812","="],["bazaar kolkata","Bazaar Kolkata",5,12,42,2,0,"","5651","="],["belgian waffle","Belgian Waffle",0,0,43,0,0,"BLOOMBAY ENTERPRISES MUMBAI IN","","="],["bescom","BESCOM Electricity Bill",3,10,44,10,1,"PAYTM | BESCOM BANGALORE","4900","(PAYTM / BESCOM BANGALORE • MCC 4900)"],["big basket","Big Basket",4,0,45,0,0,"INNOVATIVE RETAIL CO | INNOVATIVE RETAIL CONCEPTS | BIGBASKET BANGALORE IN | WWWBIGBASKETCOM GURGAON IN","5411","(INNOVATIVE RETAIL CO / BIGBASKET BANGALORE IN • MCC 5411)"],["bigbasket","BigBasket",4,0,46,0,0,"BLOOMBAY ENTERPRISES MUMBAI IN | IAP INNOVATIVE RETAIL CONC BENGALURU | BIGBASKET BANGALORE IN","5411","(BLOOMBAY ENTERPRISES MUMBAI IN / IAP INNOVATIVE RETAIL CONC BENGALURU • MCC 5411)"],["bigbasket on tata neu","BigBasket On Tata Neu",4,0,47,0,0,"WWWBIGBASKETCOM GURGAON IN","","="],["bisleri","Bisleri",3,10,48,8,0,"RAZ*BISLERI INTERNATIO MUMBAI MH IN","4900","="],["bisleri international","Bisleri International",4,0,49,0,0,"Bisleri International","5499","="],["bistro by blinkit","Bistro by Blinkit",6,0,50,0,0,"Blinkit Foods Limit GURGAON IN | Bistro GURGAON IN","5814","(Blinkit Foods Limit GURGAON IN / Bistro GURGAON IN • MCC 5814)"],["blinkit","Blinkit",4,0,51,0,0,"Blinkit BANGALORE IN | IAP Blinkit Limited Bengaluru | BLINK COMMERCE PRIVATE LIMITED","5411, 5814","(Blinkit BANGALORE IN / IAP Blinkit Limited Bengaluru • MCC 5411)"],["blinkt","Blinkt",4,0,32,0,0,"Blinkit BANGALORE IN","5411","="],["bluedart","Bluedart",5,2,52,2,0,"","4215","="],["boodmocom","boodmo.com",5,2,53,2,0,"RAZ*Smart Parts online gurgaon","5533","="],["book my show","Book my show",10,2,11,2,0,"IAP BookMyShow","","="],["bookmyshow events","Bookmyshow events",9,2,54,2,0,"","7832","="],["branded clothing","Branded Clothing",5,12,55,2,0,"","5651","="],["bses yamuna","Bses yamuna",1,1,56,1,1,"You have to call the customer care and ask for each txn","9399","="],["bses yamunata to the","Bses yamuna-ta to the",1,1,56,1,1,"You have to call the customer care and ask for each txn","9399","="],["bsnl recharge","BSNL Mobile Recharge",3,10,57,10,1,"PAYTM | BSNL BILLDESK","4814","(PAYTM • MCC 4814)"],["burger farm","Burger Farm",6,0,58,0,0,"RAZ*Burger Farm India Jaipur RJ IN","","="],["burger king","Burger King",0,0,59,0,0,"Restaurant Brands Asia | BURGER KING INDIA LIMI BANGALORE IN","5812, 5411","(Restaurant Brands Asia / BURGER KING INDIA LIMI BANGALORE IN • MCC 5812/5411)"],["bwssb","BWSSB Bangalore Water Bill",3,10,60,10,1,"ONE97 COMMUNICATIONS L | BWSSB BANGALORE","4900","(ONE97 COMMUNICATIONS L / BWSSB BANGALORE • MCC 4900)"],["carnival company aerohub chennai","Carnival company - aerohub chennai",0,0,61,0,0,"KALS Hospitality Chennai IN","5813","="],["cesc","CESC",3,10,62,8,0,"CESC Limited Kolkata IN","","="],["cesc44","CESC44",3,10,62,8,0,"CESC Limited Kolkata IN","","="],["clash of clans","Clash of Clans",9,2,63,2,0,"FS *SUPERCELLSTORE fsprg.nl NL","4215","="],["cleartrip","Cleartrip",11,2,64,2,0,"CLEARTRIP PRIVATE LIMITED","4722","="],["clove dental","Clove Dental",1,1,65,9,0,"","8062","="],["cmr shopping mall","CMR Shopping Mall",5,12,66,2,0,"CMR SHOPPING MALL","5699","="],["cookieman","Cookieman",12,7,67,0,0,"CookieMan","5462","="],["country delight","Country Delight",4,0,68,0,0,"IAP BEEJAPURI DAIRY PVT LTD NOIDA / COUNTRYDELIGHT Gurgaon IN | PTM*Country Delight Gurgaon IN","5499","(IAP BEEJAPURI DAIRY PVT LTD NOIDA / COUNTRYDELIGHT Gurgaon IN / PTM*Country Delight Gurgaon IN • MCC 5499)"],["cred","CRED (Utility & Mobile Recharge)",3,10,69,8,0,"DREAMPLUG TECHNOLOGI Bangalore IN | Dreamplug Technologies","4814, 4900","(DREAMPLUG TECHNOLOGI Bangalore IN • MCC 4814/4900)"],["cc bill payments","Credit Card Bill Payments",1,13,70,11,3,"CC BILL PAYMENT","6012","="],["croma","Croma Electronics",5,12,73,2,0,"INFINITI RETAIL LIMITED","5732","="],["crma","Crōma",5,2,40,2,0,"Infiniti Retail Ltd.","","="],["crmai","Crōmai",5,2,40,2,0,"Infiniti Retail Ltd.","","="],["dealshare mart pos","Dealshare Mart POS",4,0,74,0,0,"BRISAM RETAIL PRIVATE JAIPUR IN","","="],["decathlon","Decathlon",5,12,75,2,0,"DECATHLON SPORTS INDIA PV | DSI PONDY BAZAAR CHENNAI | DAHISAR 1423","5941","(DECATHLON SPORTS INDIA PV / DSI PONDY BAZAAR CHENNAI • MCC 5941)"],["decathlon hyderabad offline","Decathlon hyderabad offline",5,12,76,2,0,"DSI INORBIT MALL HYDERABAD IN","5941","="],["district","District (Movie Tickets & Events)",9,7,77,0,0,"DISTRICT MOVIE TICKET | IAP DISTRICT MOVIES GURUGRAM","5947, 7832","(DISTRICT MOVIE TICKET / IAP DISTRICT MOVIES GURUGRAM • MCC 5947/7832)"],["district by zomato","District by Zomato (Dining)",0,0,78,0,0,"IAP DISTRICT DINING CYBS GURGAON | DISTRICT DINING RZP","5812","(IAP DISTRICT DINING CYBS GURGAON / DISTRICT DINING RZP • MCC 5812)"],["dmart","DMart",4,0,79,0,0,"Avenue Supermarts Ltd Medak IN | DMART AVENUE SUPERMART BANGALORE | Avenue Supermarts Limited Bangalore","","(Avenue Supermarts Ltd Medak IN / DMART AVENUE SUPERMART BANGALORE)"],["dmart bangalore","Dmart Bangalore",4,0,79,0,0,"Avenue Supermarts Ltd bangalore IN","","="],["dmart ready","DMart Ready",4,0,80,0,0,"DMART READY MUMBAI IN","","="],["dominos","Dominos",6,0,81,0,0,"JUBILANT FOODWORKS LIM NOIDA IN | IAP PAY*JUBILANT FOODWORKS WWW.DOMINOS.C","5814","(JUBILANT FOODWORKS LIM NOIDA IN / IAP PAY*JUBILANT FOODWORKS WWW.DOMINOS.C • MCC 5814)"],["easemytrip","EaseMyTrip",11,2,82,2,0,"EASY TRIP PLANNERS LTD","4722","="],["eatclub","EatClub",6,0,83,0,0,"EatClub | EATCLUB BRANDS PRIVATE","5814","(EatClub / EATCLUB BRANDS PRIVATE • MCC 5814)"],["eatgood technologies","Eatgood technologies",0,0,23,0,0,"Bangalore IN","","="],["eazy diner","Eazy Diner",0,0,84,0,0,"Eazydiner","5812","="],["eazydiner","Eazydiner",0,0,23,0,0,"EAZYDINER GURGAON IN","","="],["electricity bill","Electricity Bill",3,10,85,10,1,"PAYTM | PAYTM UTILITY NOIDA IN | ONE97 COMMUNICATIONS L | BSES YAMUNA NEW DELHI","4900","(PAYTM / PAYTM UTILITY NOIDA IN • MCC 4900)"],["electricity bills","Electricity Bills (BBPS / State Portal)",3,10,86,10,1,"PAYTM | UTILITY BILL PAYMENT","4900","(PAYTM / UTILITY BILL PAYMENT • MCC 4900)"],["fashion city","Fashion City",5,12,42,2,0,"","5651","="],["fastag recharge","FASTag Recharge (via Amazon Pay Wallet)",3,14,87,10,1,"FASTAG RECHARGE","4784","="],["firstclub","FirstClub",4,0,32,0,0,"FirstClub Bangalore","5411","="],["firstcry","Firstcry",5,12,88,2,0,"FIRST CRY","5641","="],["flipkart","Flipkart",5,7,89,12,2,"FLIPKART INTERNET PRIVATE LIMITED | FLIPKART PAYMENTS","5311, 5699","(FLIPKART INTERNET PRIVATE LIMITED • MCC 5311/5699)"],["flipkart minutes","Flipkart Minutes (Quick Commerce)",4,0,90,12,2,"FLIPKART INTERNET PVT BANGALORE","5699","="],["flipkart travel hotels","Flipkart Travel (Hotels)",2,7,91,0,0,"Flipkart International Pv","4131","="],["fresh press","Fresh Press",0,0,79,0,0,"","",""],["freshtohome","FreshToHome",4,0,92,0,0,"FRESH TO HOME","5411, 5422","(FRESH TO HOME • MCC 5411/5422)"],["fth","FTH",4,0,93,0,0,"FreshtoHome india ltf","5331","="],["fuel","Fuel / Petrol Pump",1,13,94,11,3,"INDIAN OIL / BPCL / HPCL / SHELL","5541, 5542","(FUEL / PETROL PUMP • MCC 5541/5542)"],["gail gas","Gail Gas / Piped Gas Bill",3,10,95,10,1,"PAYTM UTILITY | GAIL GAS LIMITED","4900","(PAYTM UTILITY / GAIL GAS LIMITED • MCC 4900)"],["gail piped gas","Gail Piped Gas Bill",3,10,95,10,1,"PAYTM UTILITY | GAIL GAS LIMITED","4900","(PAYTM UTILITY / GAIL GAS LIMITED • MCC 4900)"],["glens bakehouse","GLENS BAKEHOUSE",0,0,79,0,0,"INPAVA HOSPITALITY","","="],["goibibo","Goibibo",11,2,82,2,0,"IBIBO GROUP PVT LTD","4722","="],["gold jewellery","Gold / Jewellery (Tanishq, Malabar, Kalyan)",1,15,96,13,3,"TITAN COMPANY / MALABAR GOLD","5094, 5944","(TITAN COMPANY / MALABAR GOLD • MCC 5094/5944)"],["gonguraa","Gonguraa",0,0,0,0,0,"Gonguraa Kanchipuram IN","5814","="],["google play store","Google Play store",9,2,11,2,0,"GOOGLE PLAY MUMBAI IN","","="],["gramee naturals","Gramee Naturals",4,0,79,0,0,"GRAMEE NATURALS HYDERABAD IN","","="],["growth falcons","GROWTH FALCONS",6,0,97,0,0,"GROWTH FALCONS","5310","="],["gupta brothers","Gupta Brothers",0,0,98,0,0,"Gupta Brothers Abarkha","5812","="],["gyftr by kotak","GyFTR by Kotak (Brand Vouchers)",7,11,99,9,0,"VOUCHERGRAM GYFTR | PINE LABS","5947","(VOUCHERGRAM GYFTR • MCC 5947)"],["hm","H&M India",5,12,100,2,0,"H AND M HENNES AND MAURITZ","5651","="],["haldirams","Haldiram's",0,0,101,0,0,"HALDIRAM SNACKS PVT LTD","5814, 5812, 5441","(HALDIRAM SNACKS PVT LTD • MCC 5814/5812)"],["hathway broadband","Hathway Broadband",3,16,102,10,1,"HATHWAY CABLE AND DATA MUMBAI","4816","="],["hdfc ergo general insurance","HDFC ERGO General Insurance",1,1,103,1,1,"HDFC ERGO General Insu Mumbai","","="],["hibacci","Hibacci",0,0,104,0,0,"HIBACCI HYDERABAD IN","","="],["hostinger","Hostinger",9,2,105,2,0,"HOSTINGER PTE LED Mumbai IN","5817","="],["rent payment","House Rent Payment",1,13,106,11,3,"NOBROKER / RED GIRAFFE","6513","="],["hungerbox","Hungerbox",0,0,50,0,0,"Bangalore IN","5814","="],["iap lalpathlabs gurgaon","IAP LALPATHLABS GURGAON",10,7,54,0,0,"","8071","="],["iap myntra bangalore","IAP Myntra Bangalore",1,1,107,9,0,"","4900","="],["iap new india assurance mumbai","IAP New India Assurance Mumbai",9,2,108,2,0,"","",""],["igp","IGP",5,17,109,2,0,"IGP","5193","="],["in","in",3,10,110,8,0,"ONE97 COMMUNICATIONS L","4900","="],["indane gas indian oil","Indane Gas (Indian Oil)",3,10,23,10,1,"GPAY UTILITIES MUMBAI IN","","="],["innovist chemist at play","Innovist (Chemist at Play)",5,18,111,9,0,"IAP ONESTO LABS PRIVATE LI GURGAON","5977","="],["irctc","IRCTC Train Tickets",11,7,112,2,0,"IRCTC NEW DELHI","4112","="],["itihas restaurants","Itihas Restaurants",0,0,98,0,0,"TARA HOSPITALITIES Hyderabad IN","5812","="],["ixigo","Ixigo",11,2,82,2,0,"LE TRAVENUES TECHNOLOGY","4722","="],["jio app","JIO APP",3,10,62,10,1,"RELIANCE RETAIL LIMITED","","="],["jio fiber","Jio Broadband / Jio Fiber",3,10,113,10,1,"ONE97 COMMUNICATIONS L | RELIANCE JIO INFOCOMM","4814, 4900","(ONE97 COMMUNICATIONS L / RELIANCE JIO INFOCOMM • MCC 4814/4900)"],["jio postpaid","Jio Postpaid",3,10,114,10,1,"PAYTM | RELIANCE JIO INFOCOMM | ONE97 COMMUNICATIONS L","4814","(PAYTM / RELIANCE JIO INFOCOMM • MCC 4814)"],["jio prepaid","Jio Prepaid / Recharge",3,10,115,10,1,"PAYTM | RELIANCE JIO INFOCOMM | IAP MY JIO MUMBAI","4814","(PAYTM / RELIANCE JIO INFOCOMM • MCC 4814)"],["jiohotstar","JioHotstar",9,5,116,4,1,"NOVI DIGITAL ENTERTAINMENT","4899, 5815","(NOVI DIGITAL ENTERTAINMENT • MCC 4899/5815)"],["jiomart","JioMart",9,4,117,4,1,"JIOMART CYBS MUMBAI IN | RELIANCE RETAIL LIMITED NAVI MUMBAI | RELIANCE RETAIL LIMITE | RAZ*RELIANCE RETAIL LI","5732, 5499","(JIOMART CYBS MUMBAI IN / RELIANCE RETAIL LIMITED NAVI MUMBAI • MCC 5732/5499)"],["kamineni hospitas hyd","kamineni hospitas HYD",10,7,40,0,0,"Kamineni Hospitals RANGAREDDY IN","","="],["kapiva","Kapiva",6,0,62,0,0,"ADRET RETAIL PRIVATE LIMI","","="],["karachi bakery hyderabad","Karachi Bakery Hyderabad",4,0,55,0,0,"","5462","="],["kfc","KFC",0,0,118,0,0,"Y030 KFC NIT ROURKELA ROURKELA IN | YUM RESTAURANT INDIA P MUMBAI IN | kfc","5814","(Y030 KFC NIT ROURKELA ROURKELA IN / YUM RESTAURANT INDIA P MUMBAI IN • MCC 5814)"],["kpn fresh","KPN Fresh",4,0,79,0,0,"","",""],["kstdc hotel booking","KSTDC Hotel booking",1,1,119,9,0,"Karnataka state tourism deve PT | KSTDC REVENUE RECEIPTS HOTEL PG","","(Karnataka state tourism deve PT / KSTDC REVENUE RECEIPTS HOTEL PG)"],["lic","LIC",1,1,119,1,1,"LIFE INSURANCE CORPORATION NOIDA LIMITED","","="],["licious","Licious",4,0,120,1,1,"DELIGHTFUL GOURMET PVT LTD","5411, 5422","(DELIGHTFUL GOURMET PVT LTD • MCC 5411/5422)"],["lifestyle","Lifestyle / Max Fashion",5,12,121,2,0,"LIFE STYLE INTENATION GHAZIABAD IN | IAP ARVIND LIFESTYLE BRAND","5699, 5651, 5311","(LIFE STYLE INTENATION GHAZIABAD IN / IAP ARVIND LIFESTYLE BRAND • MCC 5699/5651)"],["living liquidz","Living Liquidz",13,0,79,0,0,"LUCKY WINESFL II 237 C MUMBAI IN","","="],["lulu daily","Lulu Daily",4,0,79,0,0,"LULU INTERNATIONAL SHO IN","","="],["lulu hypermarket","Lulu HYpermarket",4,0,79,0,0,"Lulu HYpermarket","","="],["magicpin","Magicpin",1,18,122,9,0,"IAP SAMAST | MAGICPIN GURGAON IN | RAZ*MAGNIFY CLUB,BENGALURU UKA -500","","(IAP SAMAST / MAGICPIN GURGAON IN)"],["makemytrip","MakeMyTrip",10,2,123,2,0,"IAP MAKEMYTRIP INDIA PVT L NEW DELHI","","="],["marks and spencer","Marks & Spencer",5,12,124,2,0,"MARKS AND SPENCER RELIANCE","5651, 5311","(MARKS AND SPENCER RELIANCE • MCC 5651/5311)"],["mcdonalds","McDonalds",0,0,79,0,0,"MCDONALDS KOLKATA IN","","="],["medplus","Medplus",14,2,125,2,0,"","5399","="],["meesho","Meesho",5,2,126,2,0,"Meesho technologies PR BNGLR","5262","="],["metro wholesale","Metro Wholesale",4,0,127,0,0,"METRO CASH AND CARRY I BANGALORE IN","5411","="],["milkbasket","Milkbasket",4,0,128,0,0,"RELIANCE RETAIL LIMITED <Location> IN | IAP RELIANCE RETAIL LIMITE NOIDA | JIOMART CYBS MUMBAI IN","5411","(RELIANCE RETAIL LIMITED <Location> IN / IAP RELIANCE RETAIL LIMITE NOIDA • MCC 5411)"],["milld","Milld",4,0,49,0,0,"IAP MILLD BANGALORE","5499","="],["moolchand mill pune","Moolchand Mill, Pune",5,12,129,2,0,"MOOLCHAND MILL PCMC PUNE IN","5699","="],["motherhood bengaluru in","MOTHERHOOD BENGALURU IN",5,12,62,2,0,"Mothercare","","="],["mr diy store","Mr DIY Store",5,2,130,2,0,"","5722","="],["my jio","My JIO",3,10,131,10,1,"IAP MY JIO MUMBAI","4814","="],["mygate","Mygate",1,1,65,9,0,"","8062","="],["myntra","Myntra",5,2,132,2,0,"MYNTRA DESIGNS PRIVATE LIMITED","5651, 5691","(MYNTRA DESIGNS PRIVATE LIMITED • MCC 5651/5691)"],["naivo coffee","NAIVO COFFEE",15,0,133,0,0,"NAIVO COFFEE COMPANY","5499","="],["national mart warangal in","National Mart WARANGAL IN",5,12,134,2,0,"","5699","="],["natraj chhole bhature","Natraj Chhole Bhature",0,0,79,0,0,"NATRAJ FOODS","","="],["naturals bangalore in","NATURALS BANGALORE IN",4,0,55,0,0,"","5411","="],["navi general insurance","NAVI GENERAL INSURANCE",0,18,135,1,1,"","",""],["netflix","Netflix",9,2,116,2,0,"NETFLIX COM MUMBAI","4899, 5815","(NETFLIX COM MUMBAI • MCC 4899/5815)"],["netmeds","Netmeds",8,2,136,2,0,"RELIANCE RETAIL LIMITI Chennai","5912","="],["nnnowcom","Nnnow.com",5,12,62,2,0,"IAP ARVIND LIFESTYLE BRAND BANGALORE","","="],["nutsby hyderabad in","Nutsby Hyderabad IN",4,0,79,0,0,"","",""],["nykaa","Nykaa",5,12,137,2,0,"FSN E COMMERCE VENTURES | NYKAA","5977","(FSN E COMMERCE VENTURES / NYKAA • MCC 5977)"],["ola","Ola Cabs",11,2,138,2,0,"ANI TECHNOLOGIES PVT LTD","4121","="],["om collections bangalore in","OM COLLECTIONS BANGALORE IN",4,7,139,0,0,"","7941","="],["one 97","one 97",5,2,40,2,0,"","",""],["oswal factory outlet amritsar","Oswal Factory Outlet Amritsar",5,12,140,2,0,"GURU KRIPA OSWAL FACTO AMRITSAR IN","5691","="],["oswal factory phulkari amritsar","Oswal Factory Phulkari Amritsar",2,0,140,0,0,"KHAWAJA PHULKARI HOUSE AMRITSAR IN","5691","="],["ownly","Ownly",6,0,50,0,0,"CTRLX TECHNOLOGIES P 500081 | CTRLX technologies PRI Hyderabad","5814, 5812","(CTRLX TECHNOLOGIES P 500081 / CTRLX technologies PRI Hyderabad • MCC 5814/5812)"],["pantaloons","Pantaloons",5,12,124,2,0,"ADITYA BIRLA FASHION AND RETAIL","5651, 5311","(ADITYA BIRLA FASHION AND RETAIL • MCC 5651/5311)"],["panthanivas","Panthanivas",0,7,141,0,0,"OTDC ROURKELA SUNDERGARH IN","7011","="],["paytm","Paytm (Utilities & Recharges)",3,10,142,8,0,"PAYTM | PAYTM UTILITY | PAYTM UTILITY NOIDA IN | ONE97 COMMUNICATIONS L","4900, 4814","(PAYTM / PAYTM UTILITY / ONE97 COMMUNICATIONS L • MCC 4900/4814)"],["paytm airtel broadband","PAYTM - Airtel Broadband",3,3,143,3,1,"PAYTM ( 5% off on HSBC Card applied )","","="],["pharmeasy","Pharmeasy",5,2,11,2,0,"PHARMEASY MUMBAI IN","","="],["pigeon","Pigeon",10,7,40,0,0,"Stove kraft limited Bangalore in","","="],["pizza hut","Pizza Hut",6,0,144,0,0,"IAP RAZ*SAPPHIRE FOODS IND HTTPS://WWW.P","","="],["prince super stores chennai in","PRINCE SUPER STORES CHENNAI IN",3,16,145,8,0,"","6300","="],["privateintenetaccess wwwprivatein de","PRIVATEINTENETACCESS WWW.PRIVATEIN DE",10,7,146,0,0,"","5734","="],["pvr","PVR",9,2,147,2,0,"PVR Limited Chennai","7832","="],["rama book depot lajpat","RAMA BOOK DEPOT LAJPAT",5,2,148,2,0,"RAMA BOOK DEPOT NEW DELHI IN","5942","="],["rapido","Rapido",11,7,112,2,0,"ROPPEN TRANSPORTATION","4121","="],["ratnadeep","Ratnadeep",4,0,149,0,0,"RAZ*RATNADEEP RETAIL P Hyderabad IN | RATNADEEP RETAIL PRIVAT BANGALORE IN","5411","(RAZ*RATNADEEP RETAIL P Hyderabad IN / RATNADEEP RETAIL PRIVAT BANGALORE IN • MCC 5411)"],["reliance digital","Reliance Digital",5,12,73,9,0,"RELIANCE RETAIL LIMITED","5732","="],["reliance fresh","Reliance Fresh",4,0,150,0,0,"REL RETAIL LTD FRESH CHENNAI IN","","="],["reliance fresh signature","Reliance Fresh Signature",4,0,151,0,0,"FRESH SIGNATURE ROURKELA IN","5411","="],["reliance smart","Reliance Smart",4,0,152,0,0,"RELIANCE SMART ROURKELA IN","5411","="],["reliance smart bazaar","Reliance Smart Bazaar",4,0,153,0,0,"RELIANCE RETAIL LIMITED <Location> IN","5411","="],["reliance smart point","Reliance Smart Point",4,0,153,0,0,"Reliance Retail Ltd","5411","="],["reliance trends","Reliance Trends",5,12,154,2,0,"Reliance Trends","5137","="],["rourkela club","ROURKELA CLUB",0,7,155,0,0,"ROURKELA CLUB SUNDERGARG IN","7999","="],["samsung","Samsung",5,2,156,2,0,"IAP Samsung India Electron Gurgaon","","="],["education fees","School / College / Education Fees",1,1,96,9,0,"EDUCATIONAL INSTITUTION","8211, 8220, 8299","(EDUCATIONAL INSTITUTION • MCC 8211/8220)"],["shein","Shein",5,12,157,2,0,"Nextgen Fast Fashion","5691","="],["shoppers stop","Shoppers Stop",5,12,158,2,0,"SHOPPERS STOP LTD GHAZIABAD IN","5311","="],["skyyeub city","Skyye(UB City)",0,0,61,0,0,"SKYYE UB CITY BANGALORE","5813","="],["smartq","SmartQ",0,7,159,0,0,"BottleLabs Technolo Bangalore IN","7372","="],["smytten","Smytten",5,2,160,2,0,"RAZ*SMYTTEN HTTPS://SMYTT IN","5977","="],["sonyliv","SonyLIV",9,2,116,2,0,"CULVER MAX ENTERTAINMENT","4899, 5815","(CULVER MAX ENTERTAINMENT • MCC 4899/5815)"],["spar hyper market","Spar Hyper market",4,0,79,0,0,"MAX HYPERMARKET INDIA","","="],["spencers","Spencers",4,0,161,0,0,"SPENCERS RETAIL LIMITE","5411","="],["squarespace","Squarespace",1,1,162,9,0,"SQSP INVxx SQUARESPACE.C NY","7372","="],["sreeleathers delhi","Sreeleathers Delhi",5,12,79,2,0,"Sumanta Susanta Overse Delhi IN","","="],["sreeleathers rourkela","Sreeleathers Rourkela",5,12,163,2,0,"ROUNAKRAJ UDYOG PRIVAT ROURKELA IN","5661","="],["sri vardhini sweets blr","Sri Vardhini Sweets BLR",0,0,98,0,0,"MVBR SWEETS AND SAV BANGALORE","5812","="],["star bazaar","Star Bazaar",4,0,164,0,0,"STAR BAZAAR | STAR BAZAAR BANGALORE IN","5411","(STAR BAZAAR / STAR BAZAAR BANGALORE IN • MCC 5411)"],["star bazar","Star Bazar",4,0,153,0,0,"STAR BAZAAR BANGALORE IN","5411","="],["stufcool power bank","Stufcool Power Bank",5,12,165,2,0,"Raz*Nissan Enterprises","5732","="],["superyou","Superyou",4,0,49,0,0,"IAP ELITE MINDSET PRIVATE Mumbai","5499","="],["sweet karam coffee","Sweet Karam Coffee",4,0,32,0,0,"RAZ*SWEET KARAM COFFEE","5411","="],["swiggy","Swiggy (Food, Instamart & Dineout)",16,12,166,14,0,"BUNDL TECHNOLOGIES BENGALURU IN | IAP SWIGGY LIMITED Bengaluru | SWIGGY BENGALURU IN | SWIGGY FOOD","5814, 5411, 5399","(BUNDL TECHNOLOGIES BENGALURU IN / IAP SWIGGY LIMITED • MCC 5814/5411)"],["swiggy dine out","Swiggy Dine out",6,12,68,14,0,"RRAZ*SWIGGY Bengaluru KA IN","5499","="],["swiggy dineout","Swiggy Dineout",0,12,168,14,0,"SWIGGY DINEOUT | BUNDL TECHNOLOGIES BENGALURU IN","5812, 5814","(SWIGGY DINEOUT / BUNDL TECHNOLOGIES • MCC 5812/5814)"],["swiggy instamart","Swiggy Instamart",4,12,169,14,0,"BUNDL TECHNOLOGIES BENGALURU IN | IAP SWIGGY LIMITED Bengaluru","5411, 5399","(BUNDL TECHNOLOGIES BENGALURU IN / IAP SWIGGY LIMITED • MCC 5411/5399)"],["swish","Swish",6,0,170,0,0,"MUNCHMART TECHNOLOGIES BANGALORE","","="],["1mg","Tata 1mg",8,2,171,2,0,"TATA 1MG HEALTHCARE","5912","="],["tatacliq","Tata CLiQ",5,2,132,2,0,"TATA UNISTORE LIMITED","5311, 5699","(TATA UNISTORE LIMITED • MCC 5311/5699)"],["tata nutrikorner","Tata Nutrikorner",17,0,172,0,0,"IAP TATA NUTRIKORNER BANGALORE","","="],["tata power","Tata Power",3,14,173,8,0,"IAP ODISHA DISCOMS MUMBAI","9399","="],["starbucks","Tata Starbucks",0,0,174,0,0,"TATA STARBUCKS PVT LTD","5814, 5812","(TATA STARBUCKS PVT LTD • MCC 5814/5812)"],["telecom jiobsnl","Telecom Jio / BSNL Recharge",3,10,175,10,1,"PAYTM | RELIANCE JIO INFOCOMM","4814","(PAYTM / RELIANCE JIO INFOCOMM • MCC 4814)"],["the inkpot perfumery","The Inkpot Perfumery",5,12,111,2,0,"RAZ*Udit Kumar Shukla Xi Bn PAC SUP IN","5977","="],["third wave coffee","Third Wave Coffee",0,0,174,0,0,"HEIWA HEAVEN PVT LTD","5814, 5812","(HEIWA HEAVEN PVT LTD • MCC 5814/5812)"],["times prime","Times Prime",9,2,176,2,0,"IAP TIMES PRIME MUMBAI","5968","="],["traya","Traya",14,7,177,0,0,"EBZ*TRAYA","7392, 5799","(EBZ*TRAYA • MCC 7392/5799)"],["uber","Uber Rides",11,2,178,2,0,"UBER INDIA SYSTEMS PVT LTD","4121","="],["uniqlo","Uniqlo India",5,12,100,2,0,"UNIQLO INDIA PVT LTD","5651","="],["upcl dehradun","UPCL Dehradun",10,19,179,0,0,"UPCL Dehradun","","="],["utility bills via amazon pay","Utility Bills via Amazon Pay Wallet",3,10,180,10,1,"UTILITY BILL PAYMENT","4814, 4900","(UTILITY BILL PAYMENT • MCC 4814/4900)"],["vijay sales","Vijay Sales",5,12,73,2,0,"VIJAY SALES","5732","="],["vijaya diagnostic center","Vijaya Diagnostic center",10,7,40,0,0,"VIJAYA DIAGNOSTIC CENT HYDERABAD","","="],["vodafone","Vodafone",3,10,23,8,0,"VODAFONE IDEA L","","="],["waffle bite","Waffle Bite",0,0,181,0,0,"Kamala foods Jaipur IN","","="],["wallet load transactions","Wallet Load (Amazon Pay / Swiggy Money)",1,13,182,11,3,"IAP Amazon Seller Services Bangalore | SWIGGY ADD MONEY BENGALURU IN","6540","(IAP Amazon Seller Services Bangalore / SWIGGY ADD MONEY BENGALURU IN • MCC 6540)"],["water bill","Water Bill",3,10,183,10,1,"ONE97 COMMUNICATIONS L | MUNICIPAL WATER UTILITY","4900","(ONE97 COMMUNICATIONS L / MUNICIPAL WATER UTILITY • MCC 4900)"],["wellbi","Wellbi",5,12,184,2,0,"ECO EMBRACE","5651","="],["westside","Westside (Trent)",5,20,124,15,3,"TRENT LIMITED","5651, 5311","(TRENT LIMITED • MCC 5651/5311)"],["yatra","Yatra.com",11,2,82,2,0,"YATRA ONLINE LIMITED","4722","="],["zara","ZARA",5,12,62,2,0,"ZARA COM","","="],["zee5","ZEE5",9,2,116,2,0,"ZEE ENTERTAINMENT","4899, 5815","(ZEE ENTERTAINMENT • MCC 4899/5815)"],["zepto","Zepto",4,0,185,0,0,"ZEPTO MARKETPLACE PRIVATE | ZEPTO | IAP Zepto Marketplace Priv Bangalore | ZEPTO MARKETPLACE PRIVATE LIMITED","5411","(ZEPTO MARKETPLACE PRIVATE / ZEPTO • MCC 5411)"],["zomato","Zomato",18,0,186,0,0,"ZOMATO LIMITED | ZOMATO | RAZ*Zomato Online Orde Gurgaon HA IN | IAP ZOMATO GURGAON","5812, 5814","(ZOMATO LIMITED / ZOMATO / RAZ*Zomato Online Orde • MCC 5812/5814)"],["zudio","Zudio",5,12,127,2,0,"STAR BAZAAR","5411","="]];
     const SPENDS_DATA = _RW.map(r => {
       const st = r[7] || '', mc = r[8] || '';
       const expBr = (st && mc) ? `(${st} • MCC ${mc})` : (st ? `(${st})` : (mc ? `(MCC ${mc})` : ''));
@@ -816,7 +629,7 @@
       return item;
     });
 
-    // 2. Card Portfolio Definitions (With Rich Brand Glass Accents)
+    // 2. Card Portfolio Definitions (Updated with Swiggy Ornge HDFC Credit Card)
     const ALL_CARDS = {
       'hsbc': {
         id: 'hsbc',
@@ -830,13 +643,13 @@
       },
       'swiggy': {
         id: 'swiggy',
-        name: 'Swiggy HDFC',
-        fullName: 'Swiggy HDFC Credit Card',
+        name: 'Swiggy Ornge',
+        fullName: 'Swiggy Ornge HDFC Credit Card',
         bank: 'HDFC Bank',
         chipBg: 'bg-orange-500/25 border-orange-400/50',
         dotColor: 'bg-orange-400',
         defaultActive: true,
-        capInfo: '10% on Swiggy (₹1,500/mo), 5% on 1000+ top partner merchants (₹1,500/mo)'
+        capInfo: '5% on Swiggy & partner online spends (min ₹249/txn; shared ₹1,500/cycle cap), 1% other spends (min ₹100/txn; ₹1,000/cycle cap)'
       },
       'kotak': {
         id: 'kotak',
@@ -873,71 +686,55 @@
         name: 'Federal Scapia',
         fullName: 'Federal Scapia Credit Card',
         bank: 'Federal Bank',
-        chipBg: 'bg-pink-500/25 border-pink-400/50',
-        dotColor: 'bg-pink-400',
-        defaultActive: false,
-        capInfo: '2% Scapia coins on travel / 1% other'
+        chipBg: 'bg-sky-500/25 border-sky-400/50',
+        dotColor: 'bg-sky-400',
+        defaultActive: true,
+        capInfo: '1% Scapia coins on eligible online & offline spends; 0% forex markup'
       },
       'rubyx': {
         id: 'rubyx',
         name: 'ICICI Rubyx',
         fullName: 'ICICI Rubyx Credit Card',
         bank: 'ICICI Bank',
-        chipBg: 'bg-red-500/25 border-red-400/50',
-        dotColor: 'bg-red-400',
-        defaultActive: false,
-        capInfo: '~0.7% value in ICICI Reward Points'
+        chipBg: 'bg-slate-500/25 border-slate-400/50',
+        dotColor: 'bg-slate-300',
+        defaultActive: true,
+        capInfo: '~0.7% base reward points on retail spends'
       }
     };
 
-    // 3. State Management
+    // 3. Application State
     let currentSpend = null;
     let spendAmount = 1000;
-    let activeCardIds = new Set(['hsbc', 'swiggy', 'kotak', 'supermoney', 'amazon_pay']);
+    let activeCardIds = new Set(['hsbc', 'swiggy', 'kotak', 'supermoney', 'amazon_pay', 'scapia', 'rubyx']);
     let isPrimeMember = true;
     let highlightedIndex = -1;
     let activeTab = 'recommender';
     let currentDirectoryCategory = 'all';
     let currentDirectorySearch = '';
+    let allDetailsExpanded = false;
 
-    // Load saved cards from localStorage safely
     try {
-      const saved = localStorage.getItem('cr_active_cards');
-      if (saved) {
-        const parsed = JSON.parse(saved);
+      const savedCards = localStorage.getItem('cr_active_cards');
+      if (savedCards) {
+        const parsed = JSON.parse(savedCards);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          activeCardIds = new Set(parsed.filter(id => id !== 'airtel'));
+          activeCardIds = new Set(parsed.filter(id => id !== 'airtel' && ALL_CARDS[id]));
         }
       }
       const savedPrime = localStorage.getItem('cr_amazon_prime');
       if (savedPrime !== null) {
         isPrimeMember = savedPrime === 'true';
       }
-    } catch (e) {
-      console.warn('localStorage read error:', e);
-    }
-
-    // Check if PWA banner dismissed
-    try {
-      if (localStorage.getItem('cr_pwa_dismissed') === 'true' || window.navigator.standalone) {
-        document.getElementById('pwaBanner').classList.add('hidden');
-      }
     } catch (e) {}
 
-    // DOM Elements
-    const viewRecommender = document.getElementById('viewRecommender');
-    const viewDirectory = document.getElementById('viewDirectory');
-    const tabBtnRecommender = document.getElementById('tabBtnRecommender');
-    const tabBtnDirectory = document.getElementById('tabBtnDirectory');
-    const headerSubtitle = document.getElementById('headerSubtitle');
-
+    // DOM References
     const searchInput = document.getElementById('spendSearchInput');
     const clearBtn = document.getElementById('btnClearSearch');
     const dropdown = document.getElementById('autocompleteDropdown');
     const amountInput = document.getElementById('spendAmountInput');
-    const activeCardsCountEl = document.getElementById('activeCardsCount');
-    const directorySearchInput = document.getElementById('directorySearchInput');
-
+    const cardsTableBody = document.getElementById('cardsTableBody');
+    const tableSpendNameBadge = document.getElementById('tableSpendNameBadge');
     const spotlightCard = document.getElementById('winnerSpotlightCard');
     const spotlightCategoryBadge = document.getElementById('spotlightCategoryBadge');
     const spotlightSpendTitle = document.getElementById('spotlightSpendTitle');
@@ -946,68 +743,115 @@
     const spotlightSpendAmtLabel = document.getElementById('spotlightSpendAmtLabel');
     const spotlightCashbackAmt = document.getElementById('spotlightCashbackAmt');
     const spotlightCashbackRate = document.getElementById('spotlightCashbackRate');
-
-    const tableSpendNameBadge = document.getElementById('tableSpendNameBadge');
-    const cardsTableBody = document.getElementById('cardsTableBody');
+    const activeCardsCountEl = document.getElementById('activeCardsCount');
+    const viewRecommender = document.getElementById('viewRecommender');
+    const viewDirectory = document.getElementById('viewDirectory');
+    const tabBtnRecommender = document.getElementById('tabBtnRecommender');
+    const tabBtnDirectory = document.getElementById('tabBtnDirectory');
+    const headerSubtitle = document.getElementById('headerSubtitle');
     const spendsGrid = document.getElementById('spendsGrid');
-
+    const directorySearchInput = document.getElementById('directorySearchInput');
     const dirTotalCount = document.getElementById('dirTotalCount');
     const dirTenPctCount = document.getElementById('dirTenPctCount');
     const dirFilteredCount = document.getElementById('dirFilteredCount');
-
-    // Modals
     const manageCardsModal = document.getElementById('manageCardsModal');
+    const cardTogglesContainer = document.getElementById('cardTogglesContainer');
     const rulesModal = document.getElementById('rulesModal');
     const installGuideModal = document.getElementById('installGuideModal');
-    const cardTogglesContainer = document.getElementById('cardTogglesContainer');
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function highlightMatch(text, query) {
+      if (!query || !query.trim()) return escapeHtml(text);
+      const q = query.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(`(${q})`, 'gi');
+      return escapeHtml(text).replace(regex, '<mark class="bg-rose-500/35 text-white rounded px-0.5">$1</mark>');
+    }
 
     function updateActiveCardsCount() {
-      activeCardsCountEl.textContent = activeCardIds.size;
+      if (activeCardsCountEl) {
+        activeCardsCountEl.textContent = activeCardIds.size;
+      }
     }
     updateActiveCardsCount();
 
-    // Zomato + iOS Bottom Tab Bar Switcher
     function switchTab(tabName) {
       activeTab = tabName;
       if (tabName === 'recommender') {
         viewRecommender.classList.remove('hidden');
         viewDirectory.classList.add('hidden');
-        tabBtnRecommender.className = 'flex-1 py-2.5 px-4 rounded-full text-xs font-semibold flex items-center justify-center gap-2 transition-all duration-200 zomato-tab-active active:scale-95';
-        tabBtnDirectory.className = 'flex-1 py-2.5 px-4 rounded-full text-xs font-medium flex items-center justify-center gap-2 text-white/80 hover:text-white transition-all duration-200 active:scale-95';
-        if (headerSubtitle) headerSubtitle.textContent = 'Cashback Intelligence';
+        tabBtnRecommender.className = 'flex-1 py-2.5 px-4 rounded-full text-xs font-semibold flex items-center justify-center gap-2 liquid-pill-active transition';
+        tabBtnDirectory.className = 'flex-1 py-2.5 px-4 rounded-full text-xs font-medium flex items-center justify-center gap-2 text-white/70 hover:text-white transition';
+        if (headerSubtitle) headerSubtitle.textContent = 'Smart Cashback & Net Pay Calculator';
       } else {
         viewRecommender.classList.add('hidden');
         viewDirectory.classList.remove('hidden');
-        tabBtnDirectory.className = 'flex-1 py-2.5 px-4 rounded-full text-xs font-semibold flex items-center justify-center gap-2 transition-all duration-200 zomato-tab-active active:scale-95';
-        tabBtnRecommender.className = 'flex-1 py-2.5 px-4 rounded-full text-xs font-medium flex items-center justify-center gap-2 text-white/80 hover:text-white transition-all duration-200 active:scale-95';
+        tabBtnDirectory.className = 'flex-1 py-2.5 px-4 rounded-full text-xs font-semibold flex items-center justify-center gap-2 liquid-pill-active transition';
+        tabBtnRecommender.className = 'flex-1 py-2.5 px-4 rounded-full text-xs font-medium flex items-center justify-center gap-2 text-white/70 hover:text-white transition';
         if (headerSubtitle) headerSubtitle.textContent = 'Merchant & Spend Directory';
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // 4. Recommendation & Calculation Engine
+    // 4. Recommendation & Calculation Engine (With Swiggy Ornge MOV & Cap Rules)
     function calculateCardCashback(cardId, spendObj, amount) {
       let rate = (spendObj.rates && spendObj.rates[cardId] !== undefined) ? spendObj.rates[cardId] : 0.0;
       let note = (spendObj.notes && spendObj.notes[cardId]) ? spendObj.notes[cardId] : '';
+      let capAlert = '';
 
       // Dynamic Amazon Prime (5%) vs Non-Prime (3%) rate for Amazon Pay ICICI on Amazon purchases
-      if (cardId === 'amazon_pay' && ['amazon', 'amazon fresh', 'amazon now'].includes(spendObj.id)) {
+      if (cardId === 'amazon_pay' && ['amazon', 'amazon fresh', 'amazon now', 'amazon fresh 5699'].includes(spendObj.id)) {
         rate = isPrimeMember ? 0.05 : 0.03;
         note = isPrimeMember
           ? `5% unlimited cashback on ${spendObj.name} (Amazon Prime enabled — toggle Non-Prime 3% in Manage Cards)`
           : `3% unlimited cashback on ${spendObj.name} (Non-Prime rate — enable Amazon Prime in Manage Cards for 5%)`;
       }
 
+      // Swiggy Ornge HDFC Credit Card MOV (Minimum Order Value) & Cycle Cap logic
+      if (cardId === 'swiggy' && rate > 0) {
+        if (rate >= 0.05 && amount < 249) {
+          rate = amount >= 100 ? 0.01 : 0.0;
+          capAlert = 'Min ₹249 for 5%';
+          note = `Swiggy Ornge requires min ₹249/txn for 5% cashback (under ₹249 earns ${amount >= 100 ? '1% base' : '0% under ₹100'}).`;
+        } else if (rate < 0.05 && amount < 100) {
+          rate = 0.0;
+          capAlert = 'Min ₹100 for 1%';
+          note = 'Swiggy Ornge requires min ₹100/txn to earn 1% base cashback.';
+        }
+      }
+
       let rawCashback = amount * rate;
       let effectiveCashback = rawCashback;
-      let capAlert = '';
 
       // Kotak 811 transaction cap: max ₹100 per transaction
-      if (cardId === 'kotak' && rate >= 0.05) {
-        if (rawCashback > 100.0) {
-          effectiveCashback = 100.0;
-          capAlert = 'Capped at ₹100/txn';
+      if (cardId === 'kotak' && rate >= 0.05 && rawCashback > 100.0) {
+        effectiveCashback = 100.0;
+        capAlert = 'Cap ₹100/txn';
+      }
+
+      // Swiggy Ornge billing cycle caps: ₹1,500 on 5% categories, ₹1,000 on 1% categories
+      if (cardId === 'swiggy') {
+        if (rate >= 0.05 && rawCashback > 1500.0) {
+          effectiveCashback = 1500.0;
+          capAlert = 'Cap ₹1,500/cycle';
+        } else if (rate > 0 && rate < 0.05 && rawCashback > 1000.0) {
+          effectiveCashback = 1000.0;
+          capAlert = 'Cap ₹1,000/cycle';
         }
+      }
+
+      // HSBC Live+ billing cycle cap: ₹1,200 on 10% categories
+      if (cardId === 'hsbc' && rate >= 0.10 && rawCashback > 1200.0) {
+        effectiveCashback = 1200.0;
+        capAlert = 'Cap ₹1,200/cycle';
       }
 
       return {
@@ -1028,10 +872,6 @@
         }
       }
 
-      // Sort strictly in descending order of:
-      // 1. effectiveCashback (descending)
-      // 2. rate (descending)
-      // 3. Card name (alphabetical)
       results.sort((a, b) => {
         if (b.effectiveCashback !== a.effectiveCashback) {
           return b.effectiveCashback - a.effectiveCashback;
@@ -1046,14 +886,12 @@
     }
 
     // 5. Render Recommendations Table
-    let allDetailsExpanded = false;
-
     function renderRecommendations(spendObj) {
       if (!spendObj) {
         cardsTableBody.innerHTML = `
           <tr>
             <td colspan="5" class="py-8 text-center text-white/50">
-              Select a spend above (e.g., <strong>Zepto, Zomato, Decathlon, Jio prepaid</strong>) to view card rankings.
+              Select a spend above (e.g., <strong>Zepto, Swiggy, Zomato, Decathlon</strong>) to view card rankings.
             </td>
           </tr>
         `;
@@ -1071,7 +909,6 @@
       searchInput.value = spendObj.name;
       clearBtn.classList.remove('hidden');
 
-      // Highlight matching quick-chip if applicable
       document.querySelectorAll('.quick-chip').forEach(btn => {
         if (btn.getAttribute('data-spend') === spendObj.id) {
           btn.classList.add('liquid-pill-active');
@@ -1082,7 +919,6 @@
 
       const ranked = getRankedCardsForSpend(spendObj, spendAmount);
 
-      // Render Spotlight Banner (#1 best card)
       if (ranked.length > 0) {
         const winner = ranked[0];
         const winnerCardMeta = ALL_CARDS[winner.cardId];
@@ -1112,7 +948,6 @@
         }
       }
 
-      // Render Smart Gift Card & Wallet Routes Card (#smartRoutesCard)
       const smartRoutesCard = document.getElementById('smartRoutesCard');
       const smartRoutesContent = document.getElementById('smartRoutesContent');
       const smartRouteCashbackBadge = document.getElementById('smartRouteCashbackBadge');
@@ -1141,18 +976,7 @@
             </div>
             <div class="p-2.5 rounded-xl liquid-card-subtle border-l-2 border-l-rose-400">
               <div class="font-bold text-rose-300 mb-0.5">⚠️ Direct Checkout = Base Rate</div>
-              <p class="text-white/75 leading-relaxed">Direct <strong>HSBC Live+</strong> (1.5%), <strong>Swiggy HDFC</strong> (1%), and direct <strong>Kotak 811 DC</strong> (0%) only earn base rates here.</p>
-            </div>
-          `;
-        } else if (rType === 'gyftr_apay_wallet') {
-          smartRoutesContent.innerHTML = `
-            <div class="p-2.5 rounded-xl liquid-card-subtle border-l-2 border-l-amber-400">
-              <div class="font-bold text-amber-300 mb-0.5">⚡ Step 1: Buy Amazon Pay GC on GyFTR (5%)</div>
-              <p class="text-white/75 leading-relaxed">Use <strong>Kotak 811 Super DC</strong> on <strong>GyFTR by Kotak</strong> to buy an Amazon Pay Gift Card (5% CB up to ₹100/txn).</p>
-            </div>
-            <div class="p-2.5 rounded-xl liquid-card-subtle border-l-2 border-l-emerald-400">
-              <div class="font-bold text-emerald-300 mb-0.5">🌐 Step 2: Pay via Amazon Pay Wallet</div>
-              <p class="text-white/75 leading-relaxed">Load into <strong>Amazon Pay Balance</strong> and pay on partner apps (Zomato, Swiggy, Zepto, Blinkit, Uber) or utility bills.</p>
+              <p class="text-white/75 leading-relaxed">Direct <strong>HSBC Live+</strong> (1.5%), <strong>Swiggy Ornge</strong> (1%), and direct <strong>Kotak 811 DC</strong> (0%) only earn base rates here.</p>
             </div>
           `;
         } else {
@@ -1171,7 +995,6 @@
         smartRoutesCard.classList.add('hidden');
       }
 
-      // Render Table Rows (Compact 5-column layout for iPhone 13 + Expandable Details Dropdown Row)
       let html = '';
       ranked.forEach((item, index) => {
         const cardMeta = ALL_CARDS[item.cardId];
@@ -1179,7 +1002,6 @@
         const isBest = rank === 1;
         const netAmt = Math.max(0, spendAmount - item.effectiveCashback);
 
-        // Semantic Color Glass Rate Pills
         let rateStyle = 'text-white/50 bg-white/[0.05] border-white/10';
         if (item.rate >= 0.10) {
           rateStyle = 'text-emerald-300 bg-emerald-500/20 border-emerald-400/45 font-bold';
@@ -1222,7 +1044,7 @@
               <div class="${item.effectiveCashback > 0 ? (isBest ? 'text-emerald-400 font-extrabold text-xs sm:text-sm' : 'text-white/90 font-semibold text-xs sm:text-sm') : 'text-white/35 text-xs'}">
                 ₹${item.effectiveCashback.toFixed(2)}
               </div>
-              ${item.capAlert ? `<span class="text-[9px] text-amber-300 font-sans block leading-tight">Cap ₹100</span>` : ''}
+              ${item.capAlert ? `<span class="text-[9px] text-amber-300 font-sans block leading-tight">${item.capAlert}</span>` : ''}
             </td>
             <td class="py-3 px-1.5 text-right font-mono whitespace-nowrap">
               <div class="${isBest ? 'text-amber-300 font-extrabold text-xs sm:text-sm' : 'text-white/85 font-semibold text-xs sm:text-sm'}">
@@ -1267,11 +1089,12 @@
 
       cardsTableBody.innerHTML = html;
     }
+
     // 6. Autocomplete Dropdown Logic
     function searchSpends(query) {
       const q = query.trim().toLowerCase();
       if (!q) {
-        const popularKeys = ['gyftr by kotak', 'amazon pay gift card', 'zepto', 'zomato', 'decathlon', 'jio prepaid', 'jio postpaid', 'airtel prepaid', 'swiggy', 'blinkit', 'amazon', 'flipkart', 'electricity bill', 'fuel'];
+        const popularKeys = ['zepto', 'swiggy', 'zomato', 'decathlon', 'star bazaar', 'jio prepaid', 'jio fiber', 'amazon'];
         return SPENDS_DATA.filter(item => popularKeys.includes(item.id)).slice(0, 8);
       }
 
@@ -1314,12 +1137,10 @@
       if (items.length === 0) {
         dropdown.innerHTML = `
           <div class="px-4 py-3 text-xs text-white/60 text-center">
-            No exact spend match for "<strong>${escapeHtml(query)}</strong>".<br>
-            <span class="text-[11px] text-white/40">Try searching "Jio", "Airtel", "Grocery", "Dining", "Bills", or switch to Directory tab below.</span>
+            No exact match for "<strong>${escapeHtml(query)}</strong>". Try searching an MCC like <strong>5411</strong>, <strong>5814</strong>, or <strong>4900</strong>.
           </div>
         `;
         dropdown.classList.remove('hidden');
-        highlightedIndex = -1;
         return;
       }
 
@@ -1329,32 +1150,21 @@
         const best = ranked[0];
         const bestCardMeta = best ? ALL_CARDS[best.cardId] : null;
         const bestRate = best ? (best.rate * 100).toFixed(1) : '0';
-
-        let pillStyle = 'bg-sky-500/20 text-sky-300 border-sky-400/35';
-        if (best && best.rate >= 0.10) {
-          pillStyle = 'bg-emerald-500/20 text-emerald-300 border-emerald-400/40';
-        } else if (best && best.rate >= 0.05) {
-          pillStyle = 'bg-amber-500/20 text-amber-300 border-amber-400/40';
-        }
-
         const highlightedName = highlightMatch(item.name, query);
 
         html += `
-          <div class="dropdown-item px-4 py-2.5 hover:bg-rose-500/[0.12] cursor-pointer flex items-center justify-between gap-2 transition" data-id="${item.id}" data-index="${idx}">
+          <button type="button" class="dropdown-item w-full text-left px-4 py-2.5 flex items-center justify-between gap-2 hover:bg-rose-500/[0.14] transition" data-id="${item.id}" data-idx="${idx}">
             <div class="min-w-0">
-              <div class="text-sm font-medium text-white/95 truncate flex items-center gap-1.5">
-                <span>${highlightedName}</span>
-              </div>
-              <div class="text-[11px] text-white/45 truncate">${item.cat || 'General'}${item.verified_braces ? ` • <span class="text-emerald-300/90 font-mono">${ highlightMatch(item.verified_braces, query) }</span>` : ''}</div>
+              <div class="text-sm font-semibold text-white truncate">${highlightedName}</div>
+              <div class="text-[11px] text-white/45 truncate">${escapeHtml(item.cat || 'General')}${item.verified_braces ? ` • <span class="text-emerald-300/90 font-mono">${highlightMatch(item.verified_braces, query)}</span>` : ''}</div>
             </div>
             ${bestCardMeta ? `
               <div class="text-right shrink-0">
-                <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-semibold border ${pillStyle}">
-                  ${bestCardMeta.name} • ${bestRate}%
-                </span>
+                <span class="text-xs font-mono font-bold text-emerald-400">${bestRate}%</span>
+                <span class="block text-[10px] text-white/55">${bestCardMeta.name}</span>
               </div>
             ` : ''}
-          </div>
+          </button>
         `;
       });
 
@@ -1363,68 +1173,47 @@
       highlightedIndex = -1;
     }
 
-    function highlightMatch(text, query) {
-      if (!query || !query.trim()) return escapeHtml(text);
-      const q = query.trim();
-      const idx = text.toLowerCase().indexOf(q.toLowerCase());
-      if (idx === -1) return escapeHtml(text);
-      const before = text.substring(0, idx);
-      const match = text.substring(idx, idx + q.length);
-      const after = text.substring(idx + q.length);
-      return `${escapeHtml(before)}<span class="text-rose-400 font-bold underline decoration-rose-400/70">${escapeHtml(match)}</span>${escapeHtml(after)}`;
-    }
-
-    function escapeHtml(str) {
-      return (str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
-
     function selectSpendById(spendId) {
-      const found = SPENDS_DATA.find(s => s.id === spendId);
+      const found = SPENDS_DATA.find(item => item.id === spendId);
       if (found) {
-        renderRecommendations(found);
         dropdown.classList.add('hidden');
+        renderRecommendations(found);
       }
     }
 
-    // 7. Spends Directory Grid Render
-    function renderSpendsDirectory(filterCategory = currentDirectoryCategory, searchQuery = currentDirectorySearch) {
-      currentDirectoryCategory = filterCategory;
-      currentDirectorySearch = searchQuery;
+    // 7. Directory Explorer Render
+    function renderSpendsDirectory(filterCategory, searchQuery) {
+      currentDirectoryCategory = filterCategory || 'all';
+      currentDirectorySearch = searchQuery || '';
 
       if (dirTotalCount) dirTotalCount.textContent = SPENDS_DATA.length;
       if (dirTenPctCount) {
-        const tenCount = SPENDS_DATA.filter(s => {
-          const ranked = getRankedCardsForSpend(s, spendAmount);
-          return ranked.length > 0 && ranked[0].rate >= 0.10;
-        }).length;
-        dirTenPctCount.textContent = tenCount;
+        dirTenPctCount.textContent = SPENDS_DATA.filter(x => x.rates && x.rates.hsbc >= 0.10).length;
       }
 
-      let filtered = SPENDS_DATA;
-      if (filterCategory !== 'all') {
-        filtered = filtered.filter(item => {
-          const cat = (item.cat || '').toLowerCase();
-          const name = item.name.toLowerCase();
-          if (filterCategory === 'gyftr-routes') {
-            return (item.rates && item.rates.kotak >= 0.05) || (item.route_type && item.route_type.startsWith('gyftr'));
-          } else if (filterCategory === 'quick-commerce') {
-            return cat.includes('grocery') || cat.includes('quick') || ['zepto', 'blinkit', 'instamart', 'bigbasket', 'dmart'].some(k => name.includes(k));
-          } else if (filterCategory === 'food') {
-            return cat.includes('food') || cat.includes('dining') || cat.includes('restaurant') || ['zomato', 'swiggy', 'dominos', 'kfc', 'burger'].some(k => name.includes(k));
-          } else if (filterCategory === 'telecom') {
-            return cat.includes('telecom') || cat.includes('recharge') || ['jio', 'airtel', 'vi', 'bsnl'].some(k => name.includes(k));
-          } else if (filterCategory === 'utilities') {
-            return cat.includes('util') || cat.includes('bill') || ['electricity', 'water', 'gas', 'power', 'cesc'].some(k => name.includes(k));
-          } else if (filterCategory === 'shopping') {
-            return cat.includes('apparel') || cat.includes('store') || cat.includes('electronics') || ['amazon', 'flipkart', 'decathlon', 'myntra', 'nykaa', 'ajio'].some(k => name.includes(k));
-          } else if (filterCategory === 'travel') {
-            return cat.includes('travel') || cat.includes('cab') || cat.includes('airline') || ['uber', 'ola', 'indigo', 'airbnb', 'redbus', 'yatra'].some(k => name.includes(k));
-          } else if (filterCategory === 'excluded') {
-            return cat.includes('excluded') || item.rates.hsbc === 0 || ['fuel', 'wallet', 'cash', 'emi', 'rent', 'cc bill'].some(k => name.includes(k));
-          }
-          return true;
-        });
-      }
+      let filtered = SPENDS_DATA.filter(item => {
+        if (currentDirectoryCategory === 'all') return true;
+        const cat = (item.cat || '').toLowerCase();
+        const name = item.name.toLowerCase();
+        if (currentDirectoryCategory === 'gyftr-routes') {
+          return (item.rates && item.rates.kotak >= 0.05) || (item.route_type && item.route_type.startsWith('gyftr'));
+        } else if (currentDirectoryCategory === 'quick-commerce') {
+          return cat.includes('grocery') || cat.includes('quick') || ['zepto', 'blinkit', 'instamart', 'bigbasket', 'dmart', 'star bazaar'].some(k => name.includes(k));
+        } else if (currentDirectoryCategory === 'food') {
+          return cat.includes('food') || cat.includes('dining') || ['zomato', 'swiggy', 'dominos', 'kfc', 'mcdonalds', 'starbucks'].some(k => name.includes(k));
+        } else if (currentDirectoryCategory === 'telecom') {
+          return ['jio', 'airtel', 'bsnl', 'vi ', 'act fibernet', 'hathway', 'telecom', 'broadband'].some(k => name.includes(k));
+        } else if (currentDirectoryCategory === 'utilities') {
+          return cat.includes('utilit') || ['electricity', 'water', 'gas', 'bescom', 'bwssb', 'paytm', 'cred'].some(k => name.includes(k));
+        } else if (currentDirectoryCategory === 'shopping') {
+          return cat.includes('shopping') || cat.includes('apparel') || cat.includes('pharmac');
+        } else if (currentDirectoryCategory === 'travel') {
+          return cat.includes('travel') || cat.includes('hotel') || cat.includes('entertainment');
+        } else if (currentDirectoryCategory === 'excluded') {
+          return cat.includes('excluded') || (item.rates && item.rates.hsbc === 0);
+        }
+        return true;
+      });
 
       if (searchQuery && searchQuery.trim()) {
         const q = searchQuery.trim().toLowerCase();
@@ -1444,7 +1233,7 @@
       if (filtered.length === 0) {
         html = `
           <div class="col-span-full py-8 text-center text-xs text-white/55">
-            No merchants or MCCs matched "<strong>${escapeHtml(searchQuery)}</strong>". Try searching an MCC like <strong>5411</strong>, <strong>5814</strong>, <strong>4900</strong>, or a statement name like <strong>RIVED</strong> or <strong>INNOVATIVE RETAIL</strong>.
+            No merchants or MCCs matched "<strong>${escapeHtml(searchQuery)}</strong>". Try searching an MCC like <strong>5411</strong>, <strong>5814</strong>, or <strong>4900</strong>.
           </div>
         `;
       }
@@ -1569,8 +1358,6 @@
     }
 
     // ================= EVENT LISTENERS =================
-
-    // Card Row Details Dropdown Toggle & Expand All Button
     cardsTableBody.addEventListener('click', (e) => {
       const row = e.target.closest('.card-main-row');
       if (!row) return;
@@ -1611,7 +1398,6 @@
       });
     }
 
-    // Bottom Tab Bar Switching
     tabBtnRecommender.addEventListener('click', () => switchTab('recommender'));
     tabBtnDirectory.addEventListener('click', () => switchTab('directory'));
 
@@ -1620,7 +1406,6 @@
       btnJumpToDirectory.addEventListener('click', () => switchTab('directory'));
     }
 
-    // Directory Search Input + Clear Button
     const btnClearDirSearch = document.getElementById('btnClearDirSearch');
     if (directorySearchInput) {
       directorySearchInput.addEventListener('input', (e) => {
@@ -1644,7 +1429,6 @@
       });
     }
 
-    // Search input typing & autocomplete
     searchInput.addEventListener('input', (e) => {
       const query = e.target.value;
       if (query.trim()) {
@@ -1662,7 +1446,6 @@
       renderDropdown(results, query);
     });
 
-    // Clear search button
     clearBtn.addEventListener('click', () => {
       searchInput.value = '';
       clearBtn.classList.add('hidden');
@@ -1670,7 +1453,6 @@
       renderDropdown(searchSpends(''), '');
     });
 
-    // Keyboard navigation in autocomplete
     searchInput.addEventListener('keydown', (e) => {
       const items = dropdown.querySelectorAll('.dropdown-item');
       if (dropdown.classList.contains('hidden') || items.length === 0) return;
@@ -1705,7 +1487,6 @@
       });
     }
 
-    // Click on autocomplete dropdown item
     dropdown.addEventListener('click', (e) => {
       const target = e.target.closest('.dropdown-item');
       if (target) {
@@ -1714,14 +1495,12 @@
       }
     });
 
-    // Close dropdown on outside click
     document.addEventListener('click', (e) => {
       if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) {
         dropdown.classList.add('hidden');
       }
     });
 
-    // Quick Spend recommendation chips
     document.querySelectorAll('.quick-chip').forEach(btn => {
       btn.addEventListener('click', () => {
         const spendKey = btn.getAttribute('data-spend');
@@ -1729,7 +1508,6 @@
       });
     });
 
-    // Amount input change
     amountInput.addEventListener('input', (e) => {
       const val = parseFloat(e.target.value);
       spendAmount = (!isNaN(val) && val > 0) ? val : 1000;
@@ -1738,7 +1516,6 @@
       }
     });
 
-    // Preset Amount chips
     document.querySelectorAll('.amount-preset').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.amount-preset').forEach(b => {
@@ -1754,7 +1531,6 @@
       });
     });
 
-    // Category filter pills for Directory
     document.querySelectorAll('.cat-pill').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.cat-pill').forEach(b => {
@@ -1766,7 +1542,6 @@
       });
     });
 
-    // Click on directory card to select spend & switch to Recommender view
     spendsGrid.addEventListener('click', (e) => {
       const card = e.target.closest('.spend-dir-card');
       if (card) {
@@ -1776,7 +1551,6 @@
       }
     });
 
-    // Manage Cards Modal Handlers
     document.getElementById('btnManageCards').addEventListener('click', () => {
       renderCardToggles();
       manageCardsModal.classList.remove('hidden');
@@ -1818,7 +1592,7 @@
     });
 
     document.getElementById('btnResetCards').addEventListener('click', () => {
-      activeCardIds = new Set(['hsbc', 'swiggy', 'kotak', 'supermoney', 'amazon_pay']);
+      activeCardIds = new Set(['hsbc', 'swiggy', 'kotak', 'supermoney', 'amazon_pay', 'scapia', 'rubyx']);
       isPrimeMember = true;
       updateActiveCardsCount();
       renderCardToggles();
@@ -1832,7 +1606,6 @@
       renderSpendsDirectory(currentDirectoryCategory, currentDirectorySearch);
     });
 
-    // Rules Modal Handlers
     document.getElementById('btnRulesModal').addEventListener('click', () => {
       rulesModal.classList.remove('hidden');
     });
@@ -1846,7 +1619,6 @@
       rulesModal.classList.add('hidden');
     });
 
-    // Install Guide Modal Handlers
     document.getElementById('btnShowInstallGuide').addEventListener('click', () => {
       installGuideModal.classList.remove('hidden');
     });
@@ -1858,12 +1630,8 @@
     });
     document.getElementById('btnDismissPwa').addEventListener('click', () => {
       document.getElementById('pwaBanner').classList.add('hidden');
-      try {
-        localStorage.setItem('cr_pwa_dismissed', 'true');
-      } catch (e) {}
     });
 
-    // Close modals on clicking backdrop
     [manageCardsModal, rulesModal, installGuideModal].forEach(modal => {
       modal.addEventListener('click', (e) => {
         if (e.target === modal) {
@@ -1872,10 +1640,9 @@
       });
     });
 
-    // Initialize Default Spend on Load (e.g. Zepto)
     window.addEventListener('DOMContentLoaded', () => {
       renderSpendsDirectory('all', '');
-      selectSpendById('zepto');
+      selectSpendById('swiggy');
     });
   </script>
 </body>
